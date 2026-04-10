@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖縄の食料安全保障 — なぜ146万人の食は守られていないのか</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* === Dark Mode (default) === */
+:root, [data-theme="dark"] {
+  --navy: #1A2540;
+  --navy-light: #243352;
+  --navy-dark: #0F1829;
+  --gold: #B8912A;
+  --gold-light: #D4A843;
+  --gold-dim: rgba(184,145,42,0.15);
+  --paper: #F5F2EC;
+  --text-main: #e6edf3;
+  --text-sub: #8b949e;
+  --card-bg: rgba(26,37,64,0.6);
+  --card-border: rgba(184,145,42,0.12);
+  --alert: #8B2020;
+  --positive: #2ea043;
+  --negative: #da3633;
+  --body-bg: #0F1829;
+  --header-bg-1: #1a2332;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(15,24,41,0.6);
+  --table-hover: rgba(184,145,42,0.04);
+  --table-border: #21262d;
+  --summary-bg-1: rgba(15,24,41,0.7);
+  --summary-bg-2: rgba(26,37,64,0.5);
+  --summary-text: #c9d1d9;
+  --toc-bg: #1A2540;
+  --toc-link-color: #e6edf3;
+  --toc-hover: rgba(88,166,255,.1);
+  --chart-label-color: '#8b949e';
+  --chart-title-color: '#D4A843';
+}
+
+/* === Light Mode === */
+[data-theme="light"] {
+  --navy: #E8E4DC;
+  --navy-light: #F0ECE4;
+  --navy-dark: #F5F2EC;
+  --gold: #8B6914;
+  --gold-light: #7A5C10;
+  --gold-dim: rgba(138,105,20,0.1);
+  --text-main: #1a1a1a;
+  --text-sub: #555555;
+  --card-bg: rgba(255,255,255,0.85);
+  --card-border: rgba(138,105,20,0.15);
+  --alert: #A52020;
+  --positive: #1a7f37;
+  --negative: #c93030;
+  --body-bg: #F5F2EC;
+  --header-bg-1: #2a3550;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(255,255,255,0.7);
+  --table-hover: rgba(138,105,20,0.05);
+  --table-border: #d8d4cc;
+  --summary-bg-1: rgba(245,242,236,0.9);
+  --summary-bg-2: rgba(232,228,220,0.8);
+  --summary-text: #333;
+  --toc-bg: #fff;
+  --toc-link-color: #1a1a1a;
+  --toc-hover: rgba(138,105,20,.08);
+  --chart-label-color: '#555555';
+  --chart-title-color: '#7A5C10';
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--body-bg);color:var(--text-main);font-family:'Noto Sans JP',sans-serif;line-height:1.8;padding:0;transition:background .3s,color .3s}
+h1,h2,h3,.section-title{font-family:'Shippori Mincho B1',serif}
+.num,.metric-value,.big-num{font-family:'Playfair Display',serif}
+.data-label{font-family:'Inter',sans-serif}
+
+/* Theme Toggle */
+.theme-toggle{position:fixed;top:16px;right:16px;z-index:1000;width:44px;height:44px;border-radius:50%;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.2);transition:all .2s}
+.theme-toggle:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Back Link */
+.back-link{position:fixed;top:16px;left:16px;z-index:1000;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold-light);text-decoration:none;font-size:.82rem;font-weight:500;font-family:'Noto Sans JP',sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.back-link:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--header-bg-1) 0%,var(--header-bg-2) 50%,var(--header-bg-3) 100%);border-bottom:1px solid rgba(184,145,42,0.15);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header h1,.header .subtitle,.header .date,.header .badge{color:#e6edf3!important}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:800;color:var(--text-main);margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em;margin-top:4px}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header .badge{display:inline-block;background:var(--gold-dim);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px}
+
+/* Container */
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+
+/* Section */
+.section{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:28px 24px;margin-bottom:20px;position:relative}
+.section-title{font-size:1.3em;font-weight:700;color:var(--gold-light);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.2em}
+
+/* Cards Grid */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px;text-align:center;transition:border-color .2s,background .3s}
+.metric-card:hover{border-color:rgba(184,145,42,0.3)}
+.metric-card .icon{font-size:1.8em;margin-bottom:6px}
+.metric-card .metric-value{font-size:1.6em;font-weight:700;color:var(--gold-light)}
+.metric-card .metric-label{font-size:.88rem;color:var(--text-sub);margin-top:4px}
+.metric-card .metric-sub{font-size:.8rem;color:var(--text-sub);margin-top:4px;opacity:.85}
+
+/* Chart */
+.chart-container{position:relative;height:340px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
+.tbl th{background:var(--gold-dim);color:var(--gold-light);padding:11px 14px;text-align:left;font-weight:600;border-bottom:1px solid rgba(184,145,42,0.2)}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--table-border)}
+.tbl tr:hover td{background:var(--table-hover)}
+.badge-strong{background:rgba(46,160,67,0.15);color:var(--positive);padding:3px 10px;border-radius:4px;font-size:.82rem}
+.badge-moderate{background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:4px;font-size:.82rem}
+.badge-weak{background:rgba(139,32,32,0.1);color:var(--negative);padding:3px 10px;border-radius:4px;font-size:.82rem}
+
+/* Chapter Intro */
+.chapter-intro{font-size:.95rem;color:var(--text-sub);margin-bottom:16px;line-height:1.9;border-left:3px solid var(--gold-dim);padding-left:14px}
+
+/* Highlight & Alert */
+.highlight-box{background:var(--gold-dim);border:1px solid rgba(184,145,42,0.2);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem}
+.alert-box{background:rgba(139,32,32,0.1);border:1px solid rgba(139,32,32,0.25);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem}
+
+/* Two Col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Strategy Cards */
+.strategy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.strategy-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+.strategy-num{font-family:'Playfair Display',serif;font-size:1.6em;font-weight:900;color:var(--gold);min-width:32px}
+.strategy-card h4{font-size:.95rem;font-weight:700;margin-bottom:4px}
+.strategy-card p{font-size:.88rem;color:var(--text-sub);line-height:1.6}
+
+/* Proposal Cards (5 cols at desktop, responsive) */
+.proposal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.proposal-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 16px;position:relative;overflow:hidden;transition:border-color .2s}
+.proposal-card:hover{border-color:rgba(184,145,42,0.3)}
+.proposal-card .proposal-num{font-family:'Playfair Display',serif;font-size:2em;font-weight:900;color:var(--gold);opacity:.2;position:absolute;top:8px;right:14px}
+.proposal-card h4{font-size:.92rem;font-weight:700;color:var(--gold-light);margin-bottom:8px;line-height:1.5}
+.proposal-card p{font-size:.85rem;color:var(--text-sub);line-height:1.7}
+
+/* Timeline */
+.timeline{position:relative;margin:20px 0;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--gold-dim)}
+.timeline-item{position:relative;margin-bottom:20px;padding-left:20px}
+.timeline-item::before{content:'';position:absolute;left:-20px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--body-bg)}
+.timeline-item h4{font-size:.92rem;font-weight:700;color:var(--gold-light);margin-bottom:4px}
+.timeline-item p{font-size:.88rem;color:var(--text-sub);line-height:1.7}
+
+/* Scenario Flow */
+.scenario-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0;text-align:center}
+.scenario-step{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px 8px;position:relative;font-size:.85rem}
+.scenario-step .step-icon{font-size:1.4em;display:block;margin-bottom:4px}
+.scenario-step .step-label{font-weight:600;color:var(--gold-light);display:block;margin-bottom:2px}
+.scenario-arrow{display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.2em;min-width:20px}
+
+/* Comparison Cards */
+.compare-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.compare-card{border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.compare-card.good{background:linear-gradient(135deg,rgba(46,160,67,0.12),rgba(46,160,67,0.04));border:1px solid rgba(46,160,67,0.25)}
+.compare-card.bad{background:linear-gradient(135deg,rgba(139,32,32,0.12),rgba(139,32,32,0.04));border:1px solid rgba(139,32,32,0.25)}
+.compare-card h4{font-size:.95rem;font-weight:700;margin-bottom:8px}
+.compare-card.good h4{color:var(--positive)}
+.compare-card.bad h4{color:var(--negative)}
+.compare-card p{font-size:.88rem;color:var(--text-sub);line-height:1.7}
+.compare-card .compare-value{font-family:'Playfair Display',serif;font-size:1.8em;font-weight:900;margin:8px 0}
+.compare-card.good .compare-value{color:var(--positive)}
+.compare-card.bad .compare-value{color:var(--negative)}
+
+/* Food comparison table */
+.food-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.food-col{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px}
+.food-col h4{font-size:.95rem;font-weight:700;margin-bottom:10px;text-align:center}
+.food-col.traditional h4{color:var(--positive)}
+.food-col.modern h4{color:var(--negative)}
+.food-col ul{list-style:none;padding:0}
+.food-col li{font-size:.88rem;padding:6px 0;border-bottom:1px solid var(--table-border);display:flex;align-items:center;gap:8px}
+.food-col li:last-child{border-bottom:none}
+
+/* Footer */
+.footer{text-align:center;padding:32px 20px;color:var(--text-sub);font-size:.88rem;border-top:1px solid var(--card-border);margin-top:20px}
+.footer a{color:var(--gold-light);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:var(--toc-bg);border-top:1px solid var(--card-border);box-shadow:0 -2px 12px rgba(0,0,0,.15)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--toc-link-color);text-decoration:none;font-size:.9rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:var(--toc-hover)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .chart-container{height:280px}
+  .section{padding:20px 16px}
+  .two-col{grid-template-columns:1fr}
+  .strategy-grid{grid-template-columns:1fr}
+  .proposal-grid{grid-template-columns:1fr 1fr}
+  .chart-row{grid-template-columns:1fr!important}
+  .scenario-flow{grid-template-columns:1fr}
+  .compare-cards{grid-template-columns:1fr}
+  .food-compare{grid-template-columns:1fr}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:.78rem}
+  .back-link{font-size:.72rem;padding:6px 10px;top:10px;left:10px}
+  .theme-toggle{top:10px;right:10px;width:38px;height:38px;font-size:1rem}
+}
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr!important}
+  .proposal-grid{grid-template-columns:1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .scenario-flow{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .section-title{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="ダーク/ライト切替">🌙</button>
+
+<!-- Back Link -->
+<a class="back-link" href="../index.html">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+ポータル</a>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="badge">OSA 第二層：生存的安全</div>
+    <h1>沖縄の食料安全保障</h1>
+    <div class="subtitle">なぜ146万人の食は守られていないのか</div>
+    <div class="date">作成日: 2026年3月 ｜ 沖縄政策方針 2075</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ========== Section 1: 問題の核心（常時展開） ========== -->
+<div class="section" id="sec-core">
+  <div class="section-title"><span class="section-icon">🚨</span> 問題の核心</div>
+
+  <div style="background:linear-gradient(135deg,var(--summary-bg-1),var(--summary-bg-2));border:1px solid rgba(184,145,42,0.18);border-radius:14px;padding:24px 28px;margin-bottom:24px;line-height:1.95;font-size:.95rem;color:var(--summary-text)">
+    <p>沖縄県は146万人の県民を抱えながら、<strong style="color:var(--gold-light)">「食料安全保障」を統合的に所管する組織も計画も存在しない</strong>。食料自給率32%、海上輸送依存99%という脆弱な供給構造の上に、食料困窮経験率の悪化、行政の分散、有事リスクが重なる。これは「いつか起きる危機」ではなく、<strong style="color:var(--negative)">今この瞬間も進行している構造的欠陥</strong>である。</p>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="icon">🌾</div>
+      <div class="metric-value">32<span style="font-size:.5em">%</span></div>
+      <div class="metric-label">食料自給率</div>
+      <div class="metric-sub">全国38%を下回り、目標設定すらなし</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🚢</div>
+      <div class="metric-value">99<span style="font-size:.5em">%</span></div>
+      <div class="metric-label">海上輸送依存</div>
+      <div class="metric-sub">シーレーン遮断=食料途絶</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">😰</div>
+      <div class="metric-value">58.2<span style="font-size:.5em">%</span></div>
+      <div class="metric-label">食料困窮経験率</div>
+      <div class="metric-sub">2015年48.7%→2024年58.2%（悪化中）</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🏛️</div>
+      <div class="metric-value">5<span style="font-size:.5em">部局</span></div>
+      <div class="metric-label">食料行政の分散</div>
+      <div class="metric-sub">統合戦略なし・司令塔不在</div>
+    </div>
+  </div>
+
+  <!-- 2023年台風6号 -->
+  <div class="alert-box" style="margin-top:20px">
+    <strong style="color:var(--negative)">実例：2023年8月 台風6号</strong><br>
+    沖縄本島に2度接近し、暴風域に約60時間滞在。全スーパーが臨時休業に追い込まれ、<strong>食料品の棚が完全に空になった</strong>。物流は数日間完全停止。復旧後も入荷遅延が約1週間続いた。離島ではさらに深刻で、宮古島・八重山地域では食料品の入荷が10日以上途絶えた地域もあった。これは自然災害による一時的な事象に見えるが、海上輸送99%依存の構造的脆弱性が顕在化した事例である。
+  </div>
+
+  <!-- 台湾有事シナリオ図 -->
+  <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:24px 0 12px">台湾有事シナリオ：食料供給リスクの連鎖</h3>
+  <div class="scenario-flow">
+    <div class="scenario-step">
+      <span class="step-icon">⚔️</span>
+      <span class="step-label">台湾海峡危機</span>
+      軍事的緊張の高まり
+    </div>
+    <div class="scenario-step">
+      <span class="step-icon">🚫</span>
+      <span class="step-label">シーレーン遮断</span>
+      南西諸島周辺の航行制限
+    </div>
+    <div class="scenario-step">
+      <span class="step-icon">📦</span>
+      <span class="step-label">物流停止</span>
+      本土→沖縄の海上輸送途絶
+    </div>
+    <div class="scenario-step">
+      <span class="step-icon">🏪</span>
+      <span class="step-label">食料枯渇</span>
+      備蓄なし=数日で棚が空に
+    </div>
+    <div class="scenario-step" style="border-color:rgba(139,32,32,0.4)">
+      <span class="step-icon">🆘</span>
+      <span class="step-label" style="color:var(--negative)">146万人の食料危機</span>
+      自給率32%では持続不可能
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 2: 食料供給構造 ========== -->
+<div class="section" id="sec-supply" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 沖縄の食料供給構造</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">沖縄の食料供給は「海の上」に成り立っている。食料自給率は全国平均を常に下回り、年度によって23%まで低下する不安定さを抱える。99%が海上輸送に依存し、離島では本島経由の二重輸送コストが加わる。</p>
+
+    <div class="chart-container" style="height:380px">
+      <canvas id="chartSelfSufficiency"></canvas>
+    </div>
+
+    <div class="highlight-box">
+      <strong>注目すべき変動:</strong> 2020年に沖縄の食料自給率は23%まで急落した。これはコロナ禍による観光客減少で県内農業・水産業の販路が縮小したためとみられる。「需要が消えれば供給も崩れる」という、市場依存型農業の脆弱性を如実に示している。
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">海上輸送99%依存の構造</h3>
+    <table class="tbl">
+      <thead><tr><th>輸送手段</th><th>割合</th><th>品目例</th><th>リスク</th></tr></thead>
+      <tbody>
+        <tr><td>海上輸送（貨物船・RORO船）</td><td style="color:var(--negative)"><strong>約99%</strong></td><td>米、野菜、肉、加工食品、日用品</td><td>台風・有事で即停止</td></tr>
+        <tr><td>航空輸送</td><td>約1%</td><td>生鮮品（刺身等）、緊急物資</td><td>高コスト、大量輸送不可</td></tr>
+        <tr><td>県内生産</td><td>—</td><td>さとうきび、パイナップル、豚肉、マグロ</td><td>自給率32%（品目偏在）</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">離島の二重コスト構造</h3>
+    <div class="alert-box">
+      <strong>本土→沖縄本島→離島</strong>：二重の海上輸送コストが発生。離島の食料品価格は本島より<strong style="color:var(--negative)">10〜30%割高</strong>。宮古・八重山地域の食料品CPIは全国最高水準。ガソリン代・電気代の上乗せも物流コストに転嫁され、離島住民の食料アクセスを構造的に制約している。人口減少で需要が減れば、運航便数の削減→さらなるコスト増という悪循環に陥る。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 3: 食料行政の分散構造 ========== -->
+<div class="section" id="sec-admin" data-accordion>
+  <div class="section-title"><span class="section-icon">🏛️</span> 食料行政の分散構造</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">沖縄県の食料に関する行政機能は5つの部局に分散している。それぞれが「生産」「衛生」「給食」「離島物流」「国の執行」という個別の側面のみを担当し、「食料安全保障」という統合的な視点で県民の食を守る組織・計画が存在しない。</p>
+
+    <table class="tbl">
+      <thead>
+        <tr><th>部局</th><th>所管</th><th>構造的問題</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>農林水産部（12課）</strong></td>
+          <td>生産側（農業・水産・畜産）</td>
+          <td style="color:var(--negative)">「作る」のみ。安全保障的視点なし</td>
+        </tr>
+        <tr>
+          <td><strong>保健医療介護部</strong></td>
+          <td>食品衛生・安全</td>
+          <td style="color:var(--negative)">「安全性」のみ。供給量・アクセスの視点なし</td>
+        </tr>
+        <tr>
+          <td><strong>教育庁</strong></td>
+          <td>学校給食</td>
+          <td style="color:var(--negative)">「子どもの食」のみ。地産地消の施策はあるが限定的</td>
+        </tr>
+        <tr>
+          <td><strong>企画部 地域・離島課</strong></td>
+          <td>離島の食料物流</td>
+          <td style="color:var(--negative)">離島限定。本島を含む全県的視点なし</td>
+        </tr>
+        <tr>
+          <td><strong>内閣府沖縄総合事務局</strong></td>
+          <td>国の出先（食料産業課等）</td>
+          <td style="color:var(--negative)">国の政策の執行。県独自の戦略なし</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert-box" style="margin-top:16px">
+      <strong style="color:var(--negative)">結論:</strong> 「食料安全保障」を統合的に所管する組織・計画が<strong>存在しない</strong>。USDAのように供給（Availability）・アクセス（Access）・利用（Utilization）・安定性（Stability）の4要素を一元管理する機能が、沖縄県行政のどこにもない。台風6号のような事態が起きても、「誰が司令塔なのか」が不明確なまま場当たり的に対応するしかない。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 4: 米国・日本の食料政策との比較 ========== -->
+<div class="section" id="sec-comparison" data-accordion>
+  <div class="section-title"><span class="section-icon">🌐</span> 米国・日本の食料政策との比較</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">食料安全保障は国際的に「Food Security」として確立した政策領域である。米国はUSDAが一元管理し年間21兆円規模の栄養支援を実施、日本も2024年の基本法改正で格上げした。一方、沖縄には定義すらない。</p>
+
+    <table class="tbl">
+      <thead>
+        <tr><th>観点</th><th>アメリカ</th><th>日本</th><th>沖縄</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>食料安全保障の法的定義</strong></td>
+          <td><span class="badge-strong">USDA: 4つの柱</span><br>Availability, Access, Utilization, Stability</td>
+          <td><span class="badge-moderate">基本法に明記</span><br>2024年改正で格上げ</td>
+          <td><span class="badge-weak">定義なし</span></td>
+        </tr>
+        <tr>
+          <td><strong>統合的な所管組織</strong></td>
+          <td><span class="badge-strong">USDA（農務省）</span><br>生産〜栄養支援まで集約</td>
+          <td><span class="badge-moderate">農水省＋内閣官房</span></td>
+          <td><span class="badge-weak">5部局に分散</span></td>
+        </tr>
+        <tr>
+          <td><strong>年間予算（栄養支援）</strong></td>
+          <td><span class="badge-strong">1,422億ドル</span><br>（約21兆円）/ SNAP月4,170万人</td>
+          <td><span class="badge-moderate">生活保護の一部</span></td>
+          <td><span class="badge-weak">子ども食堂（民間依存）</span></td>
+        </tr>
+        <tr>
+          <td><strong>備蓄戦略</strong></td>
+          <td>1996年に廃止（再検討中）</td>
+          <td><span class="badge-moderate">米の備蓄あり</span></td>
+          <td><span class="badge-weak">未整備</span></td>
+        </tr>
+        <tr>
+          <td><strong>自給率</strong></td>
+          <td><span class="badge-strong">104%（輸出国）</span></td>
+          <td>38%（目標45%）</td>
+          <td><span class="badge-weak">32%（目標なし）</span></td>
+        </tr>
+        <tr>
+          <td><strong>有事対応法</strong></td>
+          <td><span class="badge-strong">NSM-16（2023年）</span></td>
+          <td><span class="badge-moderate">食料供給困難事態対策法</span><br>2025年施行</td>
+          <td><span class="badge-weak">なし</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chart-container" style="height:400px;margin-top:20px">
+      <canvas id="chartRadar"></canvas>
+    </div>
+
+    <div class="highlight-box">
+      <strong>レーダーチャートの読み方:</strong> 米国（緑）はほぼ全項目で最高水準。日本（金）は2024年の法改正で改善傾向にあるが、予算・自給率に課題。沖縄（赤）は法的定義・統合組織・備蓄・有事対応がゼロという、先進国の一地域としては異例の状態にある。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 5: 食と健康の連鎖 ========== -->
+<div class="section" id="sec-health" data-accordion>
+  <div class="section-title"><span class="section-icon">🍽️</span> 食と健康の連鎖</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">かつて「世界一の長寿」を誇った沖縄の食文化は、復帰後わずか50年で劇的に変容した。島野菜・海藻・豆腐を中心とした伝統食から、ファストフード・加工食品中心の現代食へ。この変化は平均寿命の急落と直結している。</p>
+
+    <!-- 伝統食 vs 現代食 -->
+    <div class="food-compare">
+      <div class="food-col traditional">
+        <h4>伝統的沖縄食</h4>
+        <ul>
+          <li><span>🥬</span> 島野菜が豊富（ゴーヤー、ナーベーラー、ハンダマ等）</li>
+          <li><span>🌿</span> 海藻を多用（モズク、アーサ、昆布）</li>
+          <li><span>🫘</span> 島豆腐・豆腐よう（大豆タンパク）</li>
+          <li><span>🐷</span> 豚肉は長時間煮込み（脂肪を落とす）</li>
+          <li><span>🍶</span> 泡盛は適量（食文化としての飲酒）</li>
+          <li><span>🐟</span> 近海魚・かまぼこ（DHA・EPA）</li>
+          <li><span>🍠</span> 芋類が主食の一部（食物繊維豊富）</li>
+        </ul>
+      </div>
+      <div class="food-col modern">
+        <h4>現代沖縄の食事</h4>
+        <ul>
+          <li><span>🥗</span> 野菜摂取量：全国最下位水準</li>
+          <li><span>🍔</span> ファストフード消費：全国上位</li>
+          <li><span>🥩</span> ステーキ・焼肉文化（高脂肪）</li>
+          <li><span>🧃</span> 清涼飲料水消費：全国上位</li>
+          <li><span>🍺</span> 飲酒量増加・多量飲酒率高い</li>
+          <li><span>🏪</span> コンビニ弁当・惣菜への依存</li>
+          <li><span>⏰</span> 夜型生活→深夜の食事・間食</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- タイムライン：食文化変容→健康悪化 -->
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">食文化変容と平均寿命低下のタイムライン</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>1970年代 — 復帰と食の転換点</h4>
+        <p>本土復帰（1972年）により本土資本の外食チェーン・コンビニが急速に進出。米軍基地文化の影響でステーキ・ハンバーガー等の高カロリー食が定着。伝統食からの離脱が始まる。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>1985年 — 男性平均寿命 全国1位</h4>
+        <p>伝統食で育った世代が長寿を支えた最後の時代。この時点では「沖縄=長寿」は健在。しかし食生活の変化は既に進行中で、若い世代ほど肥満率が上昇し始めていた。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>2000年 — 「26ショック」</h4>
+        <p>男性平均寿命が全国26位に急落。沖縄社会に衝撃が走る。肥満率の上昇、生活習慣病の増加、特に若年〜中年男性の死亡率悪化が原因。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>2020年代 — 43位へさらに低下</h4>
+        <p>男性平均寿命43位。20〜64歳の年齢調整死亡率は男女とも全国ワースト。「若い世代ほど不健康」という世代間二重構造が顕著に。1人当たり野菜摂取量は全国最下位水準が続く。</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>因果の連鎖:</strong> 食文化変容（伝統食→ファストフード）→ 肥満率上昇 → 糖尿病・心疾患・脳血管疾患の増加 → 医療費増大・労働生産性低下 → 平均寿命の急落。これは「個人の食生活の問題」ではなく、食環境の構造的変化が引き起こした<strong style="color:var(--gold-light)">公衆衛生上の危機</strong>である。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 6: 食料困窮と子どもの貧困 ========== -->
+<div class="section" id="sec-poverty" data-accordion>
+  <div class="section-title"><span class="section-icon">👶</span> 食料困窮と子どもの貧困</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">沖縄の子どもの貧困率は全国平均の約2倍。そして統計上は「改善」しているはずの貧困率の裏で、食料困窮経験率は悪化し続けている。子ども食堂の充足率は全国1位だが、それは「支援が手厚い」のではなく「需要が桁違いに大きい」ことの裏返しである。</p>
+
+    <div class="chart-container" style="height:340px">
+      <canvas id="chartFoodInsecurity"></canvas>
+    </div>
+
+    <div class="alert-box">
+      <strong style="color:var(--negative)">見かけの改善と実質の悪化:</strong> 子どもの困窮層割合は29.9%（2015年）→21.8%（2024年）と数字上は改善。しかし中2保護者（困窮層）の食料困窮経験率は<strong>48.7%→58.2%</strong>と9.5pt悪化した。「貧困率は下がったが、貧困の深刻度は増した」という危険な状態。
+    </div>
+
+    <div class="metrics-grid" style="margin-top:16px">
+      <div class="metric-card">
+        <div class="icon">🍚</div>
+        <div class="metric-value">58.2<span style="font-size:.5em">%</span></div>
+        <div class="metric-label">食料困窮経験率</div>
+        <div class="metric-sub">困窮層・2024年</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">🏠</div>
+        <div class="metric-value">1<span style="font-size:.5em">位</span></div>
+        <div class="metric-label">子ども食堂充足率</div>
+        <div class="metric-sub">全国1位 = 需要の大きさの裏返し</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">💴</div>
+        <div class="metric-value">+10〜30<span style="font-size:.5em">%</span></div>
+        <div class="metric-label">離島の食料品価格差</div>
+        <div class="metric-sub">本島比。CPI全国最高水準</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">📉</div>
+        <div class="metric-value">+9.5<span style="font-size:.5em">pt</span></div>
+        <div class="metric-label">食料困窮率の悪化幅</div>
+        <div class="metric-sub">2015→2024年の9年間</div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:16px">
+      <strong>離島のダブルバインド:</strong> 離島では食料品の価格が本島より10〜30%高い一方、所得水準は本島より低い。子どもの貧困率が高い地域ほど食料品が高いという「ダブルバインド」構造が、子どもの栄養・発育に深刻な影響を与えている。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 7: 台湾有事シナリオ ========== -->
+<div class="section" id="sec-scenario" data-accordion>
+  <div class="section-title"><span class="section-icon">⚠️</span> 台湾有事シナリオ — 最悪の想定</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">台湾海峡で軍事衝突が発生した場合、沖縄のシーレーンは即座に影響を受ける。海上輸送99%依存、食料備蓄体制なしという現状で、146万人の食料をどう確保するのか。現在の沖縄にはその答えがない。</p>
+
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:1.05em;font-weight:700;color:var(--negative);margin-bottom:12px">シーレーン封鎖時の想定</h3>
+        <table class="tbl">
+          <thead><tr><th>経過日数</th><th>状況</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1〜2日目</strong></td><td>スーパー・コンビニの在庫が急速に減少。買い占めが発生</td></tr>
+            <tr><td><strong>3〜5日目</strong></td><td>生鮮食品（野菜・肉・乳製品）が完全に枯渇</td></tr>
+            <tr><td><strong>1週間</strong></td><td>加工食品・缶詰も品薄。離島は完全に食料途絶</td></tr>
+            <tr><td><strong>2週間〜</strong></td><td>自給率32%の生産能力のみ。146万人を養えない</td></tr>
+          </tbody>
+        </table>
+        <div class="alert-box" style="margin-top:12px">
+          <strong>現在の備蓄:</strong> 沖縄県として組織的な食料備蓄体制は<strong style="color:var(--negative)">存在しない</strong>。スーパー・コンビニの店頭在庫が実質的な「備蓄」であり、これは<strong>数日分</strong>にすぎない。
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1.05em;font-weight:700;color:var(--positive);margin-bottom:12px">シンガポール「30by30」との比較</h3>
+        <div class="compare-cards" style="grid-template-columns:1fr">
+          <div class="compare-card good">
+            <h4>シンガポール</h4>
+            <div class="compare-value">10% → 30%</div>
+            <p>国家戦略「30 by 30」で食料自給率を2030年までに10%→30%へ引上げ中。垂直農場・都市型水産養殖・代替タンパク質に国家予算を集中投下。「小さな国だからこそ食料安全保障は国家安全保障」という明確な方針。Singapore Food Agency（SFA）が一元管理。</p>
+          </div>
+          <div class="compare-card bad">
+            <h4>沖縄</h4>
+            <div class="compare-value">32% → ???</div>
+            <p>食料自給率32%だが、<strong>目標設定なし・戦略なし・所管組織なし</strong>。シンガポールが国家存亡の課題として10%から30%を目指す中、沖縄は32%を維持する計画すら立てていない。有事シナリオの検討も行われていない。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 8: 提言 ========== -->
+<div class="section" id="sec-proposals" data-accordion>
+  <div class="section-title"><span class="section-icon">💡</span> 提言 — 沖縄が今すぐ取り組むべきこと</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">沖縄の食料安全保障は「ゼロからの構築」が必要である。法的定義も統合組織も数値目標も存在しない現状は、逆に言えば「正しく設計すれば大きく前進できる」余地がある。以下の5つの提言は、最優先で着手すべき構造改革である。</p>
+
+    <div class="proposal-grid">
+      <div class="proposal-card">
+        <span class="proposal-num">1</span>
+        <h4>食料安全保障を県政の独立政策領域に</h4>
+        <p>5部局の分散を統合する「食料安全保障推進本部」的な横断組織を設置。供給・アクセス・利用・安定性の4要素を一元管理する司令塔機能を確立する。</p>
+      </div>
+      <div class="proposal-card">
+        <span class="proposal-num">2</span>
+        <h4>数値目標の設定</h4>
+        <p>「2035年に食料自給率40%」「離島の食料備蓄2週間分確保」「食料困窮経験率30%以下」等、測定可能な目標を設定し、進捗を公開する。</p>
+      </div>
+      <div class="proposal-card">
+        <span class="proposal-num">3</span>
+        <h4>OSA第二層との制度的接続</h4>
+        <p>食料を安全保障（OSA）の文脈で正式に位置づけ。「生存的安全」の構成要素として、エネルギー・水と並ぶ基盤インフラとして制度設計する。</p>
+      </div>
+      <div class="proposal-card">
+        <span class="proposal-num">4</span>
+        <h4>沖縄版「30by30」の策定</h4>
+        <p>シンガポールモデルを参考にした統合的食料自給戦略。垂直農場、離島での食料生産拡大、亜熱帯気候を活かした周年栽培の技術開発に投資。</p>
+      </div>
+      <div class="proposal-card">
+        <span class="proposal-num">5</span>
+        <h4>食文化の復権</h4>
+        <p>伝統食の科学的再評価を実施し、学校給食での「琉球食」実装へ。長寿食の知見を現代栄養学で再構築し、Okinawa Methodとして世界に発信する。</p>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:20px">
+      <strong>なぜ「今すぐ」なのか:</strong> 台湾海峡の緊張は高まり続けており、備蓄・自給率向上には数年単位の時間がかかる。食文化の回復、農業基盤の強化、備蓄体制の構築はいずれも一朝一夕にはできない。「有事が起きてから考える」では間に合わない。<strong style="color:var(--gold-light)">構造的な準備は、平時にしかできない。</strong>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.container -->
+
+<!-- Footer -->
+<div class="footer">
+  <p style="margin-bottom:8px"><strong style="color:var(--gold-light)">沖縄政策方針 2075</strong> — 食料安全保障</p>
+  <p>
+    <a href="../index.html">ポータル</a> ｜
+    <a href="current-analysis.html">現状分析レポート</a> ｜
+    <a href="positive-loop.html">構造転換シナリオ</a>
+  </p>
+</div>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-core" onclick="tocJump('sec-core')"><span class="toc-icon">🚨</span><span class="toc-label">問題の核心</span></a></li>
+      <li><a href="#sec-supply" onclick="tocJump('sec-supply')"><span class="toc-icon">📊</span><span class="toc-label">食料供給構造</span></a></li>
+      <li><a href="#sec-admin" onclick="tocJump('sec-admin')"><span class="toc-icon">🏛️</span><span class="toc-label">食料行政の分散構造</span></a></li>
+      <li><a href="#sec-comparison" onclick="tocJump('sec-comparison')"><span class="toc-icon">🌐</span><span class="toc-label">米日沖の政策比較</span></a></li>
+      <li><a href="#sec-health" onclick="tocJump('sec-health')"><span class="toc-icon">🍽️</span><span class="toc-label">食と健康の連鎖</span></a></li>
+      <li><a href="#sec-poverty" onclick="tocJump('sec-poverty')"><span class="toc-icon">👶</span><span class="toc-label">食料困窮と子どもの貧困</span></a></li>
+      <li><a href="#sec-scenario" onclick="tocJump('sec-scenario')"><span class="toc-icon">⚠️</span><span class="toc-label">台湾有事シナリオ</span></a></li>
+      <li><a href="#sec-proposals" onclick="tocJump('sec-proposals')"><span class="toc-icon">💡</span><span class="toc-label">提言</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// === Theme Toggle ===
+function toggleTheme(){
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme') || 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '🌙' : '☀️';
+  // Update charts
+  updateChartsTheme(next);
+}
+(function(){
+  var saved = localStorage.getItem('theme');
+  if(saved){
+    document.documentElement.setAttribute('data-theme', saved);
+    var btn = document.getElementById('themeToggle');
+    if(btn) btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+  }
+})();
+
+// === Chart Theme Helper ===
+function getChartColors(){
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  return {
+    labelColor: theme === 'dark' ? '#8b949e' : '#555555',
+    titleColor: theme === 'dark' ? '#D4A843' : '#7A5C10',
+    gridColor: theme === 'dark' ? 'rgba(48,54,61,0.5)' : 'rgba(0,0,0,0.08)'
+  };
+}
+
+// === Chart 1: Food Self-Sufficiency ===
+var chartSS;
+function createSelfSufficiencyChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartSelfSufficiency').getContext('2d');
+  chartSS = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2015','2016','2017','2018','2019','2020','2021'],
+      datasets: [
+        {
+          label: '沖縄',
+          data: [27,34,33,34,30,23,32],
+          backgroundColor: 'rgba(184,145,42,0.7)',
+          borderColor: '#B8912A',
+          borderWidth: 1,
+          borderRadius: 4
+        },
+        {
+          label: '全国',
+          data: [39,38,38,37,38,37,38],
+          backgroundColor: 'rgba(88,166,255,0.5)',
+          borderColor: '#58a6ff',
+          borderWidth: 1,
+          borderRadius: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: '食料自給率の推移（カロリーベース・%）',
+          color: c.titleColor,
+          font: { size: 15, weight: '700', family: "'Shippori Mincho B1', serif" }
+        },
+        legend: {
+          labels: { color: c.labelColor, font: { size: 13 } }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: c.labelColor, font: { size: 12 } },
+          grid: { color: c.gridColor }
+        },
+        y: {
+          beginAtZero: true,
+          max: 50,
+          ticks: { color: c.labelColor, font: { size: 12 }, callback: function(v){ return v + '%'; } },
+          grid: { color: c.gridColor }
+        }
+      }
+    }
+  });
+}
+
+// === Chart 2: Food Insecurity Rate ===
+var chartFI;
+function createFoodInsecurityChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartFoodInsecurity').getContext('2d');
+  chartFI = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2015','2018','2021','2024'],
+      datasets: [{
+        label: '食料困窮経験率（困窮層・中2保護者）',
+        data: [48.7, 52.0, 54.0, 58.2],
+        backgroundColor: function(context){
+          var chart = context.chart;
+          var ctx2 = chart.ctx;
+          var gradient = ctx2.createLinearGradient(0,0,0,chart.height);
+          gradient.addColorStop(0,'rgba(218,54,51,0.8)');
+          gradient.addColorStop(1,'rgba(218,54,51,0.3)');
+          return gradient;
+        },
+        borderColor: '#da3633',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: '食料困窮経験率の推移（%）',
+          color: c.titleColor,
+          font: { size: 15, weight: '700', family: "'Shippori Mincho B1', serif" }
+        },
+        legend: {
+          labels: { color: c.labelColor, font: { size: 13 } }
+        },
+        annotation: {}
+      },
+      scales: {
+        x: {
+          ticks: { color: c.labelColor, font: { size: 12 } },
+          grid: { color: c.gridColor }
+        },
+        y: {
+          beginAtZero: false,
+          min: 40,
+          max: 65,
+          ticks: { color: c.labelColor, font: { size: 12 }, callback: function(v){ return v + '%'; } },
+          grid: { color: c.gridColor }
+        }
+      }
+    }
+  });
+}
+
+// === Chart 3: Radar Comparison ===
+var chartRD;
+function createRadarChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartRadar').getContext('2d');
+  chartRD = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['法的定義','統合組織','予算規模','備蓄','自給率','有事対応'],
+      datasets: [
+        {
+          label: 'アメリカ',
+          data: [5,5,5,2,5,4],
+          backgroundColor: 'rgba(46,160,67,0.15)',
+          borderColor: '#2ea043',
+          borderWidth: 2,
+          pointBackgroundColor: '#2ea043'
+        },
+        {
+          label: '日本',
+          data: [4,4,3,3,2,4],
+          backgroundColor: 'rgba(184,145,42,0.15)',
+          borderColor: '#B8912A',
+          borderWidth: 2,
+          pointBackgroundColor: '#B8912A'
+        },
+        {
+          label: '沖縄',
+          data: [0,1,1,0,2,0],
+          backgroundColor: 'rgba(218,54,51,0.15)',
+          borderColor: '#da3633',
+          borderWidth: 2,
+          pointBackgroundColor: '#da3633'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: '食料安全保障 — 米国・日本・沖縄 比較（5段階評価）',
+          color: c.titleColor,
+          font: { size: 15, weight: '700', family: "'Shippori Mincho B1', serif" }
+        },
+        legend: {
+          labels: { color: c.labelColor, font: { size: 13 } }
+        }
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 5,
+          ticks: {
+            stepSize: 1,
+            color: c.labelColor,
+            backdropColor: 'transparent',
+            font: { size: 11 }
+          },
+          pointLabels: {
+            color: c.labelColor,
+            font: { size: 13, weight: '600' }
+          },
+          grid: { color: c.gridColor },
+          angleLines: { color: c.gridColor }
+        }
+      }
+    }
+  });
+}
+
+// === Update Charts on Theme Change ===
+function updateChartsTheme(theme){
+  var c = {
+    labelColor: theme === 'dark' ? '#8b949e' : '#555555',
+    titleColor: theme === 'dark' ? '#D4A843' : '#7A5C10',
+    gridColor: theme === 'dark' ? 'rgba(48,54,61,0.5)' : 'rgba(0,0,0,0.08)'
+  };
+  [chartSS, chartFI].forEach(function(chart){
+    if(!chart) return;
+    chart.options.plugins.title.color = c.titleColor;
+    chart.options.plugins.legend.labels.color = c.labelColor;
+    chart.options.scales.x.ticks.color = c.labelColor;
+    chart.options.scales.x.grid.color = c.gridColor;
+    chart.options.scales.y.ticks.color = c.labelColor;
+    chart.options.scales.y.grid.color = c.gridColor;
+    chart.update();
+  });
+  if(chartRD){
+    chartRD.options.plugins.title.color = c.titleColor;
+    chartRD.options.plugins.legend.labels.color = c.labelColor;
+    chartRD.options.scales.r.ticks.color = c.labelColor;
+    chartRD.options.scales.r.pointLabels.color = c.labelColor;
+    chartRD.options.scales.r.grid.color = c.gridColor;
+    chartRD.options.scales.r.angleLines.color = c.gridColor;
+    chartRD.update();
+  }
+}
+
+// === Init Charts ===
+document.addEventListener('DOMContentLoaded', function(){
+  createSelfSufficiencyChart();
+  createFoodInsecurityChart();
+  createRadarChart();
+});
+
+// === Accordion ===
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// === TOC ===
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '✕ セクション' : '☰';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>

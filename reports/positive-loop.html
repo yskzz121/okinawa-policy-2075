@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>負の再帰ループから正の再帰ループへ — 沖縄県 構造転換シナリオ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+/* === Dark Mode (default) === */
+:root, [data-theme="dark"] {
+  --navy: #1A2540;
+  --navy-light: #243352;
+  --navy-dark: #0F1829;
+  --gold: #B8912A;
+  --gold-light: #D4A843;
+  --gold-dim: rgba(184,145,42,0.15);
+  --paper: #F5F2EC;
+  --text-main: #e6edf3;
+  --text-sub: #8b949e;
+  --card-bg: rgba(26,37,64,0.6);
+  --card-border: rgba(184,145,42,0.12);
+  --alert: #8B2020;
+  --positive: #2ea043;
+  --negative: #da3633;
+  --body-bg: #0F1829;
+  --header-bg-1: #1a2332;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(15,24,41,0.6);
+  --table-hover: rgba(184,145,42,0.04);
+  --table-border: #21262d;
+  --mermaid-bg: rgba(15,24,41,0.5);
+  --summary-bg-1: rgba(15,24,41,0.7);
+  --summary-bg-2: rgba(26,37,64,0.5);
+  --summary-text: #c9d1d9;
+  --toc-bg: #1A2540;
+  --toc-link-color: #e6edf3;
+  --toc-hover: rgba(88,166,255,.1);
+  --chart-label-color: '#8b949e';
+  --chart-title-color: '#D4A843';
+  --mermaid-theme: dark;
+}
+
+/* === Light Mode === */
+[data-theme="light"] {
+  --navy: #E8E4DC;
+  --navy-light: #F0ECE4;
+  --navy-dark: #F5F2EC;
+  --gold: #8B6914;
+  --gold-light: #7A5C10;
+  --gold-dim: rgba(138,105,20,0.1);
+  --text-main: #1a1a1a;
+  --text-sub: #555555;
+  --card-bg: rgba(255,255,255,0.85);
+  --card-border: rgba(138,105,20,0.15);
+  --alert: #A52020;
+  --positive: #1a7f37;
+  --negative: #c93030;
+  --body-bg: #F5F2EC;
+  --header-bg-1: #2a3550;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(255,255,255,0.7);
+  --table-hover: rgba(138,105,20,0.05);
+  --table-border: #d8d4cc;
+  --mermaid-bg: rgba(255,255,255,0.6);
+  --summary-bg-1: rgba(245,242,236,0.9);
+  --summary-bg-2: rgba(232,228,220,0.8);
+  --summary-text: #333;
+  --toc-bg: #fff;
+  --toc-link-color: #1a1a1a;
+  --toc-hover: rgba(138,105,20,.08);
+  --chart-label-color: '#555555';
+  --chart-title-color: '#7A5C10';
+  --mermaid-theme: default;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--body-bg);color:var(--text-main);font-family:'Noto Sans JP',sans-serif;line-height:1.8;padding:0;transition:background .3s,color .3s}
+h1,h2,h3,.section-title{font-family:'Shippori Mincho B1',serif}
+.num,.metric-value,.big-num{font-family:'Playfair Display',serif}
+.data-label{font-family:'Inter',sans-serif}
+
+/* Theme Toggle */
+.theme-toggle{position:fixed;top:16px;right:16px;z-index:1000;width:44px;height:44px;border-radius:50%;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.2);transition:all .2s}
+.theme-toggle:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Back Link */
+.back-link{position:fixed;top:16px;left:16px;z-index:1000;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold-light);text-decoration:none;font-size:.82rem;font-weight:500;font-family:'Noto Sans JP',sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.back-link:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--header-bg-1) 0%,var(--header-bg-2) 50%,var(--header-bg-3) 100%);border-bottom:1px solid rgba(184,145,42,0.15);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header h1,.header .subtitle,.header .date,.header .badge{color:#e6edf3!important}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:800;color:var(--text-main);margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em;margin-top:4px}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header .badge{display:inline-block;background:var(--gold-dim);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px}
+
+/* Container */
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+
+/* Section */
+.section{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:28px 24px;margin-bottom:20px;position:relative}
+.section-title{font-size:1.3em;font-weight:700;color:var(--gold-light);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.2em}
+
+/* Cards Grid */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px;text-align:center;transition:border-color .2s,background .3s}
+.metric-card:hover{border-color:rgba(184,145,42,0.3)}
+.metric-card .icon{font-size:1.8em;margin-bottom:6px}
+.metric-card .metric-value{font-size:1.6em;font-weight:700;color:var(--gold-light)}
+.metric-card .metric-label{font-size:.88rem;color:var(--text-sub);margin-top:4px}
+.metric-card .metric-sub{font-size:.8rem;color:var(--text-sub);margin-top:4px;opacity:.85}
+
+/* Chart */
+.chart-container{position:relative;height:380px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
+.tbl th{background:var(--gold-dim);color:var(--gold-light);padding:11px 14px;text-align:left;font-weight:600;border-bottom:1px solid rgba(184,145,42,0.2)}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--table-border)}
+.tbl tr:hover td{background:var(--table-hover)}
+.badge-strong{background:rgba(46,160,67,0.15);color:var(--positive);padding:3px 10px;border-radius:4px;font-size:.82rem}
+.badge-moderate{background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:4px;font-size:.82rem}
+.badge-weak{background:rgba(139,32,32,0.1);color:var(--negative);padding:3px 10px;border-radius:4px;font-size:.82rem}
+
+/* Mermaid */
+.mermaid-wrap{background:var(--mermaid-bg);border-radius:12px;padding:20px;margin:16px 0;overflow-x:auto}
+.mermaid{text-align:center}
+
+/* Chapter Intro */
+.chapter-intro{font-size:.95rem;color:var(--text-sub);margin-bottom:16px;line-height:1.9;border-left:3px solid var(--gold-dim);padding-left:14px}
+
+/* Highlight */
+.highlight-box{background:var(--gold-dim);border:1px solid rgba(184,145,42,0.2);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem}
+.alert-box{background:rgba(139,32,32,0.1);border:1px solid rgba(139,32,32,0.25);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem}
+
+/* Two Col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Layer Cards */
+.layer-card{border-radius:14px;padding:22px;margin-bottom:16px;position:relative;overflow:hidden}
+.layer-card h3{font-size:1.05em;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.layer-card ul{list-style:none;padding:0;margin:0}
+.layer-card li{font-size:.88rem;line-height:1.8;padding:4px 0 4px 20px;position:relative}
+.layer-card li::before{content:'';position:absolute;left:4px;top:13px;width:6px;height:6px;border-radius:50%}
+.layer-card .sub-detail{font-size:.82rem;color:var(--text-sub);margin-left:20px;line-height:1.7}
+
+/* Layer 1 - Red */
+.layer-red{background:linear-gradient(135deg,rgba(139,32,32,0.15),rgba(139,32,32,0.05));border:1px solid rgba(139,32,32,0.3)}
+.layer-red h3{color:#e85050}
+.layer-red li::before{background:#e85050}
+
+/* Layer 2 - Purple */
+.layer-purple{background:linear-gradient(135deg,rgba(163,113,247,0.12),rgba(163,113,247,0.04));border:1px solid rgba(163,113,247,0.25)}
+.layer-purple h3{color:#b388ff}
+.layer-purple li::before{background:#b388ff}
+
+/* Layer 3 - Orange */
+.layer-orange{background:linear-gradient(135deg,rgba(230,160,50,0.12),rgba(230,160,50,0.04));border:1px solid rgba(230,160,50,0.25)}
+.layer-orange h3{color:#f0a040}
+.layer-orange li::before{background:#f0a040}
+
+/* Phase Timeline Cards */
+.phase-card{border-radius:14px;padding:24px;margin-bottom:16px;position:relative;overflow:hidden}
+.phase-card h3{font-size:1.05em;font-weight:700;margin-bottom:8px}
+.phase-card .phase-subtitle{font-size:.88rem;color:var(--text-sub);margin-bottom:12px;font-style:italic}
+.phase-card .phase-section{margin-bottom:12px}
+.phase-card .phase-section-title{font-size:.88rem;font-weight:700;color:var(--gold-light);margin-bottom:6px}
+.phase-card ul{list-style:none;padding:0;margin:0}
+.phase-card li{font-size:.88rem;line-height:1.8;padding:3px 0 3px 18px;position:relative}
+.phase-card li::before{content:'';position:absolute;left:4px;top:13px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.5}
+.phase-kpi{background:rgba(0,0,0,0.15);border-radius:8px;padding:10px 14px;margin:8px 0;font-size:.85rem}
+.phase-effect{font-size:.88rem;color:var(--text-sub);margin-top:8px;border-left:2px solid currentColor;padding-left:10px;opacity:.85}
+
+/* Phase 0 - Red to Yellow */
+.phase-0{background:linear-gradient(135deg,rgba(200,60,60,0.12),rgba(230,180,50,0.08));border:1px solid rgba(200,80,60,0.3)}
+.phase-0 h3{color:#e86050}
+.phase-0 .phase-effect{border-color:#e86050}
+
+/* Phase 1 - Yellow to Gold */
+.phase-1{background:linear-gradient(135deg,rgba(230,180,50,0.12),rgba(184,145,42,0.08));border:1px solid rgba(230,180,50,0.3)}
+.phase-1 h3{color:#e8b830}
+.phase-1 .phase-effect{border-color:#e8b830}
+
+/* Phase 2 - Gold to Blue */
+.phase-2{background:linear-gradient(135deg,rgba(184,145,42,0.12),rgba(88,166,255,0.08));border:1px solid rgba(100,160,240,0.3)}
+.phase-2 h3{color:#60a0e8}
+.phase-2 .phase-effect{border-color:#60a0e8}
+
+/* Phase 3 - Blue to Purple */
+.phase-3{background:linear-gradient(135deg,rgba(88,166,255,0.10),rgba(163,113,247,0.08));border:1px solid rgba(140,120,240,0.3)}
+.phase-3 h3{color:#a080f0}
+.phase-3 .phase-effect{border-color:#a080f0}
+
+/* Positive loop explanation cards */
+.loop-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.loop-card{background:var(--metric-card-bg);border:1px solid rgba(46,160,67,0.2);border-radius:12px;padding:16px}
+.loop-card h4{font-size:.92rem;font-weight:700;color:var(--positive);margin-bottom:6px}
+.loop-card p{font-size:.85rem;color:var(--text-sub);line-height:1.7}
+
+/* Footer */
+.footer{text-align:center;padding:32px 20px;color:var(--text-sub);font-size:.88rem;border-top:1px solid var(--card-border);margin-top:20px}
+.footer a{color:var(--gold-light);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:var(--toc-bg);border-top:1px solid var(--card-border);box-shadow:0 -2px 12px rgba(0,0,0,.15)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--toc-link-color);text-decoration:none;font-size:.9rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:var(--toc-hover)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .chart-container{height:280px}
+  .section{padding:20px 16px}
+  .two-col{grid-template-columns:1fr}
+  .loop-grid{grid-template-columns:1fr}
+  .chart-row{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:.78rem}
+  .back-link{font-size:.72rem;padding:6px 10px;top:10px;left:10px}
+  .theme-toggle{top:10px;right:10px;width:38px;height:38px;font-size:1rem}
+}
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr!important}
+  .loop-grid{grid-template-columns:1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .section-title{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="ダーク/ライト切替">🌙</button>
+
+<!-- Back Link -->
+<a class="back-link" href="../index.html">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+現状分析レポートに戻る</a>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="badge">沖縄県総合発展マスタープラン Step 2</div>
+    <h1>負の再帰ループから正の再帰ループへ</h1>
+    <div class="subtitle">沖縄県 構造転換シナリオ</div>
+    <div class="date">作成日: 2026年3月 | v1.0</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ========== Section 1: 負の循環の根本原因 ========== -->
+<div class="section" id="sec-root" data-accordion>
+  <div class="section-title"><span class="section-icon">🔍</span> 負の循環の根本原因（3層構造）</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">沖縄が抱える構造的課題は、単なる「遅れ」ではなく、3つの層が積み重なり自己強化する多層構造をなしている。最深部の歴史的断絶が基盤を歪め、外部固定要因が制約を加え、その上で内部の自己強化ループが世代を超えて回転し続ける。</p>
+
+    <!-- Layer 1 -->
+    <div class="layer-card layer-red">
+      <h3>第1層：歴史的断絶（不可逆的原因）</h3>
+      <p style="font-size:.85rem;color:var(--text-sub);margin-bottom:10px">米軍統治期（1945-1972）の27年間に本土が経験した3つの構造転換を沖縄が逸した</p>
+      <ul>
+        <li><strong>産業基盤投資の欠如</strong>
+          <div class="sub-detail">製造業GDP比 4.3%（全国 20.7%）。高度経済成長期の重厚長大産業・サプライチェーン構築を経験できず、第三次産業偏重の経済構造が固定化した。</div>
+        </li>
+        <li><strong>鉄道の不復旧</strong>
+          <div class="sub-detail">公共交通分担率 8%。戦前の県営鉄道は米軍が撤去し、復帰後も再建されなかった。車社会が固定化し、交通弱者（高齢者・低所得者）の移動制約と環境負荷が構造化。</div>
+        </li>
+        <li><strong>国民皆保険の10年遅延</strong>
+          <div class="sub-detail">健診受診率 33%。本土の国民皆保険制度（1961年）が沖縄に適用されたのは復帰後の1972年。予防医療・健康管理の習慣が根づかないまま世代が進行した。</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Layer 2 -->
+    <div class="layer-card layer-purple">
+      <h3>第2層：外部固定要因（県の裁量外）</h3>
+      <p style="font-size:.85rem;color:var(--text-sub);margin-bottom:10px">県の政策努力だけでは解消できない構造的制約</p>
+      <ul>
+        <li><strong>基地による空間制約</strong>
+          <div class="sub-detail">県土の 8.2% が凍結。都市計画の分断、産業用地の不足、騒音による居住環境の劣化が恒常的に発生。</div>
+        </li>
+        <li><strong>島嶼性・エネルギー孤立</strong>
+          <div class="sub-detail">電力コスト全国の約 2倍。本土系統電力網に接続できず、火力発電 94% に依存。製造業誘致の最大障壁。</div>
+        </li>
+        <li><strong>財政的従属</strong>
+          <div class="sub-detail">自主財源比率 27%。沖縄振興予算への高い依存が「自律的経済発展」のインセンティブ設計を歪める構造。</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Layer 3 -->
+    <div class="layer-card layer-orange">
+      <h3>第3層：自己強化ループ（内部メカニズム）</h3>
+      <p style="font-size:.85rem;color:var(--text-sub);margin-bottom:10px">低賃金を分岐点とする4つのサブループが世代を超えて自動回転する</p>
+      <ul>
+        <li><strong>世代間連鎖（20-30年周期）</strong>
+          <div class="sub-detail">低所得 → 教育投資不足 → 低学力・低進学率 → 低スキル就労 → 低所得（次世代へ）</div>
+        </li>
+        <li><strong>健康スパイラル</strong>
+          <div class="sub-detail">低賃金 → 安価な高カロリー食 → 肥満・生活習慣病 → 医療費増・労働生産性低下 → さらなる低賃金</div>
+        </li>
+        <li><strong>家庭崩壊スパイラル</strong>
+          <div class="sub-detail">経済的ストレス → DV・離婚 → 母子世帯化 → 子どもの貧困 → 世代間連鎖へ合流</div>
+        </li>
+        <li><strong>人材流出スパイラル（5-10年）</strong>
+          <div class="sub-detail">低賃金・キャリア不足 → 若年層の県外転出 → 地域の人材プール縮小 → 産業の高度化停滞 → さらなる低賃金</div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== Section 2: 分岐点変数の特定 ========== -->
+<div class="section" id="sec-leverage" data-accordion>
+  <div class="section-title"><span class="section-icon">🎯</span> 分岐点変数の特定 — なぜ「賃金」が鍵か</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">因果マップ上で「低賃金」は4サブループ全ての起点に位置する。ここへの介入は1箇所の変更で4方向に同時波及する、システム全体の最大のレバレッジポイントである。</p>
+
+    <div class="mermaid-wrap">
+      <div class="mermaid" id="mermaid-leverage">
+graph TD
+    W["🔴 低賃金\n（分岐点変数）"] -->|"+"| S1["💔 健康スパイラル\n不健康な食→肥満→医療費増"]
+    W -->|"+"| S2["🏠 家庭崩壊スパイラル\nストレス→DV・離婚→母子世帯"]
+    W -->|"+"| S3["✈️ 人材流出スパイラル\n若年転出→人材不足→産業停滞"]
+    W -->|"+"| S4["📚 世代間連鎖\n貧困→教育格差→低スキル"]
+    INT["🟢 賃金への介入"] -.->|"4ループ同時減速"| W
+
+    style W fill:#8B2020,stroke:#e85050,color:#fff,stroke-width:2px
+    style INT fill:#1a7f37,stroke:#2ea043,color:#fff,stroke-width:2px
+    style S1 fill:#1A2540,stroke:#e85050,color:#e6edf3
+    style S2 fill:#1A2540,stroke:#b388ff,color:#e6edf3
+    style S3 fill:#1A2540,stroke:#58a6ff,color:#e6edf3
+    style S4 fill:#1A2540,stroke:#f0a040,color:#e6edf3
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>レバレッジポイント分析:</strong> 賃金への直接介入は、(1) 食生活の改善を通じた健康回復、(2) 経済安定による家庭の安定化、(3) 県内就職の魅力向上による人材定着、(4) 教育投資余力の拡大による世代間連鎖の断切 ── という4つの改善経路を同時に起動する。他の変数への個別介入（例: 健康教育のみ、教育支援のみ）では、残り3つのループが減速しないため効果が限定的になる。
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== Section 3: 段階的転換プロセス ========== -->
+<div class="section" id="sec-phases" data-accordion>
+  <div class="section-title"><span class="section-icon">🗺️</span> 段階的転換プロセス（4フェーズ）</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">構造転換は一夜にして起こらない。負の循環を減速させ、正の循環の種をまき、育て、自律化させる ── 4段階のプロセスを設計する。</p>
+
+    <!-- Phase 0 -->
+    <div class="phase-card phase-0">
+      <h3>Phase 0（即時・0-2年）: 出血を止める</h3>
+      <div class="phase-subtitle">「これ以上の悪化を止める」 ── サブループの回転速度を減速させる緊急施策</div>
+
+      <div class="phase-section">
+        <div class="phase-section-title">施策</div>
+        <ul>
+          <li>最低賃金の加速的引上げ（1,023円 → 1,200円）</li>
+          <li>困窮世帯への現物給付（給食無償化・医療費助成拡大）</li>
+          <li>飲酒運転・アルコール依存症への集中介入（健康スパイラル減速）</li>
+          <li>不登校・高校中退の緊急支援（教育パイプラインの漏出防止）</li>
+        </ul>
+      </div>
+
+      <div class="phase-kpi">
+        <strong>KPI:</strong> 食料困窮経験率 58.2% → 45%以下 / 飲酒運転検挙率 30%減
+      </div>
+
+      <div class="phase-effect">サブループの回転速度を減速。「これ以上の悪化を止める」段階であり、構造転換そのものではない。</div>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase-card phase-1">
+      <h3>Phase 1（短期・2-5年）: 賃金の底上げ</h3>
+      <div class="phase-subtitle">分岐点変数「低賃金」を「中賃金」へ転換し、ループの回転方向を変え始める</div>
+
+      <div class="phase-section">
+        <div class="phase-section-title">施策</div>
+        <ul>
+          <li>既存産業のDX推進（観光・建設・農業の生産性 +20%）</li>
+          <li>IT/BPO産業の高付加価値シフト（コールセンター → 開発拠点）</li>
+          <li>OIST発スタートアップエコシステムの育成加速</li>
+          <li>観光の質的転換（1人当たり消費額 10万 → 15万円）</li>
+          <li>GW2050返還跡地計画の事業化</li>
+        </ul>
+      </div>
+
+      <div class="phase-kpi">
+        <strong>KPI:</strong> 1人当たり県民所得 224.9万 → 250万（対全国比 75%）/ 完全失業率 3.2% → 2.8%
+      </div>
+
+      <div class="phase-effect">分岐点「低賃金」→「中賃金」への転換開始。食生活・家庭安定・定住意欲が連動して改善し始める。</div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-card phase-2">
+      <h3>Phase 2（中期・5-15年）: パイプラインの修復</h3>
+      <div class="phase-subtitle">教育 → 雇用 → 定着の人材パイプラインを再構築し、正の循環を起動する</div>
+
+      <div class="phase-section">
+        <div class="phase-section-title">施策</div>
+        <ul>
+          <li>STEM教育の抜本強化（中学数学格差 -10.3pt → -3pt以内）</li>
+          <li>県内大学の魅力向上（OIST連携・理工系大学院新設構想）</li>
+          <li>給付型奨学金拡充（県内就職条件付き返済免除）</li>
+          <li>返還跡地への研究開発拠点・先端産業集積</li>
+          <li>軌道系公共交通の導入（南部〜中部の鉄軌道）</li>
+          <li>しまくとぅば教育の体系化 → 文化的帰属感 → Uターン率向上</li>
+          <li>再エネ比率 6% → 30%（エネルギーコスト低減）</li>
+        </ul>
+      </div>
+
+      <div class="phase-kpi">
+        <strong>KPI:</strong> 大学進学率 46.7% → 55% / 所得対全国比 75% → 85% / TFR 1.54 → 1.7
+      </div>
+
+      <div class="phase-effect">「教育 → 高スキル雇用 → 高賃金 → 子育て環境改善 → TFR回復」の正の連鎖が起動。負のスパイラルが逆回転し始める。</div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-card phase-3">
+      <h3>Phase 3（長期・15-30年）: 正の循環の自律化</h3>
+      <div class="phase-subtitle">外部からの介入なしに正の再帰ループが自律的に回転し続ける状態を実現する</div>
+
+      <div class="phase-section">
+        <div class="phase-section-title">施策</div>
+        <ul>
+          <li>基地返還跡地の開発完了（経済効果 28-32倍の実現）</li>
+          <li>IT/デジタル産業GDP比10%超、県内総生産4.5兆→6.0〜6.5兆円（高付加価値サービス島嶼経済の完成）</li>
+          <li>エネルギー自給率 2.7% → 15%超</li>
+          <li>県全域公共交通ネットワーク完成</li>
+          <li>健康寿命の全国30位以内への回復</li>
+        </ul>
+      </div>
+
+      <div class="phase-kpi">
+        <strong>KPI:</strong> 所得対全国比 85% → 100% / 健康寿命上位10位 / 子どもの貧困率 15%以下
+      </div>
+
+      <div class="phase-effect">「高生産性 → 高賃金 → 人材回帰 → 産業高度化 → さらなる高生産性」の正の再帰ループが自律的に回転。政策的介入は「加速」に移行し、「維持」は不要になる。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== Section 4: 正の再帰ループの設計図 ========== -->
+<div class="section" id="sec-positive" data-accordion>
+  <div class="section-title"><span class="section-icon">🔄</span> 正の再帰ループの設計図</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">負の循環の「逆回転」とは何か。4つのサブループが全て回復方向に回転し、中心のメインループを加速させる構造を設計する。</p>
+
+    <div class="mermaid-wrap">
+      <div class="mermaid" id="mermaid-positive">
+graph LR
+    A["🏭 産業の高度化"] -->|"+"| B["📈 労働生産性の向上"]
+    B -->|"+"| C["💰 賃金の上昇"]
+    C -->|"+"| D["👶 子育て環境改善"]
+    D -->|"+"| E["📚 教育投資の拡大"]
+    E -->|"+"| F["🎓 高スキル人材の育成"]
+    F -->|"+"| A
+    C -->|"+"| G["❤️ 健康改善\n食生活・受診率向上"]
+    C -->|"+"| H["🏠 家庭安定\nDV・離婚リスク低下"]
+    C -->|"+"| I["✈️ 人材回帰\nUターン増加"]
+    G -->|"+"| B
+    H -->|"+"| D
+    I -->|"+"| F
+
+    style A fill:#1a7f37,stroke:#2ea043,color:#fff,stroke-width:2px
+    style B fill:#1a7f37,stroke:#2ea043,color:#fff,stroke-width:2px
+    style C fill:#1a7f37,stroke:#2ea043,color:#fff,stroke-width:2px
+    style D fill:#1a7f37,stroke:#2ea043,color:#fff,stroke-width:2px
+    style E fill:#1a7f37,stroke:#2ea043,color:#fff,stroke-width:2px
+    style F fill:#1a7f37,stroke:#2ea043,color:#fff,stroke-width:2px
+    style G fill:#1A2540,stroke:#2ea043,color:#e6edf3
+    style H fill:#1A2540,stroke:#2ea043,color:#e6edf3
+    style I fill:#1A2540,stroke:#2ea043,color:#e6edf3
+      </div>
+    </div>
+
+    <p style="font-size:.92rem;color:var(--text-sub);margin-bottom:16px">正の循環では、4つのサブループが全て「回復方向」に回転する。各ループの詳細:</p>
+
+    <div class="loop-grid">
+      <div class="loop-card">
+        <h4>健康の正循環</h4>
+        <p>高賃金 → 良い食事・余暇の確保 → 健康状態の改善 → 労働生産性の向上 → さらなる賃金上昇。健診受診率の向上が早期発見・早期治療を可能にし、医療費の適正化にもつながる。</p>
+      </div>
+      <div class="loop-card">
+        <h4>家庭の正循環</h4>
+        <p>経済的安定 → DV・離婚リスクの低下 → 家庭環境の安定化 → 子どもの教育環境の向上 → 学力・進学率の改善。「経済的ストレスの緩和」が起点となり、家庭内の好循環が生まれる。</p>
+      </div>
+      <div class="loop-card">
+        <h4>人材の正循環</h4>
+        <p>高賃金雇用の創出 → Uターン・Iターンの増加 → 地域の人材プール拡大 → 産業の高度化・多様化 → さらなる雇用機会。「帰ってきたくなる沖縄」が人材の好循環を生む。</p>
+      </div>
+      <div class="loop-card">
+        <h4>世代間の正循環</h4>
+        <p>教育投資の拡大 → 高スキル人材の育成 → 高賃金雇用 → 次世代への教育投資余力 → さらなるスキル向上。1世代（20-30年）の時間軸で、世代間連鎖が「上向き」に反転する。</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== Section 5: 重点施策マトリクス ========== -->
+<div class="section" id="sec-matrix" data-accordion>
+  <div class="section-title"><span class="section-icon">📋</span> 重点施策マトリクス</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">10の重点施策を「フェーズ」「投資規模」「波及効果」「実現可能性」の4軸で整理する。波及効果が高くかつ実現可能性の高い施策から優先的に着手すべきである。</p>
+
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>重点施策</th>
+          <th>Phase</th>
+          <th>投資規模感</th>
+          <th>波及効果</th>
+          <th>実現可能性</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="num">1</span></td>
+          <td>最低賃金加速引上げ</td>
+          <td>0</td>
+          <td>小（制度改正）</td>
+          <td><span class="badge-strong">◎ 4ループ同時</span></td>
+          <td><span class="badge-strong">◎</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">2</span></td>
+          <td>給食無償化・医療費助成</td>
+          <td>0</td>
+          <td>中</td>
+          <td><span class="badge-moderate">○ 貧困・健康</span></td>
+          <td><span class="badge-strong">◎</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">3</span></td>
+          <td>アルコール依存症対策</td>
+          <td>0</td>
+          <td>中</td>
+          <td><span class="badge-moderate">○ 健康・治安</span></td>
+          <td><span class="badge-moderate">○</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">4</span></td>
+          <td>観光DX・高付加価値化</td>
+          <td>1</td>
+          <td>中</td>
+          <td><span class="badge-strong">◎ 賃金・雇用</span></td>
+          <td><span class="badge-strong">◎</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">5</span></td>
+          <td>OISTスタートアップ育成</td>
+          <td>1</td>
+          <td>中〜大</td>
+          <td><span class="badge-strong">◎ 産業構造</span></td>
+          <td><span class="badge-moderate">○</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">6</span></td>
+          <td>STEM教育強化</td>
+          <td>2</td>
+          <td>中</td>
+          <td><span class="badge-strong">◎ 世代間連鎖断切</span></td>
+          <td><span class="badge-moderate">○</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">7</span></td>
+          <td>給付型奨学金拡充</td>
+          <td>2</td>
+          <td>中</td>
+          <td><span class="badge-moderate">○ 進学率・定着</span></td>
+          <td><span class="badge-moderate">○</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">8</span></td>
+          <td>鉄軌道導入</td>
+          <td>2</td>
+          <td>大</td>
+          <td><span class="badge-strong">◎ 交通・経済・環境</span></td>
+          <td><span class="badge-weak">△</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">9</span></td>
+          <td>返還跡地開発</td>
+          <td>2-3</td>
+          <td>大</td>
+          <td><span class="badge-strong">◎ 経済構造転換</span></td>
+          <td><span class="badge-weak">△（外交依存）</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">10</span></td>
+          <td>再エネ大量導入</td>
+          <td>2-3</td>
+          <td>大</td>
+          <td><span class="badge-moderate">○ エネルギー・環境</span></td>
+          <td><span class="badge-moderate">○</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box" style="margin-top:16px">
+      <strong>優先順位の考え方:</strong> 波及効果◎かつ実現可能性◎の施策（#1 最低賃金、#4 観光DX）を最優先で着手し、早期に「賃金上昇 → 生活改善」の初動効果を生む。大規模投資が必要な施策（#8 鉄軌道、#9 跡地開発）はPhase 0-1の成果を基盤に合意形成を進める。
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== Section 6: 転換の臨界点 ========== -->
+<div class="section" id="sec-tipping" data-accordion>
+  <div class="section-title"><span class="section-icon">⚡</span> 転換の臨界点 — いつ正の循環が自律化するか</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">負のモメンタムと正のモメンタムの力関係が逆転する「ティッピングポイント」はいつ訪れるのか。概念モデルに基づく推定を示す。</p>
+
+    <div class="chart-container">
+      <canvas id="tippingChart"></canvas>
+    </div>
+
+    <div class="highlight-box" style="margin-top:16px">
+      <strong>臨界点（ティッピングポイント）は2033〜2035年頃と推定される。</strong>この時点で正のモメンタムが負のモメンタムを上回り、システムの回転方向が不可逆的に反転する。ただし、この転換はPhase 0-1の施策が2026年から確実に実行されることが前提条件であり、政策の断絶や遅延はティッピングポイントを大幅に後ろ倒しにする。
+    </div>
+
+    <div class="alert-box" style="margin-top:12px">
+      <strong>注意:</strong> 上記グラフは概念モデルであり、実際のモメンタムを定量的に計測する単一指標は存在しない。「所得対全国比」「健康寿命ランキング」「大学進学率」「TFR」等の複合指標の推移を定期的にモニタリングし、転換の進捗を評価する必要がある。
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<div class="footer">
+  <p>沖縄県 現状分析・因果構造分析報告書 v1.0 — 構造転換シナリオ</p>
+  <p style="margin-top:8px"><a href="../index.html" style="color:var(--gold);text-decoration:none">← ポータルに戻る</a> ｜ <a href="current-analysis.html" style="color:var(--text-sub);text-decoration:none">現状分析レポート</a></p>
+</div>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-root" onclick="tocJump('sec-root')"><span class="toc-icon">🔍</span><span class="toc-label">負の循環の根本原因</span></a></li>
+      <li><a href="#sec-leverage" onclick="tocJump('sec-leverage')"><span class="toc-icon">🎯</span><span class="toc-label">分岐点変数の特定</span></a></li>
+      <li><a href="#sec-phases" onclick="tocJump('sec-phases')"><span class="toc-icon">🗺️</span><span class="toc-label">段階的転換プロセス</span></a></li>
+      <li><a href="#sec-positive" onclick="tocJump('sec-positive')"><span class="toc-icon">🔄</span><span class="toc-label">正の再帰ループの設計図</span></a></li>
+      <li><a href="#sec-matrix" onclick="tocJump('sec-matrix')"><span class="toc-icon">📋</span><span class="toc-label">重点施策マトリクス</span></a></li>
+      <li><a href="#sec-tipping" onclick="tocJump('sec-tipping')"><span class="toc-icon">⚡</span><span class="toc-label">転換の臨界点</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// === Theme Toggle ===
+function toggleTheme(){
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme') || 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '🌙' : '☀️';
+  reinitMermaid(next);
+  updateChartColors(next);
+}
+(function(){
+  var saved = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  var btn = document.getElementById('themeToggle');
+  if(btn) btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+})();
+
+// === Mermaid Init ===
+function initMermaid(theme){
+  var mermaidTheme = theme === 'light' ? 'default' : 'dark';
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: mermaidTheme,
+    themeVariables: theme === 'dark' ? {
+      primaryColor: '#1A2540',
+      primaryTextColor: '#e6edf3',
+      primaryBorderColor: '#B8912A',
+      lineColor: '#D4A843',
+      secondaryColor: '#243352',
+      tertiaryColor: '#0F1829',
+      edgeLabelBackground: '#1A2540',
+      fontFamily: 'Noto Sans JP, sans-serif'
+    } : {
+      primaryColor: '#F0ECE4',
+      primaryTextColor: '#1a1a1a',
+      primaryBorderColor: '#8B6914',
+      lineColor: '#7A5C10',
+      secondaryColor: '#E8E4DC',
+      tertiaryColor: '#F5F2EC',
+      edgeLabelBackground: '#F5F2EC',
+      fontFamily: 'Noto Sans JP, sans-serif'
+    }
+  });
+}
+
+function renderMermaid(){
+  document.querySelectorAll('.mermaid[data-processed]').forEach(function(el){
+    el.removeAttribute('data-processed');
+  });
+  var els = document.querySelectorAll('.mermaid');
+  els.forEach(function(el){
+    if(!el.getAttribute('data-original')){
+      el.setAttribute('data-original', el.textContent);
+    }
+    el.innerHTML = el.getAttribute('data-original');
+  });
+  mermaid.run({nodes: els});
+}
+
+function reinitMermaid(theme){
+  initMermaid(theme);
+  renderMermaid();
+}
+
+var currentTheme = localStorage.getItem('theme') || 'dark';
+initMermaid(currentTheme);
+document.addEventListener('DOMContentLoaded', function(){
+  renderMermaid();
+});
+
+// === Chart.js — Tipping Point ===
+var tippingCtx, tippingChart;
+
+function getChartColors(theme){
+  if(theme === 'light'){
+    return {
+      labelColor: '#555555',
+      titleColor: '#7A5C10',
+      gridColor: 'rgba(0,0,0,0.08)',
+      negColor: 'rgba(200,60,60,0.6)',
+      negBorder: '#c93030',
+      posColor: 'rgba(46,160,67,0.5)',
+      posBorder: '#1a7f37',
+      crossColor: 'rgba(138,105,20,0.3)'
+    };
+  }
+  return {
+    labelColor: '#8b949e',
+    titleColor: '#D4A843',
+    gridColor: 'rgba(255,255,255,0.06)',
+    negColor: 'rgba(218,54,51,0.4)',
+    negBorder: '#da3633',
+    posColor: 'rgba(46,160,67,0.4)',
+    posBorder: '#2ea043',
+    crossColor: 'rgba(184,145,42,0.3)'
+  };
+}
+
+function createTippingChart(){
+  tippingCtx = document.getElementById('tippingChart').getContext('2d');
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  var c = getChartColors(theme);
+
+  tippingChart = new Chart(tippingCtx, {
+    type: 'line',
+    data: {
+      labels: ['2026','2028','2030','2033','2035','2040','2045','2050'],
+      datasets: [
+        {
+          label: '負の循環の強さ',
+          data: [100, 85, 70, 55, 40, 25, 15, 8],
+          borderColor: c.negBorder,
+          backgroundColor: c.negColor,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 5,
+          pointHoverRadius: 7
+        },
+        {
+          label: '正の循環の強さ',
+          data: [5, 15, 30, 45, 55, 70, 82, 92],
+          borderColor: c.posBorder,
+          backgroundColor: c.posColor,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 5,
+          pointHoverRadius: 7
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {mode: 'index', intersect: false},
+      plugins: {
+        title: {
+          display: true,
+          text: '負のモメンタム vs 正のモメンタム（概念モデル）',
+          color: c.titleColor,
+          font: {size: 14, family: 'Shippori Mincho B1, serif', weight: '700'}
+        },
+        legend: {
+          labels: {color: c.labelColor, font: {family: 'Noto Sans JP, sans-serif', size: 12}}
+        },
+        annotation: {
+          annotations: {
+            tippingLine: {
+              type: 'line',
+              xMin: 3.5,
+              xMax: 3.5,
+              borderColor: c.crossColor,
+              borderWidth: 2,
+              borderDash: [6, 4],
+              label: {
+                display: true,
+                content: '臨界点（2033-2035）',
+                position: 'start',
+                color: c.titleColor,
+                font: {size: 11, family: 'Noto Sans JP, sans-serif'}
+              }
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(ctx){
+              return ctx.dataset.label + ': ' + ctx.parsed.y;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {color: c.labelColor, font: {family: 'Inter, sans-serif'}},
+          grid: {color: c.gridColor}
+        },
+        y: {
+          min: 0,
+          max: 100,
+          ticks: {
+            color: c.labelColor,
+            font: {family: 'Inter, sans-serif'},
+            callback: function(val){ return val; }
+          },
+          grid: {color: c.gridColor},
+          title: {
+            display: true,
+            text: 'モメンタム強度',
+            color: c.labelColor,
+            font: {family: 'Noto Sans JP, sans-serif', size: 12}
+          }
+        }
+      }
+    }
+  });
+}
+
+function updateChartColors(theme){
+  if(!tippingChart) return;
+  var c = getChartColors(theme);
+  tippingChart.data.datasets[0].borderColor = c.negBorder;
+  tippingChart.data.datasets[0].backgroundColor = c.negColor;
+  tippingChart.data.datasets[1].borderColor = c.posBorder;
+  tippingChart.data.datasets[1].backgroundColor = c.posColor;
+  tippingChart.options.plugins.title.color = c.titleColor;
+  tippingChart.options.plugins.legend.labels.color = c.labelColor;
+  tippingChart.options.scales.x.ticks.color = c.labelColor;
+  tippingChart.options.scales.x.grid.color = c.gridColor;
+  tippingChart.options.scales.y.ticks.color = c.labelColor;
+  tippingChart.options.scales.y.grid.color = c.gridColor;
+  tippingChart.options.scales.y.title.color = c.labelColor;
+  if(tippingChart.options.plugins.annotation && tippingChart.options.plugins.annotation.annotations){
+    tippingChart.options.plugins.annotation.annotations.tippingLine.borderColor = c.crossColor;
+    if(tippingChart.options.plugins.annotation.annotations.tippingLine.label){
+      tippingChart.options.plugins.annotation.annotations.tippingLine.label.color = c.titleColor;
+    }
+  }
+  tippingChart.update();
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  createTippingChart();
+});
+
+// === Accordion ===
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// === TOC ===
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '✕ セクション' : '☰';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>

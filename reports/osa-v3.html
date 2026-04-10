@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSA 沖縄安全保障自治論 — 概念定義書 v3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;600;700;900&family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A2540;--navy-light:#243052;--navy-dark:#0F1829;
+  --gold:#B8912A;--gold-light:#D4A843;--gold-dim:rgba(184,145,42,0.15);
+  --paper:#F5F2EC;--text-main:#E6EDF3;--text-sub:#8B949E;
+  --border:rgba(184,145,42,0.15);--card-bg:rgba(255,255,255,0.04);
+  --alert:#8B2020;--teal:#2A8B6A;--teal-dim:rgba(42,139,106,0.15);
+  --blue:#3B82F6;--blue-dim:rgba(59,130,246,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP','Hiragino Sans',sans-serif;background:#0D1117;color:var(--text-main);line-height:1.85;padding:0}
+.container{max-width:1200px;margin:0 auto;padding:0 20px 60px}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border-bottom:1px solid var(--border);padding:60px 20px 50px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header-badge{display:inline-block;background:var(--gold-dim);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 20px;font-size:14px;color:var(--gold);margin-bottom:16px;letter-spacing:2px;font-family:'Inter',sans-serif;font-weight:600}
+.header h1{font-family:'Shippori Mincho B1',serif;font-size:2.6em;font-weight:800;margin-bottom:4px;color:#fff;letter-spacing:2px}
+.header .subtitle{font-family:'Playfair Display',serif;color:var(--gold-light);font-size:1.3em;font-weight:400;letter-spacing:3px;margin-bottom:8px}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:12px}
+.header .core-statement{max-width:800px;margin:24px auto 0;padding:20px 28px;background:rgba(184,145,42,0.08);border:1px solid rgba(184,145,42,0.2);border-radius:12px;font-family:'Shippori Mincho B1',serif;font-size:1.15em;color:var(--gold-light);line-height:1.9}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+.chapter-nav a{display:inline-block;padding:6px 14px;border-radius:8px;font-size:.78em;background:var(--card-bg);border:1px solid rgba(255,255,255,0.06);color:var(--text-sub);text-decoration:none;transition:all .15s;font-family:'Noto Sans JP',sans-serif}
+.chapter-nav a:hover{background:var(--gold-dim);color:var(--gold);border-color:rgba(184,145,42,0.3)}
+
+/* Section */
+.section{background:var(--navy);border:1px solid var(--border);border-radius:16px;padding:32px 36px;margin-top:28px;position:relative}
+.section-title{font-family:'Shippori Mincho B1',serif;font-size:1.35em;font-weight:800;color:#fff;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.section-icon{font-size:1.2em}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--card-bg);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px;transition:border-color .2s}
+.card:hover{border-color:rgba(184,145,42,0.25)}
+.card-label{font-size:.78em;color:var(--text-sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-family:'Inter',sans-serif}
+.card-value{font-family:'Playfair Display',serif;font-size:1.6em;font-weight:700;color:var(--gold-light)}
+.card-desc{font-size:.88em;color:var(--text-sub);margin-top:8px;line-height:1.7}
+
+/* Layer */
+.layer-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.layer-card{display:grid;grid-template-columns:60px 1fr;gap:20px;align-items:start;background:var(--card-bg);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px;transition:border-color .2s}
+.layer-card:hover{border-color:rgba(184,145,42,0.25)}
+.layer-num{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.4em;font-weight:900;flex-shrink:0}
+.layer-card h3{font-family:'Shippori Mincho B1',serif;font-size:1.1em;font-weight:600;margin-bottom:2px}
+.layer-card .layer-en{font-family:'Inter',sans-serif;font-size:.75em;color:var(--text-sub);letter-spacing:1px}
+.layer-card p{font-size:.9em;color:var(--text-sub);margin-top:6px;line-height:1.7}
+.l1 .layer-num{background:rgba(220,50,50,0.15);color:#E05555;border:1px solid rgba(220,50,50,0.3)}
+.l2 .layer-num{background:rgba(220,140,50,0.15);color:#DC8C32;border:1px solid rgba(220,140,50,0.3)}
+.l3 .layer-num{background:rgba(220,200,50,0.15);color:#C8B832;border:1px solid rgba(220,200,50,0.3)}
+.l4 .layer-num{background:rgba(50,180,120,0.15);color:#32B478;border:1px solid rgba(50,180,120,0.3)}
+.l5 .layer-num{background:rgba(50,140,200,0.15);color:#328CC8;border:1px solid rgba(50,140,200,0.3)}
+.l6 .layer-num{background:rgba(100,80,200,0.15);color:#6450C8;border:1px solid rgba(100,80,200,0.3)}
+.l7 .layer-num{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(184,145,42,0.3)}
+
+/* Principle */
+.principle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.principle-card{background:var(--card-bg);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px}
+.principle-card .p-num{font-family:'Playfair Display',serif;font-size:2em;font-weight:900;color:var(--gold);opacity:.5;margin-bottom:4px}
+.principle-card h4{font-family:'Shippori Mincho B1',serif;font-size:1em;font-weight:600;margin-bottom:8px;color:#fff}
+.principle-card p{font-size:.88em;color:var(--text-sub);line-height:1.7}
+
+/* Flow */
+.flow-container{display:flex;flex-direction:column;gap:0;align-items:center}
+.flow-step{display:flex;align-items:center;gap:16px;width:100%;max-width:700px;background:var(--card-bg);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:18px 24px}
+.flow-step .step-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--gold-dim);border:1px solid rgba(184,145,42,0.3);color:var(--gold);font-family:'Playfair Display',serif;font-weight:700;font-size:1.1em;flex-shrink:0}
+.flow-step p{font-size:.92em;color:var(--text-main)}
+.flow-arrow{color:var(--gold);font-size:1.2em;opacity:.4;padding:4px 0}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse;font-size:.88em;margin-top:12px}
+.tbl th{background:rgba(184,145,42,0.1);color:var(--gold-light);font-weight:600;text-align:left;padding:12px 16px;border-bottom:1px solid rgba(184,145,42,0.2);font-size:.85em;letter-spacing:.5px}
+.tbl td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text-main);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,0.02)}
+
+/* Quote */
+.quote-block{border-left:3px solid var(--gold);padding:16px 24px;margin:16px 0;background:rgba(184,145,42,0.05);border-radius:0 8px 8px 0;font-family:'Shippori Mincho B1',serif;font-size:1.05em;color:var(--gold-light);line-height:1.9}
+
+/* Text */
+.body-text{font-size:.92em;color:var(--text-sub);line-height:1.9;margin-bottom:12px}
+.body-text strong{color:var(--text-main);font-weight:600}
+.sub-title{font-family:'Shippori Mincho B1',serif;font-size:1.05em;font-weight:600;color:#fff;margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.highlight-box{background:rgba(184,145,42,0.06);border:1px solid rgba(184,145,42,0.15);border-radius:12px;padding:20px 24px;margin:16px 0}
+.highlight-box h4{font-family:'Shippori Mincho B1',serif;color:var(--gold-light);margin-bottom:8px}
+.stars{color:var(--gold);letter-spacing:2px}
+.stars-dim{color:rgba(184,145,42,0.25);letter-spacing:2px}
+
+/* KPI */
+.kpi-section{margin-top:20px}
+.kpi-layer-title{font-family:'Shippori Mincho B1',serif;font-size:1.1em;font-weight:700;margin:24px 0 12px;padding:10px 16px;border-radius:8px;display:flex;align-items:center;gap:10px}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpi-card{background:var(--card-bg);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:16px 20px}
+.kpi-card h5{font-size:.82em;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.kpi-card ul{list-style:none;padding:0}
+.kpi-card li{font-size:.82em;color:var(--text-sub);line-height:1.7;padding:3px 0 3px 16px;position:relative}
+.kpi-card li::before{content:'•';position:absolute;left:0;color:var(--gold)}
+.kpi-existing h5{color:#58a6ff}
+.kpi-existing{border-left:3px solid rgba(88,166,255,0.4)}
+.kpi-new h5{color:var(--teal)}
+.kpi-new{border-left:3px solid rgba(42,139,106,0.4)}
+.kpi-badge{display:inline-block;font-size:.65em;padding:2px 8px;border-radius:4px;font-weight:500;letter-spacing:.5px}
+.kpi-badge-existing{background:rgba(88,166,255,0.12);color:#58a6ff}
+.kpi-badge-new{background:var(--teal-dim);color:var(--teal)}
+
+/* Wall blocks */
+.wall-block{margin-bottom:28px}
+.wall-heading{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.wall-number{font-family:'Playfair Display',serif;font-size:3.5em;font-weight:900;line-height:1;opacity:.18;color:var(--gold)}
+.wall-title-group{display:flex;flex-direction:column}
+.wall-main{font-family:'Noto Serif JP',serif;font-size:1.4em;font-weight:700;color:#fff;line-height:1.3}
+.wall-sub{font-family:'Noto Sans JP',sans-serif;font-size:.82em;color:var(--text-sub);margin-top:2px;font-weight:400}
+.wall-body{font-size:.9em;color:var(--text-sub);line-height:1.85;padding-left:4px}
+.wall-body strong{color:var(--text-main)}
+.wall-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px}
+.wall-fact{background:rgba(139,32,32,0.06);border:1px solid rgba(139,32,32,0.15);border-radius:8px;padding:10px 14px;font-size:.82em;color:var(--text-sub);line-height:1.6}
+.wall-fact strong{color:#E05555}
+
+/* Comparison table (center-question layout) */
+.compare-tbl{width:100%;border-collapse:collapse;margin-top:16px}
+.compare-tbl th{padding:14px 16px;font-size:.82em;font-weight:600;letter-spacing:.5px;border-bottom:2px solid rgba(184,145,42,0.2)}
+.compare-tbl th.col-old{background:rgba(139,32,32,0.06);color:var(--alert);text-align:center;width:35%}
+.compare-tbl th.col-q{background:rgba(184,145,42,0.08);color:var(--gold-light);text-align:center;width:30%;font-family:'Noto Serif JP',serif;font-size:.9em}
+.compare-tbl th.col-new{background:rgba(42,139,106,0.06);color:var(--teal);text-align:center;width:35%}
+.compare-tbl td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:.88em;vertical-align:middle}
+.compare-tbl td.td-old{color:var(--text-sub);text-align:center}
+.compare-tbl td.td-q{text-align:center;color:var(--gold-light);font-family:'Noto Serif JP',serif;font-weight:600;font-size:.95em}
+.compare-tbl td.td-new{color:var(--text-main);text-align:center;font-weight:500}
+.compare-tbl tr:hover td{background:rgba(255,255,255,0.02)}
+
+/* Military deep-dive */
+.mil-accordion{margin-top:20px}
+.mil-accordion-title{cursor:pointer;user-select:none;padding:14px 20px;background:var(--card-bg);border:1px solid rgba(255,255,255,0.06);border-radius:10px;font-size:.9em;color:var(--text-main);font-weight:500;display:flex;align-items:center;justify-content:space-between;transition:border-color .2s;margin-bottom:8px}
+.mil-accordion-title:hover{border-color:rgba(184,145,42,0.25)}
+.mil-accordion-title::after{content:'▼';font-size:.65em;color:var(--text-sub);transition:transform .25s}
+.mil-accordion-title.open::after{transform:rotate(180deg)}
+.mil-accordion-body{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;opacity:0}
+.mil-accordion-body.open{max-height:3000px;opacity:1;overflow:visible}
+.mil-inner{padding:8px 20px 20px}
+
+/* Vision card */
+.vision-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px}
+.vision-card{background:rgba(42,139,106,0.06);border:1px solid rgba(42,139,106,0.2);border-radius:12px;padding:20px}
+.vision-card h4{font-family:'Noto Serif JP',serif;font-size:.95em;font-weight:600;color:var(--teal);margin-bottom:6px}
+.vision-card p{font-size:.85em;color:var(--text-sub);line-height:1.7}
+
+/* Footer */
+.footer{text-align:center;padding:40px 20px;color:var(--text-sub);font-size:.8em;border-top:1px solid var(--border);margin-top:40px}
+.footer .ver{font-family:'Inter',sans-serif;color:var(--gold);font-weight:600}
+
+/* Accordion */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:8000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* TOC */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid rgba(184,145,42,0.15);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header .core-statement{font-size:.95em;padding:14px 18px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .principle-grid{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:1fr}
+  .layer-card{grid-template-columns:48px 1fr;gap:14px;padding:16px}
+  .chapter-nav a{font-size:.7em;padding:4px 10px}
+  .wall-heading{gap:10px}
+  .wall-number{font-size:2.5em}
+  .wall-main{font-size:1.1em}
+  .wall-facts{grid-template-columns:1fr 1fr}
+  .compare-tbl{font-size:.78rem}
+  .vision-grid{grid-template-columns:1fr}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:.78rem}
+}
+@media(max-width:480px){
+  .card-grid,.kpi-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .section-title{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-badge">OSA: Okinawan Security Autonomy</div>
+    <h1>沖縄安全保障自治論</h1>
+    <div class="subtitle">Concept Paper v3.0</div>
+    <div class="date">作成日: 2026年3月26日 ｜ 対話的思考実験を通じた概念の自然発生的生成</div>
+    <div class="core-statement">
+      「沖縄の暮らしにとって "安全" とは何かを、<br>沖縄の人たち自身がまず決める。そこからすべてを始める」
+    </div>
+    <nav class="chapter-nav">
+      <a href="#sec-what">OSAとは</a>
+      <a href="#sec-problem">60年変わらなかった理由</a>
+      <a href="#sec-shift">発想の転換</a>
+      <a href="#sec-security">安全保障とは</a>
+      <a href="#sec-seven">7つの安全</a>
+      <a href="#sec-kpi">KPI一覧</a>
+      <a href="#sec-principles">4つの原則</a>
+      <a href="#sec-design">設計する権利</a>
+      <a href="#sec-how">どう交渉するか</a>
+      <a href="#sec-flow">全体の流れ</a>
+      <a href="#sec-reality">実現できるのか</a>
+      <a href="#sec-next">次のステップ</a>
+    </nav>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ========== OSAとは ========== -->
+<div class="section" id="sec-what">
+  <div class="section-title"><span class="section-icon">💬</span> そもそも OSA って何？</div>
+  <p class="body-text">OSA（Okinawan Security Autonomy）は、<strong>「沖縄にとっての安全とは何か」を沖縄の人たち自身がまず決めよう</strong>、という考え方です。</p>
+  <p class="body-text">これまでの議論では、「基地をなくせ」「いや抑止力は必要だ」と、賛成か反対かの二択しかありませんでした。結果、60年以上たっても何も変わっていません。</p>
+  <p class="body-text">OSAはその二択をやめます。代わりに、<strong>「私たちが安心して暮らすために必要なものはこれです。この基準を満たしてくれるなら、話し合いましょう」</strong>という立場をとります。</p>
+
+  <div class="two-col" style="margin-top:16px">
+    <div class="card" style="border-left:3px solid var(--alert)">
+      <div class="card-label" style="color:var(--alert)">今までのやり方</div>
+      <div class="card-desc"><strong>「基地反対！」</strong><br>→ 「じゃあ代わりの案は？」<br>→ 答えられない → 議論が止まる</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--gold)">
+      <div class="card-label" style="color:var(--gold)">OSAのやり方</div>
+      <div class="card-desc"><strong>「私たちの安全基準はこれです」</strong><br>→ 「この基準に対してどう応えますか？」<br>→ 相手が答えなければならない</div>
+    </div>
+  </div>
+
+  <div class="card-grid" style="margin-top:20px">
+    <div class="card">
+      <div class="card-label">国土面積比</div>
+      <div class="card-value">0.6%</div>
+      <div class="card-desc">沖縄の面積は日本全体のたった0.6%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">米軍施設の集中度</div>
+      <div class="card-value">70%+</div>
+      <div class="card-desc">在日米軍の専用施設の7割以上が沖縄に</div>
+    </div>
+    <div class="card">
+      <div class="card-label">地位協定の改定回数</div>
+      <div class="card-value">0回</div>
+      <div class="card-desc">1960年から66年間、一度も変わっていない</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 60年変わらなかった理由 ========== -->
+<div class="section" id="sec-problem" data-accordion>
+  <div class="section-title"><span class="section-icon">🔍</span> なぜ60年間、何も変わらなかったのか</div>
+  <div class="section-body">
+    <p class="body-text">理由はシンプルです。<strong>「変えなくても困らない人たち」が決定権を持っているから</strong>です。</p>
+    <p class="body-text">では、具体的に「何が変わらなかったのか」を見てみましょう。</p>
+
+    <div class="highlight-box" style="margin-bottom:24px">
+      <h4 style="margin-bottom:12px">60年間、変わらなかったこと</h4>
+      <div class="wall-facts" style="margin-top:0">
+        <div class="wall-fact"><strong>基地の面積</strong>：復帰時（1972年）の米軍基地は県土の約15%。現在も約8%を占め、人口密集地に集中したまま</div>
+        <div class="wall-fact"><strong>地位協定</strong>：1960年の締結以来<strong>一度も改定されていない</strong>。ドイツやイタリアは自国に有利な改定を実現している</div>
+        <div class="wall-fact"><strong>事件・事故</strong>：復帰後だけで米軍関係の事件・事故は約6,000件超。直近でも墜落事故、性犯罪、環境汚染が続いている</div>
+        <div class="wall-fact"><strong>騒音</strong>：普天間飛行場周辺では環境基準を超える騒音が日常的に発生。裁判で「違法」と認定されても飛行は止まらない</div>
+        <div class="wall-fact"><strong>PFAS汚染</strong>：嘉手納基地・普天間基地周辺の水源から高濃度のPFAS（有害な有機フッ素化合物）が検出。基地内の調査すらできない</div>
+        <div class="wall-fact"><strong>経済構造</strong>：沖縄の1人あたり県民所得は全国最下位水準が続く。基地が「経済に貢献している」と言われるが、基地関連収入は県経済の約5%に過ぎない</div>
+      </div>
+    </div>
+
+    <p class="body-text">なぜこれほど明らかな問題が放置されるのか？ <strong>3つの構造的な壁</strong>が、変化を阻んでいます。</p>
+
+    <!-- 壁① -->
+    <div class="wall-block">
+      <div class="wall-heading">
+        <div class="wall-number">1</div>
+        <div class="wall-title-group">
+          <div class="wall-main">法律の壁</div>
+          <div class="wall-sub">テーブルに座る権利すらない</div>
+        </div>
+      </div>
+      <div class="wall-body">
+        日米安保条約の当事者は「日本政府」と「米国政府」の2者だけです。条約のどこにも「沖縄県」は出てきません。<br><br>
+        つまり、<strong>自分の家の話をしているのに、自分はテーブルに座れない</strong>。隣の部屋で決められた結果だけが通知される——それが今の沖縄の法的な立場です。<br><br>
+        地位協定の運用を協議する「日米合同委員会」も非公開。議事録すら全面開示されていません。沖縄県知事が直接参加したことは一度もありません。
+      </div>
+    </div>
+
+    <!-- 壁② -->
+    <div class="wall-block">
+      <div class="wall-heading">
+        <div class="wall-number">2</div>
+        <div class="wall-title-group">
+          <div class="wall-main">政治の壁</div>
+          <div class="wall-sub">動かないほうが「得」な構造</div>
+        </div>
+      </div>
+      <div class="wall-body">
+        沖縄の有権者は全国の約<strong>1.4%</strong>。選挙で無視しても国政に影響しない数です。<br><br>
+        さらに、歴代の政権にとって基地問題を動かすことは「リスクしかない選択」でした。<br>
+        ・ 動かそうとして失敗した鳩山政権 → 退陣に追い込まれた<br>
+        ・ 何もしなかった政権 → 特にペナルティなし<br><br>
+        <strong>「何もしないほうが政治家にとって安全」</strong>——これが60年間の構造です。振興予算（年間約3,000億円）を渡すことで「対応している」という形は保たれ、根本的な変化は先送りされ続けています。
+      </div>
+    </div>
+
+    <!-- 壁③ -->
+    <div class="wall-block">
+      <div class="wall-heading">
+        <div class="wall-number">3</div>
+        <div class="wall-title-group">
+          <div class="wall-main">議論の壁</div>
+          <div class="wall-sub">「問い」を出す側に一度も立てなかった</div>
+        </div>
+      </div>
+      <div class="wall-body">
+        これまでの沖縄の議論はすべて<strong>「相手が出した問題に反応する」形</strong>でした。<br><br>
+        「辺野古に移設します」→「反対です」<br>
+        「抑止力のために必要です」→「それは本当ですか？」<br>
+        「振興予算を増やしましょう」→「ありがとうございます／足りません」<br><br>
+        常に「質問される側」「答える側」です。<strong>自分たちから「問い」を設定したことがない</strong>。県民投票ですら、「辺野古の賛否」という、政府が設定したアジェンダへの応答でした。<br><br>
+        問いを出す側が議論を支配する——これはビジネスでも政治でも同じ原則です。沖縄はこの60年間、一度も問いを出す側に回れませんでした。
+      </div>
+    </div>
+
+    <div class="quote-block">「変えないことのツケ」は沖縄県民だけが払い、東京の政治家は何も困らない。<br>この非対称さが、問題を60年間フリーズさせてきた根っこの原因です。</div>
+  </div>
+</div>
+
+<!-- ========== 発想の転換 ========== -->
+<div class="section" id="sec-shift" data-accordion>
+  <div class="section-title"><span class="section-icon">💡</span> OSAの発想の転換 — 「守ってもらう」から「自分たちで決める」へ</div>
+  <div class="section-body">
+    <p class="body-text">「安全保障」と聞くと、多くの人は「軍隊が国を守ること」をイメージします。でもOSAでは、安全保障をもっと広く捉えます。同じ問いに対して、これまでの考え方とOSAの考え方がどう違うかを並べてみましょう。</p>
+
+    <table class="compare-tbl">
+      <tr>
+        <th class="col-old">これまでの考え方</th>
+        <th class="col-q">問い</th>
+        <th class="col-new">OSAの考え方</th>
+      </tr>
+      <tr>
+        <td class="td-old">軍隊が敵から守ること</td>
+        <td class="td-q">安全とは</td>
+        <td class="td-new">県民が安心して暮らせる<br>状態をつくること</td>
+      </tr>
+      <tr>
+        <td class="td-old">国や軍</td>
+        <td class="td-q">主役は</td>
+        <td class="td-new">そこに住む人たち</td>
+      </tr>
+      <tr>
+        <td class="td-old">「脅威がない」こと</td>
+        <td class="td-q">大事なこと</td>
+        <td class="td-new">「暮らしに必要なものが<br>ある」こと</td>
+      </tr>
+      <tr>
+        <td class="td-old">軍事の専門家が決める</td>
+        <td class="td-q">誰が決める</td>
+        <td class="td-new">県民自身が<br>「何が大事か」を決める</td>
+      </tr>
+    </table>
+
+    <div class="quote-block" style="margin-top:20px">たとえば——<br>
+    水道水にPFAS（有害物質）が混ざっていないこと。<br>
+    子どもが学校で飛行機の爆音に怯えないこと。<br>
+    仕事があって、家族を養えること。<br>
+    <strong>これらも全部「安全保障」です。</strong>ミサイルだけが脅威じゃない。</div>
+  </div>
+</div>
+
+<!-- ========== 安全保障とは ========== -->
+<div class="section" id="sec-security" data-accordion>
+  <div class="section-title"><span class="section-icon">📚</span> そもそも「安全保障」って何のこと？</div>
+  <div class="section-body">
+    <p class="body-text">「安全保障」という言葉を聞くと、多くの人は戦闘機やミサイル防衛をイメージするかもしれません。しかし現代の世界では、<strong>安全保障の意味はもっとずっと広くなっています。</strong></p>
+
+    <div class="sub-title">安全保障の考え方は、時代とともに広がってきた</div>
+    <p class="body-text">第二次世界大戦まで、安全保障とは「国を軍事的に守ること」でした。しかし冷戦後、世界はこう気づきました——<strong>「戦争がなくても、人が安全でないことがある」</strong>と。</p>
+
+    <div class="card-grid" style="margin-top:12px">
+      <div class="card">
+        <div class="card-label">従来の安全保障</div>
+        <div class="card-desc">外国の軍隊から国境を守る。ミサイル、戦闘機、軍艦。<strong>国を守る</strong>のが目的。</div>
+      </div>
+      <div class="card">
+        <div class="card-label">人間の安全保障（1994年〜）</div>
+        <div class="card-desc">国連が提唱。貧困、感染症、環境破壊、差別——<strong>「人が安心して暮らせない状態」はすべて安全保障の問題</strong>だとした。日本政府もこの考え方を国際社会で推進してきた。</div>
+      </div>
+      <div class="card">
+        <div class="card-label">現代の安全保障</div>
+        <div class="card-desc">サイバー攻撃、パンデミック、気候変動、食料危機、エネルギー安全保障——<strong>軍事以外の脅威</strong>が安全保障の中心課題になりつつある。</div>
+      </div>
+    </div>
+
+    <div class="sub-title">なぜこれが大事なのか</div>
+    <p class="body-text">2020年のコロナ禍で、多くの人が実感したはずです。「戦争は起きていないのに、安全ではない」と。マスクがない、病院に入れない、仕事がなくなる——<strong>これらは全部「安全保障」の問題</strong>です。</p>
+    <p class="body-text">沖縄に当てはめると、もっと具体的に見えてきます。</p>
+
+    <div class="highlight-box">
+      <p class="body-text" style="margin:0">
+        ・ 水道水にPFAS（有害な化学物質）が混入している → <strong>環境安全保障</strong>の問題<br>
+        ・ 米軍関係者による事件で住民が被害を受ける → <strong>人間の安全保障</strong>の問題<br>
+        ・ 子どもの貧困率が全国の約2倍 → <strong>経済安全保障</strong>の問題<br>
+        ・ 基地の中で何が起きているか知らされない → <strong>情報安全保障</strong>の問題<br>
+        ・ うちなーぐちの話者が急減している → <strong>文化安全保障</strong>の問題
+      </p>
+    </div>
+
+    <p class="body-text" style="margin-top:16px">つまり、<strong>安全保障とは「ミサイルから守ること」だけではない。人が安心して暮らし続けられる状態をつくり、守ること</strong>——それが現代の安全保障の基本的な考え方です。</p>
+    <p class="body-text">OSAはこの考え方を沖縄に具体的に当てはめ、<strong>「じゃあ沖縄の人にとっての安全って、具体的に何なの？」</strong>を7つの層で定義しています。</p>
+  </div>
+</div>
+
+<!-- ========== 7つの安全 ========== -->
+<div class="section" id="sec-seven">
+  <div class="section-title"><span class="section-icon">🏛️</span> OSAが守りたい沖縄の安全とは</div>
+  <p class="body-text" style="margin-bottom:16px">現代の安全保障の考え方に基づいて、OSAは「安全」を7つの層に分けて定義します。軍事だけでなく、<strong>暮らしのあらゆる面で安心できる状態</strong>を目指します。</p>
+
+  <div class="layer-grid">
+    <div class="layer-card l1">
+      <div class="layer-num">1</div>
+      <div>
+        <h3>からだの安全</h3>
+        <div class="layer-en">PHYSICAL SECURITY</div>
+        <p><strong>暴力、事故、環境汚染にさらされない毎日。</strong>基地からの騒音、PFAS汚染、米軍関連の事件・事故——今の沖縄では、これが十分に守られていません。「家の上を飛ばないで」「水を安心して飲みたい」、それだけのことです。</p>
+      </div>
+    </div>
+    <div class="layer-card l2">
+      <div class="layer-num">2</div>
+      <div>
+        <h3>暮らしの安全</h3>
+        <div class="layer-en">EXISTENTIAL SECURITY</div>
+        <p><strong>食べていける、住む場所がある、病院にかかれる。</strong>沖縄の子どもの貧困率は約22%。最低賃金は全国最低水準。仕事があり、家族が生活できること——これが安全保障の土台です。</p>
+      </div>
+    </div>
+    <div class="layer-card l3">
+      <div class="layer-num">3</div>
+      <div>
+        <h3>こころの安全</h3>
+        <div class="layer-en">PSYCHOLOGICAL SECURITY</div>
+        <p><strong>「怖い」「不安だ」と感じなくていい日常。</strong>「いつヘリが落ちるかわからない」「また事件があるかも」——そんな漠然とした恐怖を抱えながら暮らすこと自体が、安全が壊れている状態です。</p>
+      </div>
+    </div>
+    <div class="layer-card l4">
+      <div class="layer-num">4</div>
+      <div>
+        <h3>つながりの安全</h3>
+        <div class="layer-en">RELATIONAL SECURITY</div>
+        <p><strong>家族・近所・地域の絆が保たれている状態。</strong>沖縄には「ゆいまーる（助け合い）」の文化があります。基地によって地域が分断されたり、コミュニティが壊れたりすることは、この「つながりの安全」への脅威です。</p>
+      </div>
+    </div>
+    <div class="layer-card l5">
+      <div class="layer-num">5</div>
+      <div>
+        <h3>文化の安全</h3>
+        <div class="layer-en">CULTURAL SECURITY</div>
+        <p><strong>うちなーぐち（沖縄の言葉）、エイサー、歴史——自分たちのアイデンティティが大切にされること。</strong>琉球としての文化・言語・歴史の継承が守られなければ、「沖縄らしさ」そのものが失われます。</p>
+      </div>
+    </div>
+    <div class="layer-card l6">
+      <div class="layer-num">6</div>
+      <div>
+        <h3>知る権利の安全</h3>
+        <div class="layer-en">INFORMATIONAL SECURITY</div>
+        <p><strong>自分たちの土地で何が起きているかを知れること。</strong>基地の中で何が貯蔵されているか、地下水にどんな影響があるか、事故の詳細は何か——今、沖縄県にはこれらを知る手段がほとんどありません。</p>
+      </div>
+    </div>
+    <div class="layer-card l7">
+      <div class="layer-num">7</div>
+      <div>
+        <h3>参加する権利の安全</h3>
+        <div class="layer-en">PARTICIPATORY SECURITY</div>
+        <p><strong>自分たちの安全に関する決定に、自分たちが関われること。</strong>これが7つの中で一番大事。他の6つが全部満たされていても、「決める権利」がなければ、いつでも取り上げられる不安定なものです。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== KPI一覧 ========== -->
+<div class="section" id="sec-kpi">
+  <div class="section-title"><span class="section-icon">📏</span> 7つの安全の KPI — 「ちゃんと守れているか」を測る指標</div>
+  <p class="body-text">「安全です」と言うだけでは意味がありません。<strong>数字で測れる指標（KPI）</strong>を決め、毎年チェックすることが大事です。<br>
+  <span class="kpi-badge kpi-badge-existing">既存データ</span> は沖縄県や国が既に集めているもの、<span class="kpi-badge kpi-badge-new">新規導入推奨</span> は今後新たに測るべきものです。</p>
+
+  <div class="kpi-section">
+
+    <!-- Layer 1 KPI -->
+    <div class="kpi-layer-title" style="background:rgba(220,50,50,0.08);color:#E05555">
+      <span style="font-family:'Playfair Display',serif;font-size:1.3em">1</span> からだの安全
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-existing">
+        <h5><span class="kpi-badge kpi-badge-existing">既存データ</span></h5>
+        <ul>
+          <li>米軍関係の事件・事故 件数／年（沖縄県警統計）</li>
+          <li>航空機騒音の環境基準超過日数（沖縄県環境部）</li>
+          <li>PFAS（有機フッ素化合物）水道水検出値（企業局水質検査）</li>
+          <li>基地周辺の交通事故発生件数（県警交通統計）</li>
+          <li>大気汚染物質（PM2.5・NO2）基準超過回数（環境省常時監視）</li>
+        </ul>
+      </div>
+      <div class="kpi-card kpi-new">
+        <h5><span class="kpi-badge kpi-badge-new">新規導入推奨</span></h5>
+        <ul>
+          <li>米軍関係事件の被害者への<strong>賠償完了率</strong>（申請件数に対する解決率）</li>
+          <li>基地周辺住民の<strong>健康影響調査</strong>（騒音性難聴・ストレスホルモン等の疫学データ）</li>
+          <li>基地返還跡地の<strong>土壌汚染クリアランス率</strong>（浄化完了面積÷返還面積）</li>
+          <li>騒音苦情への<strong>平均対応日数</strong>（苦情受付→改善措置までの日数）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 2 KPI -->
+    <div class="kpi-layer-title" style="background:rgba(220,140,50,0.08);color:#DC8C32">
+      <span style="font-family:'Playfair Display',serif;font-size:1.3em">2</span> 暮らしの安全
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-existing">
+        <h5><span class="kpi-badge kpi-badge-existing">既存データ</span></h5>
+        <ul>
+          <li>子どもの貧困率（沖縄県子ども調査）</li>
+          <li>完全失業率（総務省労働力調査・沖縄分）</li>
+          <li>県民1人あたり所得（県民経済計算）</li>
+          <li>最低賃金（厚労省）と生活保護受給率</li>
+          <li>医師数・看護師数（人口10万人あたり、離島含む）</li>
+          <li>持ち家率 / 家賃負担率（住宅・土地統計調査）</li>
+        </ul>
+      </div>
+      <div class="kpi-card kpi-new">
+        <h5><span class="kpi-badge kpi-badge-new">新規導入推奨</span></h5>
+        <ul>
+          <li><strong>生活実感指数</strong>（「今の収入で安心して暮らせるか」県民アンケート）</li>
+          <li>基地関連雇用への<strong>経済依存度</strong>（基地関連所得÷県民総所得）</li>
+          <li><strong>離島アクセス指数</strong>（離島住民の医療・買い物・教育へのアクセス時間）</li>
+          <li>若年層（18-30歳）の<strong>県外流出率</strong>と<strong>Uターン率</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 3 KPI -->
+    <div class="kpi-layer-title" style="background:rgba(220,200,50,0.08);color:#C8B832">
+      <span style="font-family:'Playfair Display',serif;font-size:1.3em">3</span> こころの安全
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-existing">
+        <h5><span class="kpi-badge kpi-badge-existing">既存データ</span></h5>
+        <ul>
+          <li>自殺率（厚労省人口動態統計）</li>
+          <li>精神科受診件数・入院件数（NDB/レセプトデータ）</li>
+          <li>DV相談件数（配偶者暴力相談支援センター統計）</li>
+          <li>不登校児童生徒数（文科省学校基本調査）</li>
+          <li>こころの健康相談電話 着信件数（県精神保健福祉センター）</li>
+        </ul>
+      </div>
+      <div class="kpi-card kpi-new">
+        <h5><span class="kpi-badge kpi-badge-new">新規導入推奨</span></h5>
+        <ul>
+          <li><strong>基地周辺住民ストレス調査</strong>（騒音・不安に関する定期サーベイ、GHQ-12等の標準尺度）</li>
+          <li><strong>安心感スコア</strong>（「夜、安心して窓を開けて寝られるか」等の県民調査）</li>
+          <li>基地関連事件報道後の<strong>相談急増率</strong>（事件前後1週間の相談件数比較）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 4 KPI -->
+    <div class="kpi-layer-title" style="background:rgba(50,180,120,0.08);color:#32B478">
+      <span style="font-family:'Playfair Display',serif;font-size:1.3em">4</span> つながりの安全
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-existing">
+        <h5><span class="kpi-badge kpi-badge-existing">既存データ</span></h5>
+        <ul>
+          <li>自治会・区の加入率（市町村調査）</li>
+          <li>ボランティア活動参加率（社会生活基本調査）</li>
+          <li>模合（もあい）参加世帯率 ※一部市町村で調査あり</li>
+          <li>地域行事（エイサー・ハーリー等）開催件数</li>
+          <li>民生委員の充足率（厚労省）</li>
+        </ul>
+      </div>
+      <div class="kpi-card kpi-new">
+        <h5><span class="kpi-badge kpi-badge-new">新規導入推奨</span></h5>
+        <ul>
+          <li><strong>地域つながり指数</strong>（「困ったとき頼れる人がいるか」県民調査）</li>
+          <li>基地フェンスによる<strong>地域分断指数</strong>（基地によって分断された集落数・迂回距離）</li>
+          <li><strong>世代間交流頻度</strong>（65歳以上と18歳以下が月1回以上交流する割合）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 5 KPI -->
+    <div class="kpi-layer-title" style="background:rgba(50,140,200,0.08);color:#328CC8">
+      <span style="font-family:'Playfair Display',serif;font-size:1.3em">5</span> 文化の安全
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-existing">
+        <h5><span class="kpi-badge kpi-badge-existing">既存データ</span></h5>
+        <ul>
+          <li>うちなーぐち話者数・理解度（県文化振興課調査）</li>
+          <li>県指定・国指定文化財の件数と保全状態</li>
+          <li>伝統芸能団体数と活動件数</li>
+          <li>沖縄関連書籍の出版点数</li>
+          <li>県立博物館・美術館の来館者数</li>
+        </ul>
+      </div>
+      <div class="kpi-card kpi-new">
+        <h5><span class="kpi-badge kpi-badge-new">新規導入推奨</span></h5>
+        <ul>
+          <li><strong>言語継承率</strong>（「子ども世代にうちなーぐちを教えている」家庭の割合）</li>
+          <li><strong>文化アイデンティティ調査</strong>（「琉球・沖縄の文化に誇りを感じるか」）</li>
+          <li>基地所在地での<strong>文化財・聖地（御嶽等）へのアクセス制限件数</strong></li>
+          <li>学校教育における<strong>沖縄史・琉球文化の授業時間数</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 6 KPI -->
+    <div class="kpi-layer-title" style="background:rgba(100,80,200,0.08);color:#6450C8">
+      <span style="font-family:'Playfair Display',serif;font-size:1.3em">6</span> 知る権利の安全
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-existing">
+        <h5><span class="kpi-badge kpi-badge-existing">既存データ</span></h5>
+        <ul>
+          <li>情報公開請求件数と開示率（沖縄防衛局・県・市町村）</li>
+          <li>日米合同委員会の合意事項 公開件数</li>
+          <li>環境補足協定に基づく基地内立入調査 実施件数</li>
+          <li>米軍による事故・環境漏出の<strong>通報件数と通報までの所要時間</strong></li>
+        </ul>
+      </div>
+      <div class="kpi-card kpi-new">
+        <h5><span class="kpi-badge kpi-badge-new">新規導入推奨</span></h5>
+        <ul>
+          <li><strong>情報透明度スコア</strong>（県が求めた情報のうち、実際に開示された割合）</li>
+          <li>基地内環境データ（土壌・水質・大気）の<strong>定期公開頻度</strong>（年何回公開されるか）</li>
+          <li>米軍の訓練・飛行計画の<strong>事前通知率</strong>（通知あり÷実際の訓練実施数）</li>
+          <li>事件・事故発生時の<strong>県への初報までの平均時間</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 7 KPI -->
+    <div class="kpi-layer-title" style="background:rgba(184,145,42,0.08);color:var(--gold)">
+      <span style="font-family:'Playfair Display',serif;font-size:1.3em">7</span> 参加する権利の安全
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-existing">
+        <h5><span class="kpi-badge kpi-badge-existing">既存データ</span></h5>
+        <ul>
+          <li>知事選・県議選・市町村長選の投票率</li>
+          <li>パブリックコメント提出件数（県・市町村）</li>
+          <li>基地関連の住民説明会 開催件数と参加者数</li>
+          <li>万国津梁会議等の県主催協議会 開催実績</li>
+        </ul>
+      </div>
+      <div class="kpi-card kpi-new">
+        <h5><span class="kpi-badge kpi-badge-new">新規導入推奨</span></h5>
+        <ul>
+          <li><strong>安全保障に関する県民意識調査</strong>（年1回・定点観測）</li>
+          <li><strong>政策参加の多様性指数</strong>（安全保障関連会議の参加者の年齢・地域・性別の偏り度合い）</li>
+          <li>日米合同委員会への県のオブザーバー参加<strong>実現状況</strong>（要請回数・認容回数）</li>
+          <li>若年層（18-30歳）の<strong>安全保障議論への参加率</strong></li>
+          <li>県の安全保障関連の<strong>意見書・建議書の提出件数と国の回答率</strong></li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /kpi-section -->
+</div>
+
+<!-- ========== 4つの原則 ========== -->
+<div class="section" id="sec-principles">
+  <div class="section-title"><span class="section-icon">🛡️</span> 軍事・防衛に対する4つの原則</div>
+
+  <div class="sub-title">なぜ軍事・防衛は必要とされるのか</div>
+  <p class="body-text">現実の世界では、国同士の対立や武力紛争は存在し続けています。2022年のロシアによるウクライナ侵攻は、「現代でも一方的な軍事侵攻が起こりうる」ことを世界に突きつけました。東アジアでも、台湾海峡の緊張、北朝鮮のミサイル開発、南シナ海の領有権問題など、軍事的リスクは現実のものです。</p>
+  <p class="body-text">こうした環境の中で、<strong>軍事力は「戦争をするため」ではなく「戦争を起こさせないため」</strong>に持つ——これが「抑止力」の基本的な考え方です。実際に使わなくても、「攻撃したら反撃される」という状況をつくることで、相手に攻撃を思いとどまらせます。</p>
+  <p class="body-text">OSAはこの現実を否定しません。<strong>ただし、軍事力は「県民の暮らしを守るための道具」であって、目的そのものではない</strong>という立場をとります。道具である以上、使い方のルールが必要です。OSAはそのルールとして4つの原則を定めます。</p>
+
+  <div class="principle-grid" style="margin-top:16px">
+    <div class="principle-card">
+      <div class="p-num">I</div>
+      <h4>住民の命が最優先</h4>
+      <p>軍事力は「県民を守る」ために使うもの。国の軍事目標のために県民が犠牲になることは認めない。<strong>人を守るためのものが人を危険にさらすなら、本末転倒です。</strong></p>
+    </div>
+    <div class="principle-card">
+      <div class="p-num">II</div>
+      <h4>軍事だけに頼らない</h4>
+      <p>外からの脅威には「軍事的な備え」と「外交・対話」の二本柱で対応する。沖縄は琉球時代から東アジアの交流拠点。<strong>対話の力は沖縄の得意分野</strong>です。</p>
+    </div>
+    <div class="principle-card">
+      <div class="p-num">III</div>
+      <h4>何があるか教えてほしい</h4>
+      <p>自分たちの島にどんな兵器があり、どんな訓練が行われているか。<strong>知らされないまま「守ってあげてる」と言われても、信頼は生まれません。</strong></p>
+    </div>
+    <div class="principle-card">
+      <div class="p-num">IV</div>
+      <h4>万が一のとき、逃げる計画を</h4>
+      <p>「抑止力があるから大丈夫」では不十分。<strong>もし抑止が破れたとき、県民をどう避難させるか</strong>——その計画を事前に作り、公開しておくことを求めます。</p>
+    </div>
+  </div>
+
+  <!-- アコーディオン：世界の軍事防衛 -->
+  <div class="mil-accordion" style="margin-top:24px">
+    <div class="mil-accordion-title" onclick="toggleMilAccordion(this)">
+      もっと詳しく：世界の軍事・防衛の現状
+    </div>
+    <div class="mil-accordion-body">
+      <div class="mil-inner">
+        <div class="sub-title">軍事力を持つ国と持たない国</div>
+        <p class="body-text">国連加盟193カ国のうち、<strong>正規の軍隊を持たない国はわずか約20〜30カ国</strong>程度です。コスタリカ（1948年に軍隊を廃止）、アイスランド、パナマなどが有名ですが、その多くは米国との安全保障条約に依存していたり、地理的に侵攻リスクが低い小国です。</p>
+        <p class="body-text">つまり、<strong>何らかの防衛力を持つことは国際社会の「標準」</strong>であり、軍隊を持たないこと自体が例外的な選択です。日本も自衛隊を持ち、日米同盟を防衛の柱としています。</p>
+
+        <table class="tbl" style="margin-top:12px">
+          <tr><th>カテゴリ</th><th>国数（概数）</th><th>代表例</th></tr>
+          <tr><td>正規軍を保有</td><td>約160〜170カ国</td><td>米国、中国、ロシア、日本（自衛隊）、韓国、ドイツ、フランス等</td></tr>
+          <tr><td>軍隊なし（警察・準軍事力のみ）</td><td>約20〜30カ国</td><td>コスタリカ、アイスランド、パナマ、モーリシャス等</td></tr>
+        </table>
+
+        <div class="sub-title" style="margin-top:20px">世界の軍事防衛の基本的な考え方</div>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-label">抑止（Deterrence）</div>
+            <div class="card-desc">「攻撃したら痛い目に遭う」と相手に思わせることで攻撃を思いとどまらせる。核抑止・通常戦力抑止の2種がある。NATOの基本戦略。</div>
+          </div>
+          <div class="card">
+            <div class="card-label">集団安全保障（Collective Security）</div>
+            <div class="card-desc">複数の国が同盟を結び、1カ国が攻撃されたら全員で守る仕組み。NATO（北大西洋条約機構・31カ国）、日米安保条約がこれにあたる。</div>
+          </div>
+          <div class="card">
+            <div class="card-label">文民統制（Civilian Control）</div>
+            <div class="card-desc">軍隊は選挙で選ばれた政治家の指揮下に置く原則。<strong>軍が勝手に動くことを防ぐ仕組み</strong>で、民主主義国家の大前提。</div>
+          </div>
+          <div class="card">
+            <div class="card-label">住民保護（Protection of Civilians）</div>
+            <div class="card-desc">国際人道法（ジュネーブ条約）の柱。武力紛争においても<strong>民間人の生命と生活を最大限保護する義務</strong>がある。OSAの第1原則はこの考え方と直結。</div>
+          </div>
+        </div>
+
+        <div class="sub-title" style="margin-top:16px">他国の「住民と基地」の関係</div>
+        <p class="body-text">ドイツやイタリアには米軍基地がありますが、両国とも<strong>地位協定を自国に有利な形に改定</strong>しています。ドイツでは基地内の環境調査を自国が実施でき、イタリアでは訓練飛行に自国の許可が必要です。沖縄（日本）の地位協定は、NATO諸国と比較して<strong>受入国側の権限が著しく弱い</strong>ことが指摘されています。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mil-accordion">
+    <div class="mil-accordion-title" onclick="toggleMilAccordion(this)">
+      もっと詳しく：沖縄の地理的な特殊性と安全保障上の位置づけ
+    </div>
+    <div class="mil-accordion-body">
+      <div class="mil-inner">
+        <p class="body-text">沖縄は東京から約1,500km南西に位置し、台湾まで約600km、中国本土まで約800km、韓国まで約1,300km。<strong>東アジアの主要都市にほぼ等距離</strong>という地理的特性から、米軍にとって戦略的に極めて重要な拠点です。</p>
+        <p class="body-text">この地理は「守る側」にとって有利ですが、裏を返せば<strong>有事の際に「標的になる」リスクも最も高い</strong>ことを意味します。この二面性が、OSA第1原則（住民の命が最優先）を沖縄で特に重要にしている理由です。</p>
+        <p class="body-text">1945年の沖縄戦では、約12万人の民間人が犠牲になりました。日本軍は住民を盾にし、米軍は住民ごと戦った。<strong>軍事力が「住民を守る」ために機能しなかった原点的な体験</strong>を、沖縄は持っています。この歴史が、OSAの「住民保護の優先性」という原則の根底にあります。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 設計する権利 ========== -->
+<div class="section" id="sec-design" data-accordion>
+  <div class="section-title"><span class="section-icon">⚙️</span> 「設計する権利」という考え方</div>
+  <div class="section-body">
+    <p class="body-text">何かを実現するときの「責任」には2種類あります。</p>
+
+    <div class="two-col" style="margin-top:12px">
+      <div class="card">
+        <div class="card-label">実行する責任</div>
+        <div class="card-value" style="font-size:1em;color:#fff">自分の手でやる</div>
+        <div class="card-desc">例：軍事力を持って防衛する。これは県にはできない部分もある。</div>
+      </div>
+      <div class="card" style="border-color:rgba(184,145,42,0.3)">
+        <div class="card-label" style="color:var(--gold)">設計する責任</div>
+        <div class="card-value" style="font-size:1em;color:var(--gold-light)">「誰に、何を、どう頼むか」を決める</div>
+        <div class="card-desc">例：防衛を委託するなら、その条件を自分たちで決める。<strong>これは沖縄にもできるはず。</strong></div>
+      </div>
+    </div>
+
+    <div class="quote-block" style="margin-top:20px">沖縄が今持っていないのは「軍事力」ではありません。<br><strong>「誰にどう頼むかを決める権利」</strong>です。<br>家のリフォームを業者に頼むとき、どこに頼むか、何をしてもらうかは自分で決めますよね。<br>今の沖縄は、勝手にリフォームされて請求書だけ回されている状態です。</div>
+
+    <div class="sub-title" style="margin-top:16px">具体的にどういうこと？</div>
+    <table class="tbl">
+      <tr><th>安全の分野</th><th>今の状態</th><th>OSAが目指す状態</th></tr>
+      <tr><td>軍事的な守り</td><td>日米が決める。沖縄は口を出せない</td><td>日米に頼むが、<strong>沖縄が条件を決める</strong></td></tr>
+      <tr><td>経済・暮らし</td><td>国と県がやるが、基地依存が大きい</td><td><strong>沖縄が主導</strong>する経済政策</td></tr>
+      <tr><td>文化の継承</td><td>県と民間がやっている</td><td>沖縄自身が守り育てる</td></tr>
+      <tr><td>情報公開</td><td style="color:var(--alert)">米軍と国が独占</td><td><strong>県が知る権利</strong>を制度として持つ</td></tr>
+      <tr><td>意思決定への参加</td><td style="color:var(--alert)">仕組みが存在しない</td><td>日米の協議に<strong>沖縄が参加</strong>できる枠組み</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ========== どう交渉するか ========== -->
+<div class="section" id="sec-how" data-accordion>
+  <div class="section-title"><span class="section-icon">🤝</span> 具体的にどう交渉するのか</div>
+  <div class="section-body">
+    <div class="quote-block">「私たちの安全基準を作りました。<br>この基準を満たしてくれるなら、基地があることを受け入れる用意があります。<br>その条件はこれです」</div>
+
+    <p class="body-text" style="margin-top:16px">これが、<strong>「被害者として訴える」から「条件を出す側」へ</strong>の転換です。相手は条件に対して具体的に答える必要が出てきます。</p>
+
+    <div class="sub-title">たとえばこんな条件</div>
+    <div class="card-grid">
+      <div class="card"><div class="card-label">条件 ①</div><div class="card-desc"><strong>有事の避難計画を作って公開する</strong> — 万が一のとき県民をどう守るか、日米両政府が事前に計画し、沖縄県と合意しておく</div></div>
+      <div class="card"><div class="card-label">条件 ②</div><div class="card-desc"><strong>環境・事故情報を定期的に出す</strong> — 基地の中の汚染データ、事件の詳細を、半年ごとに沖縄県に提供する</div></div>
+      <div class="card"><div class="card-label">条件 ③</div><div class="card-desc"><strong>騒音や汚染に基準を設ける</strong> — 沖縄県が決めた基準を守る義務を、基地運用のルールにする</div></div>
+      <div class="card"><div class="card-label">条件 ④</div><div class="card-desc"><strong>住民との対話を制度化する</strong> — 年2回以上、地域住民と基地側が話し合う場を必ず設ける</div></div>
+    </div>
+
+    <div class="sub-title" style="margin-top:20px">なぜこれが強いのか</div>
+    <p class="body-text">「基地をなくせ」は無視できます。でも<strong>「この数字を改善してください。改善しないなら、その記録を国連に出します」</strong>は無視しにくい。</p>
+    <p class="body-text">OSAの力は「基準を作ること」にあります。基準があれば現状とのギャップが測れる。ギャップが測れれば、改善要求が具体的になる。具体的な要求は、抽象的なスローガンよりずっと無視しにくいのです。</p>
+  </div>
+</div>
+
+<!-- ========== 全体の流れ ========== -->
+<div class="section" id="sec-flow">
+  <div class="section-title"><span class="section-icon">🔄</span> OSAの全体の流れ</div>
+  <div class="flow-container">
+    <div class="flow-step"><div class="step-num">1</div><p>県民が「私たちにとっての安全って何？」を話し合い、自分たちの言葉で定義する</p></div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step"><div class="step-num">2</div><p>7つの安全の基準として言葉にし、<strong>「県民定義書」</strong>を作る</p></div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step"><div class="step-num">3</div><p>「基地は私たちを守っているのか、危険にさらしているのか」を県民が判断する</p></div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step"><div class="step-num">4</div><p>判断に基づいて、「この条件を満たしてください」と日米に提示する</p></div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step"><div class="step-num">5</div><p>条件が守られているかを<strong>毎年KPIで測定し、「OSA白書」として記録</strong>する</p></div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step"><div class="step-num">6</div><p>守られていなければ、国連や国際社会にその記録を提出する</p></div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step" style="border-color:rgba(184,145,42,0.3);background:rgba(184,145,42,0.06)"><div class="step-num">7</div><p><strong>「沖縄が自分で決め、自分で測り、自分で評価した」<br>——この事実そのものが、交渉の力になる</strong></p></div>
+  </div>
+</div>
+
+<!-- ========== 実現できるのか ========== -->
+<div class="section" id="sec-reality" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 本当に実現できるのか</div>
+  <div class="section-body">
+    <p class="body-text">「理想はわかるけど、現実的なの？」——当然の疑問です。正直に整理します。</p>
+
+    <div class="two-col" style="margin-top:12px">
+      <div>
+        <div class="sub-title" style="color:var(--gold-light)">追い風になること</div>
+        <div class="card-grid" style="grid-template-columns:1fr">
+          <div class="card"><div class="card-desc"><strong>すでに土台がある</strong> — 万国津梁会議、県民投票、建議書制度。OSAはこれらを統合する「上位概念」</div></div>
+          <div class="card"><div class="card-desc"><strong>法的に問題ない</strong> — 独立でも分離でもない。憲法の地方自治権の範囲内で主張できる</div></div>
+          <div class="card"><div class="card-desc"><strong>時代の変化</strong> — 台湾有事リスク、防衛費増額、PFAS問題の全国化。沖縄の問題が「他人ごと」で済まなくなっている</div></div>
+          <div class="card"><div class="card-desc"><strong>人材が育っている</strong> — LIPS等のプログラムで、安全保障の専門知識を持つ沖縄出身者が増えている</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="sub-title" style="color:var(--alert)">向かい風になること</div>
+        <div class="card-grid" style="grid-template-columns:1fr">
+          <div class="card"><div class="card-desc"><strong>国の壁</strong> — 外交・防衛は「国の専管事項」という原則があり、県が口を出すことへの抵抗は大きい</div></div>
+          <div class="card"><div class="card-desc"><strong>政治リスク</strong> — 「賛成でも反対でもない第三の立場」は、既存の支持者から「どっちつかず」と見られるリスク</div></div>
+          <div class="card"><div class="card-desc"><strong>時間がかかる</strong> — 概念が社会に浸透するには10〜20年かかる。今すぐ劇的に変わる魔法ではない</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-title" style="margin-top:24px">総合評価</div>
+    <table class="tbl">
+      <tr><th>観点</th><th>評価</th><th>一言でいうと</th></tr>
+      <tr><td>発想の新しさ</td><td><span class="stars">★★★★★</span></td><td>世界に前例がない。「問いの設定権を取り戻す」という発想転換</td></tr>
+      <tr><td>制度的な実現可能性</td><td><span class="stars">★★★</span><span class="stars-dim">★★</span></td><td>法律的にはOK。あとは政治の意思次第</td></tr>
+      <tr><td>共感の広がりやすさ</td><td><span class="stars">★★★★</span><span class="stars-dim">★</span></td><td>賛成派にも反対派にも共通する土台になれる可能性</td></tr>
+      <tr><td>長期的なインパクト</td><td><span class="stars">★★★★★</span></td><td>世代を超えて使える「沖縄の哲学」になりうる</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ========== 次のステップ ========== -->
+<div class="section" id="sec-next" style="border-color:rgba(42,139,106,0.3);background:linear-gradient(135deg,#1A2540,rgba(42,139,106,0.06))">
+  <div class="section-title"><span class="section-icon">🚀</span> 次のステップ — ここから何をするか</div>
+  <p class="body-text">概念はできた。次は「動かすための設計図」を作る番です。</p>
+
+  <div class="card-grid" style="margin-top:12px">
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <div class="card-label" style="color:var(--teal)">Step 1</div>
+      <div class="card-desc"><strong>各層の「今どうなってるか」を調べる</strong><br>7つの安全それぞれについて、今の沖縄は何点なのか。KPIをベースに現状評価する</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <div class="card-label" style="color:var(--teal)">Step 2</div>
+      <div class="card-desc"><strong>「こうなりたい」を決める</strong><br>各層でどんな状態を目指すのか。数値目標も含めて「ゴール」を設定する</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <div class="card-label" style="color:var(--teal)">Step 3</div>
+      <div class="card-desc"><strong>KPIを確定し、データ収集体制を作る</strong><br>上のKPI案を精査し、誰がどう集めるかを決める。既存データの整理＋新規調査の設計</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <div class="card-label" style="color:var(--teal)">Step 4</div>
+      <div class="card-desc"><strong>優先順位と時間割を決める</strong><br>7層すべてを同時にやるのは無理。短期（1-2年）・中期（3-5年）・長期（5-10年）で何をやるか</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--teal)">
+      <div class="card-label" style="color:var(--teal)">Step 5</div>
+      <div class="card-desc"><strong>OSA白書（初版）の骨格を作る</strong><br>毎年発行する報告書のフォーマットを設計し、最初の1冊を形にする</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 核心 ========== -->
+<div class="section" style="text-align:center;padding:48px 36px;background:linear-gradient(135deg,#1A2540,rgba(184,145,42,0.06))">
+  <div class="section-title" style="justify-content:center"><span class="section-icon">✦</span> 最後にひとこと</div>
+  <div class="quote-block" style="text-align:center;font-size:1.2em;border-left:none;border:1px solid rgba(184,145,42,0.2);border-radius:12px;max-width:800px;margin:24px auto">
+    沖縄の暮らしにとって "安全" とは何かを、<br>沖縄の人たち自身がまず決める。<br>そこからすべてを始める。
+  </div>
+  <p class="body-text" style="max-width:700px;margin:16px auto 0;text-align:center">
+    これは「お願い」でも「抗議」でもありません。<strong>「宣言」</strong>です。<br>
+    「あなたたちの質問に答えます」をやめて、<br>
+    「私たちの質問に答えてください」と言うこと。<br>
+    それがOSAです。
+  </p>
+
+  <div class="sub-title" style="justify-content:center;margin-top:32px;color:var(--gold-light)">もしOSAが実現したら、沖縄はどう変わるか</div>
+  <div class="vision-grid" style="max-width:900px;margin:0 auto;text-align:left">
+    <div class="vision-card">
+      <h4>水を安心して飲める</h4>
+      <p>基地内の環境データが定期公開され、PFAS汚染の実態が明らかに。原因が特定され、浄化が進み、子どもたちが安心して水道水を飲める日が来る。</p>
+    </div>
+    <div class="vision-card">
+      <h4>騒音に怯えない学校</h4>
+      <p>沖縄県が設定した騒音基準が法的な効力を持ち、学校の上を戦闘機が低空飛行することが「ルール違反」として記録・改善される。</p>
+    </div>
+    <div class="vision-card">
+      <h4>事件が起きたら、ちゃんと裁かれる</h4>
+      <p>地位協定の運用が見直され、事件発生時の捜査や裁判のプロセスが透明化。「泣き寝入り」ではなく、正当な手続きで解決される仕組みになる。</p>
+    </div>
+    <div class="vision-card">
+      <h4>万が一のとき、逃げる先がある</h4>
+      <p>有事の住民避難計画が事前に策定・公開され、定期的な訓練も行われる。「何も決まっていない」状態から脱却し、県民の命が最優先で守られる。</p>
+    </div>
+    <div class="vision-card">
+      <h4>基地に依存しない経済</h4>
+      <p>基地関連収入は県経済の約5%。OSAが経済的自立を後押しし、IT・観光・物流など沖縄の地理的強みを活かした産業が育つ。</p>
+    </div>
+    <div class="vision-card">
+      <h4>「沖縄の声」が政策に反映される</h4>
+      <p>日米の安全保障に関する協議に沖縄県がオブザーバーとして参加。「知らないうちに決まっていた」がなくなり、県民の意思が政策に反映される。</p>
+    </div>
+  </div>
+
+  <p class="body-text" style="max-width:700px;margin:28px auto 0;text-align:center">
+    OSAは魔法ではありません。すぐに全てが変わるわけでもありません。<br>
+    でも、<strong>「基準を持つこと」「測ること」「記録すること」</strong>——<br>
+    この地道な積み重ねが、10年後、20年後の沖縄を確実に変えていきます。
+  </p>
+
+  <p class="body-text" style="max-width:700px;margin:24px auto 0;text-align:center;color:var(--gold-light);font-family:'Shippori Mincho B1',serif;font-size:1.15em">
+    <strong>沖縄の未来は、沖縄が決める。</strong>
+  </p>
+</div>
+
+<!-- ========== キーワード集 ========== -->
+<div class="section" data-accordion>
+  <div class="section-title"><span class="section-icon">📖</span> キーワード集</div>
+  <div class="section-body">
+    <table class="tbl">
+      <tr><th>用語</th><th>ひとことで</th></tr>
+      <tr><td style="color:var(--gold);white-space:nowrap">OSA</td><td>Okinawan Security Autonomy。沖縄安全保障自治論。「安全の基準を自分たちで決める」という考え方</td></tr>
+      <tr><td style="color:var(--gold);white-space:nowrap">7つの安全</td><td>からだ・暮らし・こころ・つながり・文化・知る権利・参加する権利。これが沖縄にとっての「安全」の全体像</td></tr>
+      <tr><td style="color:var(--gold);white-space:nowrap">設計する権利</td><td>「誰にどう頼むか」を自分で決める権利。軍事力は持てなくても、条件は決められる</td></tr>
+      <tr><td style="color:var(--gold);white-space:nowrap">OSA白書</td><td>7つの安全が今どうなっているかを毎年数字で記録する報告書</td></tr>
+      <tr><td style="color:var(--gold);white-space:nowrap">県民定義書</td><td>「安全って何？」を県民が自分の言葉で語り、集めた定義集</td></tr>
+      <tr><td style="color:var(--gold);white-space:nowrap">条件付き受け入れ</td><td>「この条件を満たすなら基地を認めます」という交渉のやり方</td></tr>
+      <tr><td style="color:var(--gold);white-space:nowrap">4つの原則</td><td>住民優先・二本柱（軍事+外交）・情報公開・避難計画。軍事力を扱うときのルール</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>沖縄安全保障自治論（OSA）概念定義書</p>
+  <p class="ver">Version 3.0 / 2026.03.26</p>
+  <p style="margin-top:8px">この概念は対話から生まれました。沖縄の県民・研究者・政策に関わる人たちとの議論を通じて育てていくことを目指しています。</p>
+</div>
+
+</div><!-- /container -->
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-what" onclick="tocJump('sec-what')"><span class="toc-icon">💬</span><span class="toc-label">OSAとは</span></a></li>
+      <li><a href="#sec-problem" onclick="tocJump('sec-problem')"><span class="toc-icon">🔍</span><span class="toc-label">60年変わらなかった理由</span></a></li>
+      <li><a href="#sec-shift" onclick="tocJump('sec-shift')"><span class="toc-icon">💡</span><span class="toc-label">発想の転換</span></a></li>
+      <li><a href="#sec-security" onclick="tocJump('sec-security')"><span class="toc-icon">📚</span><span class="toc-label">安全保障とは</span></a></li>
+      <li><a href="#sec-seven" onclick="tocJump('sec-seven')"><span class="toc-icon">🏛️</span><span class="toc-label">7つの安全</span></a></li>
+      <li><a href="#sec-kpi" onclick="tocJump('sec-kpi')"><span class="toc-icon">📏</span><span class="toc-label">KPI一覧</span></a></li>
+      <li><a href="#sec-principles" onclick="tocJump('sec-principles')"><span class="toc-icon">🛡️</span><span class="toc-label">4つの原則</span></a></li>
+      <li><a href="#sec-design" onclick="tocJump('sec-design')"><span class="toc-icon">⚙️</span><span class="toc-label">設計する権利</span></a></li>
+      <li><a href="#sec-how" onclick="tocJump('sec-how')"><span class="toc-icon">🤝</span><span class="toc-label">どう交渉するか</span></a></li>
+      <li><a href="#sec-flow" onclick="tocJump('sec-flow')"><span class="toc-icon">🔄</span><span class="toc-label">全体の流れ</span></a></li>
+      <li><a href="#sec-reality" onclick="tocJump('sec-reality')"><span class="toc-icon">📊</span><span class="toc-label">実現できるのか</span></a></li>
+      <li><a href="#sec-next" onclick="tocJump('sec-next')"><span class="toc-icon">🚀</span><span class="toc-label">次のステップ</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Accordion
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd)};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2)};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now()},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'))}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'))}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed')})}})();
+
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'})},100)}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed')});
+}
+
+// Military detail accordion
+function toggleMilAccordion(el){
+  el.classList.toggle('open');
+  var body=el.nextElementSibling;
+  body.classList.toggle('open');
+}
+</script>
+</body>
+</html>

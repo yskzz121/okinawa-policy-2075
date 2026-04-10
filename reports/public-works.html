@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>沖縄県 公共工事マーケット 完全解剖 — 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Playfair+Display:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#1A2540;
+  --navy-deep:#0F1829;
+  --navy-light:#2A3654;
+  --gold:#B8912A;
+  --gold-light:#D4A843;
+  --paper:#F5F2EC;
+  --paper-dark:#EAE5DA;
+  --alert:#8B2020;
+  --alert-light:#C13838;
+  --green:#2E6B4A;
+  --text:#1A1A1A;
+  --text-sub:#6B6358;
+  --line:rgba(184,145,42,0.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--text);font-family:"Noto Sans JP",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:1180px;margin:0 auto;padding:0 20px 60px}
+
+/* Header */
+.header{
+  background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);
+  border-bottom:1px solid rgba(184,145,42,0.15);
+  padding:56px 24px 44px;text-align:center;position:relative;overflow:hidden;
+  color:#f5f2ec;margin-bottom:36px;
+}
+.header::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 25% 50%,rgba(184,145,42,0.10) 0%,transparent 60%),
+             radial-gradient(ellipse at 75% 50%,rgba(46,107,74,0.08) 0%,transparent 60%);}
+.header-content{position:relative;z-index:1}
+.kicker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.35);
+  border-radius:999px;padding:6px 18px;font-size:12px;color:var(--gold-light);letter-spacing:2.5px;margin-bottom:18px}
+.header h1{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:2.6rem;line-height:1.25;margin-bottom:14px;letter-spacing:.04em}
+.header h1 .accent{color:var(--gold-light)}
+.header .subtitle{font-size:1.05rem;color:#cfc8b8;font-weight:400;max-width:760px;margin:0 auto}
+.header .meta{margin-top:18px;font-size:.78rem;color:#9b9382;letter-spacing:.1em}
+
+/* Section */
+.section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px 32px;margin-bottom:28px;box-shadow:0 1px 3px rgba(26,37,64,.04)}
+.section-title{font-family:"Shippori Mincho B1",serif;font-size:1.45rem;font-weight:800;color:var(--navy);
+  border-left:4px solid var(--gold);padding-left:14px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.section-title .num{font-family:"Playfair Display",serif;font-size:.85em;color:var(--gold);margin-right:6px}
+.section-sub{color:var(--text-sub);font-size:.88rem;margin-bottom:24px;padding-left:18px}
+
+/* Key metrics */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px}
+.kpi{background:linear-gradient(165deg,#fff 0%,#faf8f2 100%);border:1px solid var(--line);border-radius:12px;padding:22px 20px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold)}
+.kpi .label{font-size:.72rem;color:var(--text-sub);letter-spacing:.08em;margin-bottom:6px;font-weight:500}
+.kpi .value{font-family:"Inter",sans-serif;font-size:2.2rem;font-weight:800;color:var(--navy);line-height:1.1;letter-spacing:-.02em;font-feature-settings:"tnum"}
+.kpi .unit{font-family:"Noto Sans JP",sans-serif;font-size:.82rem;color:var(--text-sub);font-weight:600;margin-left:5px;letter-spacing:0}
+.kpi .delta{font-size:.78rem;margin-top:8px;color:var(--green);font-weight:600}
+.kpi .delta.down{color:var(--alert)}
+.kpi .note{font-size:.7rem;color:var(--text-sub);margin-top:6px;line-height:1.4}
+
+/* Chart wrap */
+.chart-wrap{background:#fff;border-radius:10px;padding:18px 6px 4px;height:320px;position:relative}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:8px}
+th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:#faf8f2;color:var(--navy);font-weight:700;font-size:.78rem;letter-spacing:.04em}
+td.num{font-family:"Inter",sans-serif;font-weight:600;text-align:right;color:var(--navy)}
+tr:hover td{background:#fdfcf7}
+
+/* Highlight box */
+.highlight{background:linear-gradient(135deg,#fdfaf0 0%,#f8f3e3 100%);border:1px solid rgba(184,145,42,.3);
+  border-left:4px solid var(--gold);border-radius:8px;padding:18px 22px;margin:16px 0}
+.highlight strong{color:var(--navy);font-weight:700}
+.highlight.alert{background:linear-gradient(135deg,#fcf3f3 0%,#f8e8e8 100%);border-color:rgba(139,32,32,.3);border-left-color:var(--alert)}
+.highlight.alert strong{color:var(--alert)}
+
+/* Cards grid */
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:#fcfaf3;border:1px solid var(--line);border-radius:10px;padding:20px}
+.card h4{font-family:"Shippori Mincho B1",serif;color:var(--navy);font-size:1.05rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card .badge{display:inline-block;font-size:.7rem;background:var(--navy);color:var(--gold-light);padding:2px 9px;border-radius:4px;letter-spacing:.05em;margin-bottom:8px}
+.card p{font-size:.84rem;color:#3a3a3a;line-height:1.7}
+.card .figure{font-family:"Playfair Display",serif;font-size:1.3rem;color:var(--gold);font-weight:800;margin-top:6px}
+
+/* Project list */
+.proj-list{display:grid;grid-template-columns:1fr;gap:12px}
+.proj{display:grid;grid-template-columns:160px 1fr 180px;gap:18px;padding:16px 18px;background:#fcfaf3;border-radius:10px;border:1px solid var(--line);align-items:center}
+.proj .name{font-weight:700;color:var(--navy);font-size:.98rem}
+.proj .desc{font-size:.82rem;color:var(--text-sub);line-height:1.55}
+.proj .cost{text-align:right;font-family:"Playfair Display",serif;font-size:1.2rem;color:var(--gold);font-weight:800}
+.proj .cost small{display:block;font-family:"Noto Sans JP";font-size:.7rem;color:var(--text-sub);font-weight:500;margin-top:2px}
+
+/* Risk */
+.risk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.risk{background:#fcf3f3;border-left:4px solid var(--alert);border-radius:8px;padding:16px 20px}
+.risk h5{color:var(--alert);font-size:.95rem;margin-bottom:6px;font-weight:700}
+.risk p{font-size:.82rem;color:#3a3a3a}
+.cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+.cat{background:#f3f9f5;border-left:4px solid var(--green);border-radius:8px;padding:16px 20px}
+.cat h5{color:var(--green);font-size:.95rem;margin-bottom:6px;font-weight:700}
+.cat p{font-size:.82rem;color:#3a3a3a}
+
+/* Footer */
+.footer{text-align:center;color:var(--text-sub);font-size:.72rem;padding:30px 0 0;border-top:1px solid var(--line);margin-top:30px;line-height:1.8}
+.footer a{color:var(--gold);text-decoration:none}
+
+/* Mobile */
+@media(max-width:768px){
+  .container{padding:0 12px 40px}
+  .header{padding:36px 16px 28px}
+  .header h1{font-size:1.55rem}
+  .header .subtitle{font-size:.88rem}
+  .section{padding:22px 18px}
+  .section-title{font-size:1.15rem}
+  .kpi-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .kpi .value{font-size:1.65rem}
+  .chart-row{grid-template-columns:1fr;gap:18px}
+  .chart-wrap{height:260px}
+  .card-grid,.risk-grid,.cat-grid{grid-template-columns:1fr}
+  .proj{grid-template-columns:1fr;gap:6px}
+  .proj .cost{text-align:left}
+  table{font-size:.78rem}
+  th,td{padding:8px 6px}
+}
+</style>
+</head>
+<body>
+
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.3);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
+</style>
+<a class="portal-link" href="../index.html">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>2075ポータル</a>
+
+<header class="header">
+  <div class="header-content">
+    <div class="kicker">ATLAS RESEARCH ｜ INFRASTRUCTURE</div>
+    <h1>沖縄県 <span class="accent">公共工事</span> マーケット 完全解剖</h1>
+    <div class="subtitle">国直轄51%・振興予算依存・辺野古9,300億円——「形式上の発注者は県・市町村でも、財源の出し手は国」という二重構造をデータで読み解く</div>
+    <div class="meta">REPORT 2026.04 ｜ DATA AS OF FY2024-FY2025</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- KPI -->
+  <section class="section">
+    <div class="section-title"><span class="num">01</span>マーケット・スナップショット</div>
+    <div class="section-sub">沖縄県公共工事市場の規模感を示す主要指標</div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">FY2024 公共工事請負額</div>
+        <div class="value">4,323<span class="unit">億円</span></div>
+        <div class="delta down">前年比 ▲4.4%</div>
+        <div class="note">前払金保証統計ベース（西日本建設業保証）</div>
+      </div>
+      <div class="kpi">
+        <div class="label">FY2024 完工高 (建設投資)</div>
+        <div class="value">5,840<span class="unit">億円</span></div>
+        <div class="delta">前年比 +11.3% / 過去最高</div>
+        <div class="note">東商リサーチ・年間10億円超 224社合算</div>
+      </div>
+      <div class="kpi">
+        <div class="label">国発注比率</div>
+        <div class="value">51.2<span class="unit">%</span></div>
+        <div class="delta down">全国平均 約16% の3倍超</div>
+        <div class="note">沖縄防衛局＋沖縄総合事務局が中心</div>
+      </div>
+      <div class="kpi">
+        <div class="label">FY2025 沖縄振興予算</div>
+        <div class="value">2,642<span class="unit">億円</span></div>
+        <div class="delta down">4年連続 3,000億円割れ</div>
+        <div class="note">うち公共事業関係費 約1,272億円</div>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">県内総生産・建設業比率</div>
+        <div class="value">9.8<span class="unit">%</span></div>
+        <div class="note">全国平均約5.5%の <strong>1.8倍</strong>。離島ほど高く、八重山18.8%・宮古16.0%</div>
+      </div>
+      <div class="kpi">
+        <div class="label">建設業許可業者数</div>
+        <div class="value">5,288<span class="unit">社</span></div>
+        <div class="delta">2013年底打ち後 復調基調</div>
+        <div class="note">2000年ピーク5,640社 → 増加に転換</div>
+      </div>
+      <div class="kpi">
+        <div class="label">FY2024 入札不調率（県発注）</div>
+        <div class="value">27.5<span class="unit">%</span></div>
+        <div class="delta down">直近10年で最悪・離島は34.2%</div>
+        <div class="note">人手不足・資材高騰が主因</div>
+      </div>
+      <div class="kpi">
+        <div class="label">辺野古 総事業費</div>
+        <div class="value">9,300<span class="unit">億円</span></div>
+        <div class="delta down">当初2,400億円の 2.7倍</div>
+        <div class="note">県試算では2.5兆円。物理進捗は16%で予算7割消化</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 市場規模推移 -->
+  <section class="section">
+    <div class="section-title"><span class="num">02</span>市場規模の推移</div>
+    <div class="section-sub">FY2022-FY2025 公共工事請負金額・件数の推移（前払金保証統計）</div>
+    <div class="chart-row">
+      <div class="chart-wrap"><canvas id="mktChart"></canvas></div>
+      <div class="chart-wrap"><canvas id="invChart"></canvas></div>
+    </div>
+    <div class="highlight">
+      <strong>📈 ポイント</strong>: FY2023に4,521億円（+14.1%）まで急増した後、FY2024は資材高騰・入札不調で一服（▲4.4%）。<strong>FY2025は4-2月累計で前年同期比+40.2%</strong>と急回復しており、防衛・港湾・道路の国直轄案件が牽引している。完工高ベース（東商リサーチ）では辺野古関連を含む防衛工事が押し上げ、<strong>2024年度完工高5,840億円は過去最高</strong>を更新した。
+    </div>
+  </section>
+
+  <!-- 発注者構造 -->
+  <section class="section">
+    <div class="section-title"><span class="num">03</span>発注者構造 — 「国」が過半</div>
+    <div class="section-sub">沖縄の最大の特徴は本土と異なり国の直轄発注が金額の半分以上を占めること</div>
+    <div class="chart-row">
+      <div class="chart-wrap"><canvas id="ownerChart"></canvas></div>
+      <div>
+        <table>
+          <thead><tr><th>発注者</th><th style="text-align:right">FY2024 金額</th><th style="text-align:right">構成比</th></tr></thead>
+          <tbody>
+            <tr><td><strong>国</strong>（沖縄防衛局＋沖縄総合事務局）</td><td class="num">2,212億円</td><td class="num">51.2%</td></tr>
+            <tr><td>市町村</td><td class="num">939億円</td><td class="num">21.7%</td></tr>
+            <tr><td>沖縄県</td><td class="num">704億円</td><td class="num">16.3%</td></tr>
+            <tr><td>その他（独法・公社等）</td><td class="num">468億円</td><td class="num">10.8%</td></tr>
+            <tr><td><strong>合計</strong></td><td class="num"><strong>4,323億円</strong></td><td class="num">100%</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight" style="margin-top:14px">
+          <strong>全国平均との比較</strong>: 全国の国発注比率は概ね16%。沖縄は <strong>3倍超の51%</strong>。沖縄防衛局（辺野古ほか在日米軍再編工事）と内閣府沖縄総合事務局開発建設部（直轄道路・港湾・河川）の存在が決定的に大きい。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 振興予算推移 -->
+  <section class="section">
+    <div class="section-title"><span class="num">04</span>沖縄振興予算の長期低下トレンド</div>
+    <div class="section-sub">2014年ピーク3,501億円から▲25%。一括交付金は半減</div>
+    <div class="chart-wrap" style="height:340px"><canvas id="budgetChart"></canvas></div>
+    <div class="highlight alert">
+      <strong>⚠ 構造的リスク</strong>: ピーク2014年度 <strong>3,501億円</strong> → 2025年度 <strong>2,642億円</strong>（▲859億円・▲24.5%）。一括交付金（公共事業のハード分）も2014年度1,759億円から2025年度ハード枠 380億円まで圧縮。沖縄県は3,000億円台復活を継続要望するが実現しておらず、長期低下傾向が定着している。一方、辺野古関連で防衛省予算は逆に拡大しており、<strong>「振興予算は減・防衛予算は増」</strong>という沖縄独特の予算構造が鮮明。
+    </div>
+  </section>
+
+  <!-- 主要プロジェクト -->
+  <section class="section">
+    <div class="section-title"><span class="num">05</span>主要建設プロジェクト</div>
+    <div class="section-sub">進行中・計画中のメガプロジェクト（事業費規模順）</div>
+    <div class="proj-list">
+      <div class="proj">
+        <div class="name">普天間代替施設<br><small style="color:var(--text-sub);font-weight:500">辺野古新基地</small></div>
+        <div class="desc">沖縄防衛局発注。当初2,400億円→2019年改定で9,300億円（県試算2.5兆円）。軟弱地盤改良で工期12年に延長、普天間返還は2030年代以降。物理進捗16%で予算7割消化済み、超過必至。</div>
+        <div class="cost">9,300億円<small>累計支出 6,483億円 (FY2024)</small></div>
+      </div>
+      <div class="proj">
+        <div class="name">那覇空港 第2滑走路</div>
+        <div class="desc">国交省／沖縄総合事務局。2,700m×60m、沖合160ha埋立。2020年3月供用開始済。次段階としてターミナル移設＋MICE併設の中長期構想（GW2050）が事業化検討中。</div>
+        <div class="cost">2,074億円<small>2020年供用済</small></div>
+      </div>
+      <div class="proj">
+        <div class="name">沖縄西海岸道路</div>
+        <div class="desc">読谷〜糸満 約50km。沖縄総合事務局直轄。読谷道路（6.0km・進捗46%）、浦添北道路Ⅱ期（2.0km・12%）、那覇北道路など整備中。開発建設部の道路予算 約349億円/年を重点投入。</div>
+        <div class="cost">349億円/年<small>道路分野予算</small></div>
+      </div>
+      <div class="proj">
+        <div class="name">ゆいレール延伸</div>
+        <div class="desc">てだこ浦西開業後、宜野湾市普天間方面への基礎調査を2024年度から開始。糸満方面980億円・与那原方面780-1,110億円・西原580億円・中城400億円の概算事業費。3両化加速も並行推進中。</div>
+        <div class="cost">980億円<small>糸満方面・概算</small></div>
+      </div>
+      <div class="proj">
+        <div class="name">大型MICE施設<br><small style="color:var(--text-sub);font-weight:500">マリンタウン</small></div>
+        <div class="desc">与那原・西原の臨海地区。2015年決定後、入札不調続き。DBO→PFI方式変更、展示場面積30,000㎡→10,000㎡縮小も応札なし。<strong style="color:var(--alert)">開業目標が2033年前半へ4年以上後ろ倒し</strong>。資材高騰時代の象徴的失敗事例。</div>
+        <div class="cost">遅延中<small>2033年開業へ</small></div>
+      </div>
+      <div class="proj">
+        <div class="name">駐留軍用地跡地利用</div>
+        <div class="desc">西普天間住宅地区（2015返還）に沖縄健康医療拠点。那覇軍港は2024年度以降返還予定で臨空・臨港都市構想。今後 約1,000haの返還予定。FY2025予算で跡地先行取得費68億円を新規計上。</div>
+        <div class="cost">68億円<small>FY2025先行取得費</small></div>
+      </div>
+      <div class="proj">
+        <div class="name">南部東道路</div>
+        <div class="desc">南風原町〜南城市間 7.4km、4工区。大里東IC〜佐敷・玉城IC 2km中心に整備推進。那覇大橋架替も並行。</div>
+        <div class="cost">事業中<small>南部圏域接続</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主要受注企業 -->
+  <section class="section">
+    <div class="section-title"><span class="num">06</span>主要受注企業 — 地場ゼネコンの陣容</div>
+    <div class="section-sub">2024年度完工高ランキング（年間10億円超 224社・総額5,840億円）</div>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge">RANK 1 ｜ 40年連続首位</span>
+        <h4>🏛 國場組</h4>
+        <p>那覇市。RC造建築・ホテル・病院・商業施設・公共土木に強み。地場の絶対王者として40年連続トップを維持。売上規模は本土中堅ゼネコン並み。</p>
+      </div>
+      <div class="card">
+        <span class="badge">RANK 2 ｜ 米軍特化</span>
+        <h4>⚙ アメリカンエンジニアリング</h4>
+        <p>米軍基地工事中心。在日米軍再編・施設整備の受注で2位に躍進。地場でありながら基地関連のニッチ市場を独占。</p>
+      </div>
+      <div class="card">
+        <span class="badge">RANK 3 ｜ 7年連続200億円台</span>
+        <h4>⚡ 沖電工</h4>
+        <p>沖縄電力グループ。電気設備工事の県内最大手。継続して安定的な受注規模を確保。</p>
+      </div>
+      <div class="card">
+        <span class="badge">RANK 4 ｜ 北部地盤</span>
+        <h4>🏗 屋部土建</h4>
+        <p>名護市の老舗。土木公共主体で北部・辺野古エリアの地理的優位性を活かす。</p>
+      </div>
+      <div class="card">
+        <span class="badge">RANK 5 ｜ 建築主体</span>
+        <h4>🏢 大米建設</h4>
+        <p>那覇市の地場建築大手。県内オフィス・商業・公共建築で実績多数。</p>
+      </div>
+      <div class="card">
+        <span class="badge">県内優先発注</span>
+        <h4>📊 県内/県外シェア</h4>
+        <p>沖縄県発注工事の県内企業受注比率は<strong>金額ベースで概ね8〜9割</strong>と全国最高水準。官公需法に基づく分離分割発注・地域要件を厳格運用。一方、内閣府沖縄総合事務局や沖縄防衛局案件では本土大手JV比率が上昇する構造。</p>
+        <div class="figure">県内 80-90%</div>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:18px">
+      <strong>📌 上位10社圏</strong>: 上位5社に続き、大鏡建設・仲本工業・丸元建設・東開発・金秀建設・太名嘉組・大進建設が10億円超の常連。本土スーパーゼネコン（鹿島・大成・大林・清水）は単独受注が稀で、辺野古や那覇空港など大型案件では地場ゼネコンと <strong>JV を組む形が一般的</strong>。
+    </div>
+  </section>
+
+  <!-- 業界課題 -->
+  <section class="section">
+    <div class="section-title"><span class="num">07</span>業界の構造課題</div>
+    <div class="section-sub">担い手不足・高齢化・公共依存・入札不調の四重苦</div>
+    <div class="risk-grid">
+      <div class="risk">
+        <h5>👴 技術者の超高齢化</h5>
+        <p>技術者の最頻年齢階級は<strong>全国45-49歳に対し沖縄55-59歳</strong>。北部・宮古・八重山では <strong>60-64歳</strong>。20代が極端に少なく、10年後の事業継続性に重大懸念。</p>
+      </div>
+      <div class="risk">
+        <h5>📉 入札不調の常態化</h5>
+        <p>FY2024 県発注工事の入札不調率 <strong>27.5%（直近10年最悪）</strong>。離島では34.2%。マリンタウンMICEのように仕様縮小しても応札なしの案件が頻発。</p>
+      </div>
+      <div class="risk">
+        <h5>💸 2024年問題で赤字転落</h5>
+        <p>時間外労働上限規制（2024年4月施行）の影響で、県内建設業の営業利益率総平均が <strong>10年ぶりに赤字</strong>に転落（琉球新報報道）。</p>
+      </div>
+      <div class="risk">
+        <h5>🏛 公共依存リスク</h5>
+        <p>建設投資の <strong>32.9%が公共・土木</strong>（全国31.5%超）。沖縄振興予算・基地関連・観光ホテル投資の3本柱に依存し、振興予算縮小局面でのリスクが顕在化。</p>
+      </div>
+    </div>
+    <div class="cat-grid">
+      <div class="cat">
+        <h5>✅ 政策対応 — 最低制限価格制度改正</h5>
+        <p>2025年3月31日、沖縄県は<strong>最低制限価格算定式を改正</strong>。ランダム係数のマイナス範囲を0.995〜0.999に見直し、ダンピング防止と適正利潤・人材育成原資の確保を強化。</p>
+      </div>
+      <div class="cat">
+        <h5>✅ 一括交付金ハード枠 増額</h5>
+        <p>FY2025の振興一括交付金ハード分は <strong>380億円（前年比+12億円）</strong>。沖縄振興特定事業推進費は95億円（過去最高）。市町村事業に資金配分。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 将来展望 -->
+  <section class="section">
+    <div class="section-title"><span class="num">08</span>将来展望 — 第6次振計2031までの構造変化</div>
+    <div class="section-sub">10年計画「新・沖縄21世紀ビジョン基本計画」の下で進む変化</div>
+    <div class="card-grid">
+      <div class="card">
+        <h4>🌱 GX・脱炭素関連投資の拡大</h4>
+        <p>第6次振計に独立分散型エネルギー基盤構築・再エネ導入加速を明記。離島での再エネ・蓄電池・配電網整備が中核。新規の建設需要を生む。</p>
+      </div>
+      <div class="card">
+        <h4>🛡 国土強靱化・防災インフラ</h4>
+        <p>防災機能強化・耐震補強・業務継続体制整備が重点項目。離島振興別枠化で国土強靱化関連予算を切り出し計上する仕組みに移行。</p>
+      </div>
+      <div class="card">
+        <h4>🏚 インフラ老朽化対策</h4>
+        <p>橋梁・トンネル・上下水道の計画的維持管理が第6次振計の重点。那覇大橋架替などが進行中。新設から更新・補修へのシフト。</p>
+      </div>
+      <div class="card">
+        <h4>🏘 跡地利用 約1,000ha</h4>
+        <p>普天間・那覇軍港・牧港の返還跡地利用。FY2025予算で先行取得費68億円を新規計上。中南部の都市再編と一体の長期需要源。</p>
+      </div>
+    </div>
+    <div class="highlight alert" style="margin-top:18px">
+      <strong>⚠ 最大のリスクシナリオ</strong>: 振興予算の長期低下（▲25%）と辺野古工費膨張・遅延が同時進行する中で、<strong>「人材不足×資材高騰×入札不調」の負のスパイラル</strong>が深刻化。マリンタウンMICEの4年遅れに象徴されるように、計画通りに大型案件を進められない構造的限界が露呈し始めている。第6次振計の終期（2031年度）に向けて、地場建設業の事業継続性そのものが問われる局面。
+    </div>
+  </section>
+
+  <!-- 出典 -->
+  <section class="section">
+    <div class="section-title"><span class="num">09</span>主要データソース</div>
+    <div class="section-sub">本レポートの根拠となる一次・二次資料</div>
+    <div style="font-size:.82rem;line-height:1.9;color:#3a3a3a;columns:2;column-gap:30px">
+      ・西日本建設業保証「公共工事前払金保証統計」<br>
+      ・国土交通省「建設総合統計」<br>
+      ・建設業情報管理センター（CIIC）「地域建設産業のあり方タスクフォース報告書（沖縄県）令和6年3月」<br>
+      ・内閣府「沖縄振興予算・概算要求」「沖縄振興一括交付金」<br>
+      ・沖縄県「沖縄県の財政2024」「労働力調査年報」<br>
+      ・沖縄県土木建築部「最低制限価格制度実施要領 令和7年改正」<br>
+      ・東京商工リサーチ沖縄支店「2024年度建設業完成工事高ランキング」<br>
+      ・防衛省「普天間代替施設」「沖縄統合計画」<br>
+      ・沖縄防衛局「入札・契約情報」<br>
+      ・沖縄総合事務局 開発建設部<br>
+      ・沖縄タイムス・琉球新報・宮古新報・日本経済新聞・東京新聞 各紙報道<br>
+      ・りゅうぎん総合研究所「2023年度の沖縄県経済の動向」<br>
+      ・GW2050「基本構想（2025年3月）」
+    </div>
+  </section>
+
+  <div class="footer">
+    ATLAS RESEARCH ｜ Okinawa Public Works Infographic<br>
+    本レポートは公開情報に基づくリサーチであり、投資助言・政策提言を目的としたものではありません。<br>
+    © 2026 Atlas Financials
+  </div>
+</div>
+
+<script>
+// === Chart.js ===
+Chart.defaults.font.family = '"Noto Sans JP","Inter",sans-serif';
+Chart.defaults.color = '#6B6358';
+Chart.defaults.borderColor = 'rgba(184,145,42,0.12)';
+
+const NAVY='#1A2540', GOLD='#B8912A', GOLD_L='#D4A843', ALERT='#8B2020', GREEN='#2E6B4A';
+
+// 1. 市場規模（金額）
+new Chart(document.getElementById('mktChart'), {
+  type:'bar',
+  data:{
+    labels:['FY2022','FY2023','FY2024','FY2025*'],
+    datasets:[{
+      label:'公共工事請負金額（億円）',
+      data:[3964,4521,4323,4027],
+      backgroundColor:[NAVY,GOLD,NAVY,GOLD_L],
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'公共工事請負金額の推移（億円）',font:{size:13,weight:'700'},color:NAVY,padding:10}
+    },
+    scales:{
+      y:{ticks:{callback:v=>v.toLocaleString()+'億'}}
+    }
+  }
+});
+
+// 2. 件数
+new Chart(document.getElementById('invChart'), {
+  type:'line',
+  data:{
+    labels:['FY2022','FY2023','FY2024','FY2025*'],
+    datasets:[{
+      label:'件数',
+      data:[2964,3002,2860,2593],
+      borderColor:GOLD,backgroundColor:'rgba(212,168,67,0.15)',
+      tension:.35,pointRadius:6,pointBackgroundColor:GOLD,pointBorderColor:'#fff',pointBorderWidth:2,
+      fill:true,borderWidth:3
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'請負件数の推移',font:{size:13,weight:'700'},color:NAVY,padding:10}
+    }
+  }
+});
+
+// 3. 発注者構造
+new Chart(document.getElementById('ownerChart'), {
+  type:'doughnut',
+  data:{
+    labels:['国（防衛局＋総合事務局） 51.2%','市町村 21.7%','沖縄県 16.3%','その他 10.8%'],
+    datasets:[{
+      data:[51.2,21.7,16.3,10.8],
+      backgroundColor:[NAVY,GOLD,GOLD_L,'#A89878'],
+      borderColor:'#fff',borderWidth:3
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'bottom',labels:{font:{size:11},padding:14,boxWidth:14}},
+      title:{display:true,text:'FY2024 発注者別構成比',font:{size:13,weight:'700'},color:NAVY,padding:10}
+    },
+    cutout:'58%'
+  }
+});
+
+// 4. 振興予算推移
+new Chart(document.getElementById('budgetChart'), {
+  type:'bar',
+  data:{
+    labels:['2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+    datasets:[
+      {
+        label:'沖縄振興予算 総額（億円）',
+        data:[3501,3340,3350,3150,3010,3010,3010,3010,2684,2679,2678,2642],
+        backgroundColor:NAVY,
+        borderRadius:5,
+        order:2
+      },
+      {
+        label:'一括交付金（億円）',
+        type:'line',
+        data:[1759,1618,1613,1358,1188,1093,1014,981,981,762,763,721],
+        borderColor:GOLD,
+        backgroundColor:'rgba(184,145,42,0.15)',
+        tension:.3,
+        pointRadius:4,pointBackgroundColor:GOLD,
+        borderWidth:3,
+        order:1
+      }
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',labels:{font:{size:12},boxWidth:14,padding:12}},
+      title:{display:true,text:'沖縄振興予算 2014-2025（▲25%）',font:{size:14,weight:'700'},color:NAVY,padding:10}
+    },
+    scales:{
+      y:{ticks:{callback:v=>v.toLocaleString()+'億'}}
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖縄の地政学的位置づけ — 世界覇権競争における「太平洋の要石」</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* === Dark Mode (default) === */
+:root, [data-theme="dark"] {
+  --navy: #1A2540;
+  --navy-light: #243352;
+  --navy-dark: #0F1829;
+  --gold: #B8912A;
+  --gold-light: #D4A843;
+  --gold-dim: rgba(184,145,42,0.15);
+  --paper: #F5F2EC;
+  --text-main: #e6edf3;
+  --text-sub: #8b949e;
+  --card-bg: rgba(26,37,64,0.6);
+  --card-border: rgba(184,145,42,0.12);
+  --alert: #8B2020;
+  --positive: #2ea043;
+  --negative: #da3633;
+  --body-bg: #0F1829;
+  --header-bg-1: #1a2332;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(15,24,41,0.6);
+  --table-hover: rgba(184,145,42,0.04);
+  --table-border: #21262d;
+  --summary-bg-1: rgba(15,24,41,0.7);
+  --summary-bg-2: rgba(26,37,64,0.5);
+  --summary-text: #c9d1d9;
+  --toc-bg: #1A2540;
+  --toc-link-color: #e6edf3;
+  --toc-hover: rgba(88,166,255,.1);
+}
+
+/* === Light Mode === */
+[data-theme="light"] {
+  --navy: #E8E4DC;
+  --navy-light: #F0ECE4;
+  --navy-dark: #F5F2EC;
+  --gold: #8B6914;
+  --gold-light: #7A5C10;
+  --gold-dim: rgba(138,105,20,0.1);
+  --text-main: #1a1a1a;
+  --text-sub: #555555;
+  --card-bg: rgba(255,255,255,0.85);
+  --card-border: rgba(138,105,20,0.15);
+  --alert: #A52020;
+  --positive: #1a7f37;
+  --negative: #c93030;
+  --body-bg: #F5F2EC;
+  --header-bg-1: #2a3550;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(255,255,255,0.7);
+  --table-hover: rgba(138,105,20,0.05);
+  --table-border: #d8d4cc;
+  --summary-bg-1: rgba(245,242,236,0.9);
+  --summary-bg-2: rgba(232,228,220,0.8);
+  --summary-text: #333;
+  --toc-bg: #fff;
+  --toc-link-color: #1a1a1a;
+  --toc-hover: rgba(138,105,20,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--body-bg);color:var(--text-main);font-family:'Noto Sans JP',sans-serif;line-height:1.8;padding:0;transition:background .3s,color .3s}
+h1,h2,h3,.section-title{font-family:'Shippori Mincho B1',serif}
+.num,.metric-value,.big-num{font-family:'Inter',sans-serif;font-weight:700;letter-spacing:-0.5px}
+
+/* Theme Toggle */
+.theme-toggle{position:fixed;top:16px;right:16px;z-index:1000;width:44px;height:44px;border-radius:50%;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.2);transition:all .2s}
+.theme-toggle:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Back Link */
+.back-link{position:fixed;top:16px;left:16px;z-index:1000;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold-light);text-decoration:none;font-size:.82rem;font-weight:500;font-family:'Noto Sans JP',sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.back-link:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--header-bg-1) 0%,var(--header-bg-2) 50%,var(--header-bg-3) 100%);border-bottom:1px solid rgba(184,145,42,0.15);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header h1,.header .subtitle,.header .date,.header .badge{color:#e6edf3!important}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:800;color:var(--text-main);margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em;margin-top:4px}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header .badge{display:inline-block;background:var(--gold-dim);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px}
+
+/* Container */
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+
+/* Section */
+.section{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:28px 24px;margin-bottom:20px;position:relative}
+.section-title{font-size:1.3em;font-weight:700;color:var(--gold-light);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.2em}
+
+/* Cards Grid */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px;text-align:center;transition:border-color .2s,background .3s}
+.metric-card:hover{border-color:rgba(184,145,42,0.3)}
+.metric-card .icon{font-size:1.8em;margin-bottom:6px}
+.metric-card .metric-value{font-size:1.6em;font-weight:700;color:var(--gold-light)}
+.metric-card .metric-label{font-size:.88rem;color:var(--text-sub);margin-top:4px}
+.metric-card .metric-sub{font-size:.78rem;color:var(--text-sub);margin-top:4px;opacity:.85;line-height:1.5}
+
+/* Chart */
+.chart-container{position:relative;height:340px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.9rem}
+.tbl th{background:var(--gold-dim);color:var(--gold-light);padding:11px 14px;text-align:left;font-weight:600;border-bottom:1px solid rgba(184,145,42,0.2)}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--table-border);vertical-align:top}
+.tbl tr:hover td{background:var(--table-hover)}
+.badge-strong{background:rgba(46,160,67,0.15);color:var(--positive);padding:3px 10px;border-radius:4px;font-size:.78rem;white-space:nowrap}
+.badge-moderate{background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:4px;font-size:.78rem;white-space:nowrap}
+.badge-weak{background:rgba(218,54,51,0.12);color:var(--negative);padding:3px 10px;border-radius:4px;font-size:.78rem;white-space:nowrap}
+
+/* Chapter Intro */
+.chapter-intro{font-size:.95rem;color:var(--text-sub);margin-bottom:16px;line-height:1.9;border-left:3px solid var(--gold-dim);padding-left:14px}
+
+/* Highlight & Alert */
+.highlight-box{background:var(--gold-dim);border:1px solid rgba(184,145,42,0.2);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem;line-height:1.85}
+.alert-box{background:rgba(139,32,32,0.1);border:1px solid rgba(139,32,32,0.25);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem;line-height:1.85}
+
+/* Two Col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Conclusion box (top) */
+.conclusion-box{background:linear-gradient(135deg,rgba(184,145,42,0.12),rgba(184,145,42,0.04));border:1px solid rgba(184,145,42,0.3);border-radius:14px;padding:26px 30px;margin-bottom:24px;line-height:1.95;font-size:.98rem;color:var(--text-main)}
+.conclusion-box .label{font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:block}
+.conclusion-box .lead{font-family:'Shippori Mincho B1',serif;font-size:1.12em;font-weight:600;color:var(--gold-light);line-height:1.8;margin-bottom:14px}
+
+/* Score Card */
+.score-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}
+.score-item{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px 10px;text-align:center}
+.score-item .axis{font-size:.78rem;color:var(--text-sub);margin-bottom:6px}
+.score-item .stars{font-size:1.1em;color:var(--gold)}
+.score-item .val{font-family:'Inter',sans-serif;font-size:1.4em;font-weight:700;color:var(--gold-light);margin-top:4px;letter-spacing:-0.5px}
+
+/* Timeline */
+.timeline{position:relative;margin:20px 0;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--gold-dim)}
+.timeline-item{position:relative;margin-bottom:18px;padding-left:20px}
+.timeline-item::before{content:'';position:absolute;left:-20px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--body-bg)}
+.timeline-item h4{font-size:.92rem;font-weight:700;color:var(--gold-light);margin-bottom:4px}
+.timeline-item p{font-size:.88rem;color:var(--text-sub);line-height:1.7}
+
+/* Scenario Cards */
+.scenario-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:16px 0}
+.scenario-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 22px;position:relative}
+.scenario-card.danger{border-color:rgba(218,54,51,0.35)}
+.scenario-card.caution{border-color:rgba(184,145,42,0.35)}
+.scenario-card.positive{border-color:rgba(46,160,67,0.3)}
+.scenario-card .scen-tag{font-family:'Playfair Display',serif;font-size:.72rem;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
+.scenario-card h4{font-size:1.05em;font-weight:700;color:var(--text-main);margin:6px 0 10px;font-family:'Shippori Mincho B1',serif}
+.scenario-card .prob{display:inline-block;background:var(--gold-dim);color:var(--gold-light);padding:4px 12px;border-radius:6px;font-size:.78rem;font-weight:600;margin-bottom:10px}
+.scenario-card.danger .prob{background:rgba(218,54,51,0.12);color:var(--negative)}
+.scenario-card p{font-size:.88rem;color:var(--text-sub);line-height:1.75;margin-bottom:6px}
+.scenario-card .impact{margin-top:10px;padding-top:10px;border-top:1px solid var(--card-border);font-size:.85rem;color:var(--text-sub)}
+.scenario-card .impact strong{color:var(--gold-light)}
+
+/* Layer cards (3レイヤー) */
+.layer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0}
+.layer-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:14px;padding:22px 20px}
+.layer-card .layer-num{font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;color:var(--gold);letter-spacing:2px}
+.layer-card h4{font-size:1.08em;font-weight:700;color:var(--gold-light);margin:4px 0 12px;font-family:'Shippori Mincho B1',serif}
+.layer-card ul{list-style:none;padding:0;margin:0}
+.layer-card li{font-size:.86rem;color:var(--text-sub);padding:6px 0;padding-left:18px;position:relative;line-height:1.7;border-bottom:1px dashed var(--card-border)}
+.layer-card li:last-child{border-bottom:none}
+.layer-card li::before{content:'▸';position:absolute;left:0;color:var(--gold)}
+
+/* Insight cards */
+.insight-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0}
+.insight-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.insight-card .insight-num{font-family:'Inter',sans-serif;font-size:1.8em;font-weight:800;color:var(--gold);min-width:36px;line-height:1;letter-spacing:-1px}
+.insight-card h4{font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--gold-light)}
+.insight-card p{font-size:.85rem;color:var(--text-sub);line-height:1.7}
+
+/* Sources */
+.sources-list{column-count:2;column-gap:24px;font-size:.8rem;color:var(--text-sub);line-height:1.7}
+.sources-list .src{break-inside:avoid;margin-bottom:8px;padding-left:14px;position:relative}
+.sources-list .src::before{content:'•';position:absolute;left:0;color:var(--gold)}
+
+/* Footer */
+.footer{text-align:center;padding:32px 20px;color:var(--text-sub);font-size:.88rem;border-top:1px solid var(--card-border);margin-top:20px}
+.footer a{color:var(--gold-light);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:8000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:var(--toc-bg);border-top:1px solid var(--card-border);box-shadow:0 -2px 12px rgba(0,0,0,.15)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--toc-link-color);text-decoration:none;font-size:.9rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:var(--toc-hover)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .chart-container{height:280px}
+  .section{padding:20px 16px}
+  .two-col{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:1fr}
+  .layer-grid{grid-template-columns:1fr}
+  .insight-grid{grid-template-columns:1fr}
+  .score-grid{grid-template-columns:1fr 1fr}
+  .chart-row{grid-template-columns:1fr!important}
+  .sources-list{column-count:1}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:.78rem}
+  .conclusion-box{padding:20px 18px}
+  .conclusion-box .lead{font-size:1em}
+  .back-link{font-size:.72rem;padding:6px 10px;top:10px;left:10px}
+  .theme-toggle{top:10px;right:10px;width:38px;height:38px;font-size:1rem}
+}
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr!important}
+  .score-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .section-title{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="ダーク/ライト切替">🌙</button>
+
+<!-- Back Link -->
+<a class="back-link" href="../index.html">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+ポータル</a>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="badge">OSA 第七層：参加的安全 × 国際秩序</div>
+    <h1>沖縄の地政学的位置づけ</h1>
+    <div class="subtitle">世界覇権競争における「太平洋の要石」 ── 米中二極構造のスイングステート</div>
+    <div class="date">作成日: 2026年4月 ｜ 沖縄政策方針 2075</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ========== Section 1: 結論（常時展開） ========== -->
+<div class="section" id="sec-conclusion">
+  <div class="section-title"><span class="section-icon">🎯</span> 結論 ── 一行で言うと</div>
+
+  <div class="conclusion-box">
+    <span class="label">Executive Summary</span>
+    <div class="lead">沖縄県は現代における国家覇権の最重要ポイントであり、その政治的コントロール権の所在によって米中二国体制に大きな現状変更が起こりうるエリアである──この仮説は、地理・軍事・経済・歴史の四層すべてにおいて強く支持される（妥当性 4 / 5）。</div>
+    <p>沖縄は単なる日本の一県ではなく、<strong style="color:var(--gold-light)">21世紀の米中覇権競争における「戦略的重心(Center of Gravity)」</strong>である。半導体・シーレーン・通信インフラ・米中軍事対峙という4要素すべてが半径2,000km圏内で交差する世界で唯一の地点であり、ここの政治的方向性が西太平洋全体の力学を決める。</p>
+    <p style="margin-top:10px">そして決定的に重要なのは、この覇権構造の変動が<strong style="color:var(--negative)">軍事侵攻ではなく「世論工作・経済依存・同盟疲労の複合（"静かな侵食"）」によって起こりうる</strong>という点である。中国は2013年以降10年スパンで「琉球地位未定論」を制度化しており、これは超限戦(Unrestricted Warfare)の典型的射程に沖縄が入っていることを意味する。</p>
+  </div>
+
+  <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 10px">仮説の妥当性評価（4軸 + 認知戦）</h3>
+  <div class="score-grid">
+    <div class="score-item"><div class="axis">地理的必然性</div><div class="stars">★★★★★</div><div class="val">5/5</div></div>
+    <div class="score-item"><div class="axis">軍事的集中度</div><div class="stars">★★★★★</div><div class="val">5/5</div></div>
+    <div class="score-item"><div class="axis">歴史的整合性</div><div class="stars">★★★★☆</div><div class="val">4/5</div></div>
+    <div class="score-item"><div class="axis">経済レバレッジ</div><div class="stars">★★★☆☆</div><div class="val">3/5</div></div>
+    <div class="score-item"><div class="axis">認知戦進行度</div><div class="stars">★★★★☆</div><div class="val">4/5</div></div>
+  </div>
+
+  <div class="metrics-grid" style="margin-top:20px">
+    <div class="metric-card">
+      <div class="icon">📍</div>
+      <div class="metric-value">630<span style="font-size:.5em">km</span></div>
+      <div class="metric-label">那覇 → 台北</div>
+      <div class="metric-sub">東京(1,556km)より圧倒的に近い</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🛡️</div>
+      <div class="metric-value">70.3<span style="font-size:.5em">%</span></div>
+      <div class="metric-label">在日米軍施設集中度</div>
+      <div class="metric-sub">国土の0.6%に集中</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">💥</div>
+      <div class="metric-value">$10<span style="font-size:.5em">兆</span></div>
+      <div class="metric-label">台湾有事 世界経済損失</div>
+      <div class="metric-sub">世界GDPの約10.2%</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🚨</div>
+      <div class="metric-value">355<span style="font-size:.5em">日</span></div>
+      <div class="metric-label">尖閣周辺 中国公船確認</div>
+      <div class="metric-sub">2024年・国有化後最多</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 2: 世界情勢 ========== -->
+<div class="section" id="sec-world" data-accordion>
+  <div class="section-title"><span class="section-icon">🌐</span> 世界情勢 ── 米中覇権競争の現在地</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">2010年代後半以降、米中関係は「関与(Engagement)」から「戦略的競争(Strategic Competition)」へと不可逆的に転換した。バイデン政権の「統合抑止(Integrated Deterrence)」、トランプ第二期の対中強硬路線継続、中国の「中華民族の偉大な復興」と建軍100年(2027年)目標が交差する2020年代後半、世界の地政学的重力場の中心はインド太平洋に移っている。沖縄はその中心に位置している。</p>
+
+    <div class="two-col">
+      <div class="highlight-box">
+        <strong style="color:var(--gold-light)">米国の戦略</strong><br>
+        統合抑止(Integrated Deterrence)、AUKUS、Quad、日米比、日米韓のミニラテラル網。沖縄・グアム・豪州の三角形を再定義し、中距離ミサイル配備(Typhon/MRC)で第一列島線を「反撃可能ライン」に転換中。
+      </div>
+      <div class="alert-box">
+        <strong style="color:var(--negative)">中国の戦略</strong><br>
+        A2/AD(接近阻止/領域拒否)で第一列島線を内海化。海軍艦艇数は既に世界最大級。2027年建軍100年までに台湾統一の軍事オプションを完成させる構想。並行して「琉球地位未定論」など認知戦も体系化。
+      </div>
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">なぜ今、沖縄なのか</h3>
+    <p style="font-size:.92rem;color:var(--text-sub);line-height:1.85">米中対立が軍事的な「ホットな衝突点」を持つとすれば、それはほぼ確実に台湾海峡である。そして台湾海峡から最短距離にある米軍前方展開拠点は、グアムでもハワイでも本土横須賀でもなく、<strong style="color:var(--gold-light)">沖縄</strong>である。台北まで630km。中国本土まで650km。この地理的事実が、20世紀半ばから現在まで一貫して沖縄を「太平洋の要石(Keystone of the Pacific)」と呼ばせ続けている。</p>
+
+    <div class="highlight-box" style="margin-top:16px">
+      <strong>キーポイント:</strong> 米中対立の「冷戦的均衡」は、沖縄の軍事的価値が高ければ高いほど安定する。逆に沖縄が政治的に揺らげば、抑止構造そのものが崩壊する。これが「沖縄＝スイングステート」論の核心である。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 3: 地理 ========== -->
+<div class="section" id="sec-geography" data-accordion>
+  <div class="section-title"><span class="section-icon">🗺️</span> 地理 ── 東アジアの十字路</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">那覇を中心とした半径2,000km圏には、北東アジア・東南アジア主要都市の大半が含まれる。これは軍事行動半径と経済活動圏の両面で決定的な意味を持つ。沖縄は東京より上海・台北に近い「アジアの十字路」である。</p>
+
+    <!-- 距離マップ -->
+    <div class="map-wrap" style="background:rgba(15,24,41,0.55);border:1px solid var(--card-border);border-radius:12px;padding:20px 12px 12px;margin:16px 0">
+      <div style="font-size:.92rem;color:var(--gold-light);font-weight:700;margin-bottom:8px;text-align:center;font-family:'Shippori Mincho B1',serif">那覇を中心とした東アジア距離マップ</div>
+      <svg viewBox="0 0 700 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;height:auto;display:block;margin:0 auto" preserveAspectRatio="xMidYMid meet">
+
+        <!-- Distance circles -->
+        <circle cx="320" cy="280" r="108" fill="none" stroke="rgba(184,145,42,0.22)" stroke-width="1" stroke-dasharray="3,4"/>
+        <circle cx="320" cy="280" r="216" fill="none" stroke="rgba(184,145,42,0.18)" stroke-width="1" stroke-dasharray="3,4"/>
+        <text x="320" y="170" fill="rgba(184,145,42,0.6)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle">1,000 km</text>
+        <text x="320" y="62" fill="rgba(184,145,42,0.6)" font-size="10" font-family="Inter,sans-serif" text-anchor="middle">2,000 km</text>
+
+        <!-- Connection lines (drawn first, behind dots) -->
+        <line x1="320" y1="280" x2="253" y2="293" stroke="#da3633" stroke-width="2.5" opacity="0.9"/>
+        <line x1="320" y1="280" x2="252" y2="225" stroke="#da3633" stroke-width="2.5" opacity="0.9"/>
+        <line x1="320" y1="280" x2="312" y2="155" stroke="#B8912A" stroke-width="2" opacity="0.75"/>
+        <line x1="320" y1="280" x2="245" y2="408" stroke="#B8912A" stroke-width="2" opacity="0.75"/>
+        <line x1="320" y1="280" x2="452" y2="176" stroke="#B8912A" stroke-width="2" opacity="0.75"/>
+        <line x1="320" y1="280" x2="196" y2="129" stroke="#58a6ff" stroke-width="1.5" opacity="0.6"/>
+        <line x1="320" y1="280" x2="508" y2="421" stroke="#58a6ff" stroke-width="1.5" opacity="0.6"/>
+
+        <!-- Naha center -->
+        <circle cx="320" cy="280" r="16" fill="rgba(184,145,42,0.18)"/>
+        <circle cx="320" cy="280" r="10" fill="#B8912A" stroke="#F5F2EC" stroke-width="2"/>
+        <text x="320" y="312" fill="#D4A843" font-size="15" font-weight="700" font-family="'Shippori Mincho B1',serif" text-anchor="middle">那覇 NAHA</text>
+
+        <!-- Taipei -->
+        <circle cx="253" cy="293" r="6" fill="#da3633" stroke="#fff" stroke-width="1.5"/>
+        <text x="225" y="320" fill="#e6edf3" font-size="13" font-weight="600" text-anchor="middle" font-family="'Noto Sans JP',sans-serif">台北</text>
+        <text x="225" y="335" fill="#da3633" font-size="11" font-family="Inter,sans-serif" font-weight="700" text-anchor="middle">630 km</text>
+
+        <!-- Shanghai -->
+        <circle cx="252" cy="225" r="6" fill="#da3633" stroke="#fff" stroke-width="1.5"/>
+        <text x="240" y="214" fill="#e6edf3" font-size="13" font-weight="600" text-anchor="end" font-family="'Noto Sans JP',sans-serif">上海</text>
+        <text x="240" y="228" fill="#da3633" font-size="11" font-family="Inter,sans-serif" font-weight="700" text-anchor="end">820 km</text>
+
+        <!-- Seoul -->
+        <circle cx="312" cy="155" r="6" fill="#B8912A" stroke="#fff" stroke-width="1.5"/>
+        <text x="312" y="138" fill="#e6edf3" font-size="13" font-weight="600" text-anchor="middle" font-family="'Noto Sans JP',sans-serif">ソウル</text>
+        <text x="312" y="123" fill="#B8912A" font-size="11" font-family="Inter,sans-serif" font-weight="700" text-anchor="middle">1,260 km</text>
+
+        <!-- Manila -->
+        <circle cx="245" cy="408" r="6" fill="#B8912A" stroke="#fff" stroke-width="1.5"/>
+        <text x="245" y="430" fill="#e6edf3" font-size="13" font-weight="600" text-anchor="middle" font-family="'Noto Sans JP',sans-serif">マニラ</text>
+        <text x="245" y="445" fill="#B8912A" font-size="11" font-family="Inter,sans-serif" font-weight="700" text-anchor="middle">1,480 km</text>
+
+        <!-- Tokyo -->
+        <circle cx="452" cy="176" r="6" fill="#B8912A" stroke="#fff" stroke-width="1.5"/>
+        <text x="464" y="172" fill="#e6edf3" font-size="13" font-weight="600" font-family="'Noto Sans JP',sans-serif">東京</text>
+        <text x="464" y="187" fill="#B8912A" font-size="11" font-family="Inter,sans-serif" font-weight="700">1,556 km</text>
+
+        <!-- Beijing -->
+        <circle cx="196" cy="129" r="6" fill="#58a6ff" stroke="#fff" stroke-width="1.5"/>
+        <text x="184" y="120" fill="#e6edf3" font-size="13" font-weight="600" text-anchor="end" font-family="'Noto Sans JP',sans-serif">北京</text>
+        <text x="184" y="135" fill="#58a6ff" font-size="11" font-family="Inter,sans-serif" font-weight="700" text-anchor="end">1,840 km</text>
+
+        <!-- Guam -->
+        <circle cx="508" cy="421" r="6" fill="#58a6ff" stroke="#fff" stroke-width="1.5"/>
+        <text x="520" y="417" fill="#e6edf3" font-size="13" font-weight="600" font-family="'Noto Sans JP',sans-serif">グアム</text>
+        <text x="520" y="432" fill="#58a6ff" font-size="11" font-family="Inter,sans-serif" font-weight="700">2,230 km</text>
+
+        <!-- Legend -->
+        <g transform="translate(20, 500)">
+          <rect width="660" height="40" fill="rgba(15,24,41,0.7)" stroke="rgba(184,145,42,0.15)" rx="6"/>
+          <circle cx="24" cy="20" r="5" fill="#da3633"/>
+          <text x="36" y="25" fill="#c9d1d9" font-size="12" font-family="'Noto Sans JP',sans-serif">〜900km(直近圏)</text>
+          <circle cx="200" cy="20" r="5" fill="#B8912A"/>
+          <text x="212" y="25" fill="#c9d1d9" font-size="12" font-family="'Noto Sans JP',sans-serif">900〜1,700km(中距離圏)</text>
+          <circle cx="430" cy="20" r="5" fill="#58a6ff"/>
+          <text x="442" y="25" fill="#c9d1d9" font-size="12" font-family="'Noto Sans JP',sans-serif">1,700km超(遠距離圏)</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="chart-container" style="height:380px">
+      <canvas id="chartDistance"></canvas>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>主要都市</th><th>那覇からの距離</th><th>戦略的意味</th></tr></thead>
+      <tbody>
+        <tr><td><strong>台北</strong></td><td><span class="badge-weak">約 630 km</span></td><td>第一列島線の直近拠点。与那国島からは最短110km</td></tr>
+        <tr><td><strong>上海</strong></td><td><span class="badge-weak">約 820 km</span></td><td>中国経済の中核・東シナ海艦隊司令部</td></tr>
+        <tr><td>ソウル</td><td><span class="badge-moderate">約 1,260 km</span></td><td>在韓米軍拠点</td></tr>
+        <tr><td>マニラ</td><td><span class="badge-moderate">約 1,480 km</span></td><td>米比相互防衛・EDCA基地</td></tr>
+        <tr><td>東京</td><td><span class="badge-moderate">約 1,556 km</span></td><td>日本政治中枢</td></tr>
+        <tr><td>北京</td><td><span class="badge-strong">約 1,840 km</span></td><td>中国政治中枢</td></tr>
+        <tr><td>グアム</td><td><span class="badge-strong">約 2,230 km</span></td><td>米軍第二列島線拠点</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <strong>本質的洞察:</strong> 沖縄は<strong style="color:var(--gold-light)">東京より台北・上海に近い</strong>。この一行だけで沖縄の地政学的位置づけの本質が分かる。日本本土の「南端」ではなく、東アジアの「中心」として読み直す必要がある。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 4: 軍事 ========== -->
+<div class="section" id="sec-military" data-accordion>
+  <div class="section-title"><span class="section-icon">🛡️</span> 軍事 ── 第一列島線と「70%集中」の意味</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">第一列島線(九州〜南西諸島〜台湾〜フィリピン〜ボルネオ)の中央セグメントを成す沖縄。日本国土の0.6%に在日米軍専用施設の約70.3%が集中する異常値は、歴史的慣性ではなく地理的必然性の結果である。CSISの2023年台湾侵攻ウォーゲームは「沖縄基地アクセスがなければ米軍は台湾防衛に失敗する」と明確に結論づけている。</p>
+
+    <div class="chart-row">
+      <div class="chart-container"><canvas id="chartBaseShare"></canvas></div>
+      <div class="chart-container"><canvas id="chartSenkaku"></canvas></div>
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">在沖米軍の主要基地</h3>
+    <table class="tbl">
+      <thead><tr><th>基地</th><th>機能</th><th>戦略的意義</th></tr></thead>
+      <tbody>
+        <tr><td><strong>嘉手納空軍基地</strong></td><td>極東最大の米空軍基地、3,700m級滑走路2本</td><td>台湾海峡まで給油なし戦闘可能な唯一の米空軍基地</td></tr>
+        <tr><td><strong>普天間飛行場</strong></td><td>米海兵隊航空基地</td><td>宜野湾市域の25%を占有・移設論争の中心</td></tr>
+        <tr><td><strong>キャンプ・シュワブ / 辺野古</strong></td><td>V字型滑走路建設中</td><td>普天間移設先・2030年代に運用開始予定</td></tr>
+        <tr><td><strong>ホワイトビーチ</strong></td><td>原子力潜水艦寄港地</td><td>第7艦隊の兵站ハブ</td></tr>
+        <tr><td><strong>第3海兵遠征軍(III MEF)</strong></td><td>司令部キャンプ・コートニー</td><td>太平洋全域で約7,000名・第12海兵沿岸連隊配備</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">中国 A2/AD ミサイル射程下の最前線</h3>
+    <table class="tbl">
+      <thead><tr><th>中国ミサイル</th><th>射程</th><th>沖縄への意味</th></tr></thead>
+      <tbody>
+        <tr><td><strong>DF-21D「空母キラー」</strong></td><td>約 2,150 km</td><td>沖縄全域射程内</td></tr>
+        <tr><td><strong>DF-26B「グアムキラー」</strong></td><td>約 4,000 km</td><td>グアムまで到達。沖縄は完全圏内</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert-box">
+      <strong style="color:var(--negative)">CSISウォーゲーム(2023)の結論:</strong> 24回シミュレーションのうち、米日台連合は概ね中国の上陸侵攻を撃退した。ただし米軍は3週間で艦艇10〜20隻、空母2隻、航空機200〜400機、戦死者約3,200名を喪失。<strong>決定的前提条件は「日本基地(特に沖縄)への米軍アクセス」</strong>であり、日本が基地使用を拒めば、米軍は台湾防衛にほぼ失敗するとされた。
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">自衛隊「南西シフト」── 守る基地から撃つ基地へ</h3>
+    <div class="timeline">
+      <div class="timeline-item"><h4>2016 与那国島</h4><p>沿岸監視隊配備。空白地帯だった南西諸島への自衛隊本格配備の起点</p></div>
+      <div class="timeline-item"><h4>2019 宮古島・奄美大島</h4><p>地対艦・地対空ミサイル部隊新編</p></div>
+      <div class="timeline-item"><h4>2023 石垣島</h4><p>第303地対艦ミサイル中隊、12式地対艦誘導弾配備。台湾に最も近いミサイル部隊</p></div>
+      <div class="timeline-item"><h4>2026年度〜</h4><p>12式能力向上型(射程1,000km超)配備開始予定。反撃能力の中核</p></div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>戦略的転換:</strong> 石垣・宮古・奄美の3島から交差射撃で宮古海峡の中国艦艇通過を封鎖可能に。沖縄は「守る基地」から「撃つ基地」へ転換しつつある。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 5: 経済 ========== -->
+<div class="section" id="sec-economy" data-accordion>
+  <div class="section-title"><span class="section-icon">💹</span> 経済 ── 数値が語る覇権の急所</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">台湾有事の世界経済損失試算は10兆ドル(世界GDPの10.2%)。その発火点に最も近い米軍拠点が沖縄である。半導体・シーレーン・通信インフラの3要素すべてが沖縄半径2,000km圏内で交差する。一方、沖縄県の基地依存度は復帰時15.5%から現在5.5%に低下し、軍事的価値と経済構造の乖離が政治的脆弱性を生んでいる。</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="icon">🔬</div>
+        <div class="metric-value">92<span style="font-size:.5em">%</span></div>
+        <div class="metric-label">台湾の先端半導体世界シェア</div>
+        <div class="metric-sub">10nm以下ロジック・残り8%が韓国</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">🏭</div>
+        <div class="metric-value">70.2<span style="font-size:.5em">%</span></div>
+        <div class="metric-label">TSMC ファウンドリ世界シェア</div>
+        <div class="metric-sub">2025 Q2時点</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">⛴️</div>
+        <div class="metric-value">90<span style="font-size:.5em">%</span></div>
+        <div class="metric-label">日本の中東石油輸入の通過率</div>
+        <div class="metric-sub">バシー海峡経由</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">📡</div>
+        <div class="metric-value">99<span style="font-size:.5em">%</span></div>
+        <div class="metric-label">日本の国際通信</div>
+        <div class="metric-sub">海底ケーブル22本に集中</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">台湾有事の世界経済インパクト(Bloomberg 2024年試算)</h3>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>規模</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>世界経済損失試算</td><td><strong style="color:var(--negative)">約 10兆ドル(1,440兆円)</strong></td><td>Bloomberg Economics(2024.1)</td></tr>
+        <tr><td>世界GDP比</td><td>約 10.2%</td><td>リーマン・コロナの約6%減を大幅超過</td></tr>
+        <tr><td>日本GDP影響(中国侵攻シナリオ)</td><td><strong style="color:var(--negative)">−13.5%</strong></td><td>Bloomberg</td></tr>
+        <tr><td>米国情報機関 半導体停止試算</td><td>130兆円の打撃</td><td>日経(2023.5)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">沖縄経済 ── 基地依存度の歴史的低下</h3>
+    <div class="chart-container" style="height:340px"><canvas id="chartBaseDep"></canvas></div>
+
+    <div class="alert-box">
+      <strong>沖縄問題の本質:</strong> 観光収入(8,507億円・2023年度)は基地関連収入(2,712億円)の3倍以上。<strong style="color:var(--gold-light)">経済構造は基地から離脱したが、軍事的戦略価値は逆に高まっている</strong>──この乖離こそが反基地世論の正当性を強化し、認知戦の浸透余地を広げている。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 6: 歴史 ========== -->
+<div class="section" id="sec-history" data-accordion>
+  <div class="section-title"><span class="section-icon">📜</span> 歴史 ── 5回の地位再定義</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">沖縄の地位は、大国間の覇権移行期ごとに5回再定義されてきた。1609年(明清交代期)・1879年(西洋帝国主義期)・1945年(米ソ覇権開始期)・1972年(米ソ均衡期)。そして現在、米中覇権競争期における<strong style="color:var(--gold-light)">5回目の再定義局面</strong>が進行している。歴史パターンに学べば、この再定義は今後10〜20年で何らかの形で決着する可能性が高い。</p>
+
+    <table class="tbl">
+      <thead><tr><th>年</th><th>出来事</th><th>地政学的意味</th></tr></thead>
+      <tbody>
+        <tr><td>1429</td><td>琉球王国成立</td><td>東アジア海上交易の結節点</td></tr>
+        <tr><td>1372〜</td><td>明への朝貢開始(冊封体制)</td><td>中華秩序への組み込み・後の中国側「藩属国論」の根拠</td></tr>
+        <tr><td><strong>1609</strong></td><td><strong>薩摩藩侵攻</strong></td><td><strong>① 第1回再定義: 日清両属体制の始まり</strong></td></tr>
+        <tr><td><strong>1879</strong></td><td><strong>琉球処分・沖縄県設置</strong></td><td><strong>② 第2回再定義: 清は承認せず帰属問題棚上げ</strong></td></tr>
+        <tr><td>1895</td><td>日清戦争勝利</td><td>国際法上の日本領確定</td></tr>
+        <tr><td><strong>1945</strong></td><td><strong>沖縄戦・県民の約4分の1死亡</strong></td><td><strong>③ 第3回再定義: 本土防衛の「捨て石」、米軍統治の起点</strong></td></tr>
+        <tr><td>1952</td><td>サンフランシスコ条約第3条</td><td>本土主権回復と引き換えに沖縄のみ米施政権下へ</td></tr>
+        <tr><td><strong>1972</strong></td><td><strong>本土復帰(核抜き・本土並み)</strong></td><td><strong>④ 第4回再定義: 施政権返還、基地機能温存</strong></td></tr>
+        <tr><td>1996</td><td>SACO合意・普天間返還合意</td><td>辺野古移設問題の起点</td></tr>
+        <tr><td>2013.5</td><td>人民日報「琉球地位未定論」公式言及</td><td>認知戦の制度化開始</td></tr>
+        <tr><td>2019.2</td><td>辺野古埋立県民投票 反対71.7%</td><td>民意と国策の乖離が可視化</td></tr>
+        <tr><td>2023.6</td><td>習近平が福州時代の「琉球館」に異例の言及</td><td>最高指導者レベルでの「琉球カード」起動</td></tr>
+        <tr><td>2023.7</td><td>玉城デニー知事訪中、李強首相と会談</td><td>首長外交と認知戦の接点</td></tr>
+        <tr><td>2024春</td><td>北京で「琉球の歴史的地位」学術会議</td><td>認知戦の体系化</td></tr>
+        <tr><td><strong>2020s〜</strong></td><td><strong>米中覇権競争の激化</strong></td><td><strong>⑤ 第5回再定義局面 ── 現在進行中</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <strong>パターン認識:</strong> 過去5世紀、沖縄の地位は常に<strong style="color:var(--gold-light)">県民の意思とは無関係に大国によって決定されてきた</strong>。5回目の再定義局面である現在、初めて「県民の意思と理解度」がその帰趨を左右する変数になっている──これは過去5世紀で初めての歴史的機会であると同時に、初めての歴史的責任でもある。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 6.5: 沖縄の歴史 占領パターン分析 ========== -->
+<div class="section" id="sec-occupation" data-accordion>
+  <div class="section-title"><span class="section-icon">🔍</span> 沖縄の歴史 ── 占領パターンの構造分析</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">沖縄は過去650年で4つの異なる「占領体制」を経験してきた──明清朝貢期、薩摩支配期、日本併合期、米軍統治期。一見すると別々の事象だが、構造を解剖すると驚くほど共通したパターンが見える。「誰が、なぜ、どのように沖縄を必要としたか」を時代横断で分析することで、現在進行中の第5期の本質が見えてくる。</p>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">第1期 ── 明清朝貢冊封体制(1372〜1879)</h3>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td><strong>占領主体</strong></td><td>中国(明・清王朝)</td></tr>
+        <tr><td><strong>形式</strong></td><td>冊封体制下の朝貢国(直接統治なし)</td></tr>
+        <tr><td><strong>目的①</strong></td><td>東シナ海の朝貢秩序維持と中華帝国の威信確保</td></tr>
+        <tr><td><strong>目的②</strong></td><td>海上交易ハブとしての利用 ── 直接の海外貿易を制限する代わりに、琉球を通じた中継貿易で経済的利益を得る</td></tr>
+        <tr><td><strong>琉球の役割</strong></td><td>中国製品(陶磁器・絹・薬材)と日本・東南アジア(刀剣・銀・香木・染料)の中継地</td></tr>
+        <tr><td><strong>支配コスト</strong></td><td>極小 ── 直接統治を行わず、外交的承認(冊封)と朝貢使節の受入のみ</td></tr>
+        <tr><td><strong>本質</strong></td><td><span class="badge-moderate">ソフトな宗主権モデル</span> 領有せず影響圏に留める</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:24px 0 12px">第2期 ── 薩摩侵攻と日中両属(1609〜1879)</h3>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td><strong>占領主体</strong></td><td>薩摩藩(島津氏) → 江戸幕府の暗黙の承認</td></tr>
+        <tr><td><strong>形式</strong></td><td>軍事侵攻後、王国は名目上存続させる「両属」体制</td></tr>
+        <tr><td><strong>目的①</strong></td><td>鎖国下での対清貿易の裏ルート確保 ── 公式に閉ざした対外貿易を、琉球を通じて継続</td></tr>
+        <tr><td><strong>目的②</strong></td><td>薩摩藩財政の主要収益源 ── 中継貿易の利益が藩を支える基幹</td></tr>
+        <tr><td><strong>三角貿易の構造</strong></td><td>薩摩 → 琉球 → 中国(朝貢使節として偽装) → 琉球 → 薩摩。琉球王国は対外的には独立国、実質は薩摩の貿易代理人</td></tr>
+        <tr><td><strong>巧妙さ</strong></td><td>琉球を併合してしまうと中国との朝貢関係が断絶し、貿易ルートが消滅する。<strong>「主権の曖昧さ」こそが価値</strong>だった</td></tr>
+        <tr><td><strong>本質</strong></td><td><span class="badge-moderate">商業的利用モデル</span> 独立国の体裁を温存して経済的に搾取</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <strong>注目すべき構造:</strong> 270年間、琉球は中国にも日本にも属さず、両方に属するという奇妙な状態を維持した。この「両属の曖昧さ」は弱さではなく、両大国にとっての利便性そのものだった。<strong>主権の不確定性が大国に利益をもたらす構造</strong>──これは現代の「琉球地位未定論」の遠い先祖でもある。
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:24px 0 12px">第3期 ── 琉球処分と日本帝国併合(1879)</h3>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td><strong>占領主体</strong></td><td>明治日本政府</td></tr>
+        <tr><td><strong>形式</strong></td><td>軍事力を背景にした一方的併合 → 沖縄県設置</td></tr>
+        <tr><td><strong>目的①</strong></td><td>南方海洋進出の足場確保 ── 1874年台湾出兵後の戦略的拠点化</td></tr>
+        <tr><td><strong>目的②</strong></td><td>不平等条約改正に向けた領土の明確化 ── 西洋帝国主義時代に「曖昧な主権」は危険</td></tr>
+        <tr><td><strong>目的③</strong></td><td>ウェストファリア秩序(主権絶対化)の輸入 ── 国際法上の領土確定が国家の生存条件に</td></tr>
+        <tr><td><strong>同化政策</strong></td><td>学校(日本語強制)、徴税、徴兵 ── 文化的独立性の解体</td></tr>
+        <tr><td><strong>転換の本質</strong></td><td>過去270年の「曖昧さ価値モデル」から「主権絶対化モデル」への180度転換。<strong>外部環境(西洋帝国主義の東進)が変化したから手法も変えた</strong></td></tr>
+        <tr><td><strong>本質</strong></td><td><span class="badge-moderate">主権領有モデル</span> 帝国主義競争上の必要性</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:24px 0 12px">第4期 ── 沖縄戦と米軍統治(1945〜1972)</h3>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td><strong>占領主体</strong></td><td>アメリカ合衆国</td></tr>
+        <tr><td><strong>形式</strong></td><td>1945年沖縄戦 → 1952年サンフランシスコ条約第3条で日本主権から切り離し → 米軍政府/琉球民政府による統治 → 1972年返還</td></tr>
+        <tr><td><strong>目的①</strong></td><td>対ソ・対中前方展開拠点(冷戦の最前線)</td></tr>
+        <tr><td><strong>目的②</strong></td><td>「太平洋の不沈空母(Keystone of the Pacific)」 ── 直接統治することで基地配置の自由度を最大化</td></tr>
+        <tr><td><strong>目的③</strong></td><td>日本本土の主権回復と引き換えの戦略予備 ── 本土との切り分けで日本の独立を許容しつつ軍事的支配を維持</td></tr>
+        <tr><td><strong>巧妙さ</strong></td><td>「日本領土の一部だが日本主権の外」という奇妙な状態 ── 第2期の薩摩モデルと構造的に酷似</td></tr>
+        <tr><td><strong>1972年返還の条件</strong></td><td>「核抜き・本土並み」だが基地機能は完全に温存。施政権だけを返した実質的な「半返還」</td></tr>
+        <tr><td><strong>本質</strong></td><td><span class="badge-moderate">軍事拠点モデル</span> 新たな帝国主義的競争(冷戦)の必要性</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:24px 0 12px">共通パターンの抽出 ── 5つの構造的法則</h3>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-num">P1</div>
+        <div>
+          <h4>「曖昧な主権」が常に経済的・戦略的価値を生む</h4>
+          <p>明清期の冊封、薩摩期の両属、米軍統治期の「施政権だけ」── すべて主権の曖昧化が大国に利益をもたらす構造。主権が完全に固定されるのは外部競争(西洋帝国主義、冷戦終結後の対中対立)が激化した時のみ。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">P2</div>
+        <div>
+          <h4>「島民の主体性」は常に二次的だった</h4>
+          <p>どの時代も、占領・統治の決定は外部の戦略計算によってなされた。県民の意思は記録すらされない、あるいは事後的に処理される。沖縄の歴史は650年間「外部決定」の歴史だった。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">P3</div>
+        <div>
+          <h4>「経済利益」と「軍事利益」が交互に現れる</h4>
+          <p>朝貢期(経済) → 薩摩期(経済) → 日本併合期(戦略) → 米軍期(軍事) → 現在(軍事+経済+認知)。<strong>現代の超限戦は、この2つを同時に攻める初の事例</strong>であり、過去より複合的かつ巧妙。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">P4</div>
+        <div>
+          <h4>「沖縄の独自文化・国家性」は常に道具化される</h4>
+          <p>中国は冊封関係を強調(現代の「藩属国論」)、薩摩は琉球王国の独立を温存(対中貿易のため)、米軍は「琉球民政府」を設置(日本から切り離し)。<strong>文化的独自性そのものが、政治的レバレッジに転化される</strong>。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">P5</div>
+        <div>
+          <h4>「移行期」が最も危険</h4>
+          <p>明清交代期(1644〜)、明治維新期(1868〜)、第二次大戦終結期(1945〜)── 大国間の覇権移行期に沖縄の地位が変動する。<strong>現在: 米中覇権移行期(2010s〜)が5回目の移行期</strong>。歴史的に最も警戒すべきタイミング。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">P6</div>
+        <div>
+          <h4>「事後的正当化」が常に伴う</h4>
+          <p>占領後、必ず歴史的・法的・文化的な「正当化の物語」が構築される。明清の冊封正史、薩摩の朝貢偽装、日本の琉球処分の「廃藩置県」化、米国の「自由世界の防衛」──。<strong>現代の「琉球地位未定論」もこの正当化系譜の最新版</strong>と読むべき。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:24px 0 12px">推測 ── 第5期「中国の超限戦時代」が始まっている可能性</h3>
+
+    <p style="font-size:.93rem;color:var(--text-sub);line-height:1.85;margin-bottom:12px">過去のパターンに沿って分析すると、現在進行中の第5期は、過去4期の手法を組み合わせた<strong style="color:var(--gold-light)">「複合型超限戦モデル」</strong>として理解できる:</p>
+
+    <table class="tbl">
+      <thead><tr><th>過去のパターン</th><th>現代の中国の手法</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>明清朝貢期</strong>: 冊封による文化的・政治的レバレッジ</td>
+          <td>「琉球地位未定論」「琉球は歴史的に中国の藩属国」言説の体系化</td>
+        </tr>
+        <tr>
+          <td><strong>薩摩三角貿易期</strong>: 経済的浸透と独立の体裁</td>
+          <td>観光客依存、土地取得、姉妹都市、貿易誘引(段階的経済浸透)</td>
+        </tr>
+        <tr>
+          <td><strong>日本併合期</strong>: 「移行期」の覇権競争を利用</td>
+          <td>米中対立の隙を突き、米国の内向き化を待つ</td>
+        </tr>
+        <tr>
+          <td><strong>米軍統治期</strong>: 本土との切り離しと「独立性」の強調</td>
+          <td>「沖縄は日本本土とは別」言説、独立論の支援、文化的独自性の強調</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert-box">
+      <strong style="color:var(--negative)">推測の含意:</strong> 中国は意識的か無意識的かを問わず、<strong>過去650年間の占領者の手法を知識として持ち、組み合わせて運用している</strong>可能性が高い。これは単なる外交方針ではなく、東アジアの覇権移行期における歴史的に検証された「成功パターン」の再現である。だからこそ、<strong>過去の歴史を理解することが、現代の認知戦を見抜く最も有効な防衛手段</strong>になる。
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:24px 0 12px">最大の歴史的教訓</h3>
+
+    <div class="conclusion-box" style="background:linear-gradient(135deg,rgba(184,145,42,0.1),rgba(184,145,42,0.03));margin:0">
+      <span class="label">Historical Lesson</span>
+      <div class="lead">過去650年で唯一変わったのは、「県民の主体性」が初めて変数として登場した点である。</div>
+      <p>19世紀以前は技術的不可能(情報伝達の限界)、20世紀は情報統制と教育格差のため、県民の意思は無視されてきた。しかし<strong style="color:var(--gold-light)">21世紀の民主主義+情報革命下では、県民の理解度と意思表示そのものが地政学的変数となる</strong>。</p>
+      <p style="margin-top:10px">これは過去5世紀で初めての「自分たちの運命に介入できる窓」であり、同時に「介入を放棄すれば過去のパターンを再現される」という両義性を持つ。これが「無関心が最大のリスク」という結論の歴史的根拠である。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 7: 超限戦 ========== -->
+<div class="section" id="sec-unrestricted" data-accordion>
+  <div class="section-title"><span class="section-icon">⚔️</span> 認知戦・超限戦 ── 既に進行中の「見えない戦争」</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">1999年に中国人民解放軍の喬良・王湘穂両大佐が発表した『超限戦(Unrestricted Warfare)』ドクトリンは、「戦争と非戦争の境界、軍事と非軍事の境界を超越する」ことを核心とする。沖縄は超限戦の典型的な標的であり、観測可能な攻撃手法は既に12類型のうち少なくとも8〜9類型で進行中である。これは「想定されるリスク」ではなく「既に約12年(2013年〜現在)進行している実戦」と捉えるべきである。</p>
+
+    <table class="tbl">
+      <thead><tr><th>超限戦の類型</th><th>沖縄における観測事象</th><th>進行度</th></tr></thead>
+      <tbody>
+        <tr><td><strong>法律戦(Lawfare)</strong></td><td>「琉球地位未定論」の体系化(2013人民日報〜2024北京学術会議)</td><td><span class="badge-moderate">中</span></td></tr>
+        <tr><td><strong>世論戦</strong></td><td>中国国営メディアの基地問題報道、SNSでの戦略的拡散</td><td><span class="badge-moderate">中</span></td></tr>
+        <tr><td><strong>心理戦</strong></td><td>「本土に捨てられた」歴史的トラウマの再喚起、米軍事件事故の戦略的増幅</td><td><span class="badge-weak">中〜高</span></td></tr>
+        <tr><td><strong>歴史戦</strong></td><td>琉球冊封関係を「藩属国だった」と解釈し直す学術言説の組織化</td><td><span class="badge-weak">高</span></td></tr>
+        <tr><td><strong>文化戦</strong></td><td>孔子学院、姉妹都市(福州市等)、琉球文化研究への資金提供</td><td><span class="badge-moderate">中</span></td></tr>
+        <tr><td><strong>経済戦</strong></td><td>観光客依存(コロナ前年70万人)、土地取得(水源地・基地周辺)、投資誘致</td><td><span class="badge-moderate">中</span></td></tr>
+        <tr><td><strong>金融戦</strong></td><td>中国系資本の不動産・ホテル・ゴルフ場取得</td><td><span class="badge-strong">低〜中</span></td></tr>
+        <tr><td><strong>資源戦</strong></td><td>尖閣周辺の海底資源開発を巡るグレーゾーン圧力</td><td><span class="badge-moderate">中</span></td></tr>
+        <tr><td><strong>外交戦</strong></td><td>首長外交(玉城知事訪中)の戦略的活用、ASEAN・国連での「植民地」言説</td><td><span class="badge-moderate">中</span></td></tr>
+        <tr><td><strong>情報戦</strong></td><td>TikTok・微博・YouTube・生成AIによる認知形成</td><td><span class="badge-weak">進行中</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert-box">
+      <strong style="color:var(--negative)">超限戦の合理性:</strong> 軍事侵攻はコスト数兆ドル・国際的代償極大・成功率低。一方、超限戦は数百億円規模・通常活動の域・10〜20年で成果蓄積可能・いつでも撤退可能。<strong>合理的な戦略計算者であれば、軍事侵攻ではなく超限戦を選ぶのは自然な帰結</strong>である。
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">日本側の認識ギャップ</h3>
+    <table class="tbl">
+      <thead><tr><th>領域</th><th>日本の制度的整備状況</th></tr></thead>
+      <tbody>
+        <tr><td>軍事的侵攻対応</td><td><span class="badge-strong">★★★★☆</span> 自衛隊・日米同盟・南西シフト</td></tr>
+        <tr><td>サイバー攻撃対応</td><td><span class="badge-moderate">★★★☆☆</span> NISC、能動的サイバー防御</td></tr>
+        <tr><td>経済安全保障</td><td><span class="badge-moderate">★★★☆☆</span> 経済安保推進法、重要土地等調査法</td></tr>
+        <tr><td>認知戦・情報戦対応</td><td><span class="badge-weak">★☆☆☆☆ 実質空白</span></td></tr>
+        <tr><td>法律戦対応</td><td><span class="badge-weak">★☆☆☆☆ 実質空白</span></td></tr>
+        <tr><td>歴史戦対応</td><td><span class="badge-weak">★☆☆☆☆ 実質空白</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <strong>結論:</strong> <strong>超限戦の主戦場である「認知・法律・歴史」の3領域で日本は丸腰</strong>。沖縄県レベルでの対処は更に脆弱であり、ここに最大の戦略的脆弱性がある。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 8: シナリオ ========== -->
+<div class="section" id="sec-scenarios" data-accordion>
+  <div class="section-title"><span class="section-icon">🎲</span> IFシナリオ ── もし沖縄が〇〇になったら</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">2040年までを想定した4つのシナリオ。発生確率は単独では低くても、複合経路(D→A)を考慮すると無視できない。特にシナリオAは「軍事侵攻ではなく静かな侵食」によって実現する経路が現実的で、その場合の覇権インパクトは核保有国の変動に匹敵する。</p>
+
+    <div class="scenario-grid">
+
+      <div class="scenario-card danger">
+        <div class="scen-tag">SCENARIO A</div>
+        <h4>中国の政治的影響下に入る</h4>
+        <div class="prob">発生確率 5〜8%</div>
+        <p><strong>実現経路:</strong> 軍事侵攻ではない。①沖縄独立論の県民投票過半数化、②新政権の経済中国依存、③米国の内向き化、④台湾有事での米軍初動失敗──の複合。シャープパワー(経済誘引+世論工作+琉球地位未定論の法的利用)による段階的浸透。</p>
+        <div class="impact"><strong>米中覇権影響:</strong> 決定的転換。第一列島線突破、米軍プレゼンスがグアムまで2,400km後退。米軍撤退ドミノで台湾事実上防衛不能、半導体サプライチェーンが中国レバレッジ下に。<strong>核保有国変動に匹敵するインパクト</strong>。</div>
+      </div>
+
+      <div class="scenario-card caution">
+        <div class="scen-tag">SCENARIO B</div>
+        <h4>独立国家化(中立国スイス型)</h4>
+        <div class="prob">発生確率 3〜5%</div>
+        <p><strong>実現条件:</strong> 日本本土の政治的機能不全、県民投票独立賛成60%超、国際社会承認、米中双方の中立化黙認。歴史的にスイス型中立は周辺大国の合意が必須で、米中対立局面では極めて成立しにくい。</p>
+        <div class="impact"><strong>結果:</strong> 米軍即応能力30〜40%低下(RAND試算)。経済自立は財政移転喪失で困難。中立は名目化し、実態はフィンランド化(冷戦期1948-89年型)に近似。</div>
+      </div>
+
+      <div class="scenario-card positive">
+        <div class="scen-tag">SCENARIO C</div>
+        <h4>米軍プレゼンス強化(対中包囲網の中核化)</h4>
+        <div class="prob">発生確率 40〜50%</div>
+        <p><strong>進行中:</strong> 第12海兵沿岸連隊配備、トマホーク日本配備、Typhonミサイル配備議論。CSIS「First Battle」ウォーゲームの「ベストケース」に近い経路。</p>
+        <div class="impact"><strong>結果:</strong> 短期(1〜3年)は台湾有事リスク早期化、中長期(5年以上)は抑止強化による「U字型リスク曲線」。米中二極の膠着固定化。日米豪比のミニラテラル枠組み加速。</div>
+      </div>
+
+      <div class="scenario-card caution">
+        <div class="scen-tag">SCENARIO D</div>
+        <h4>現状維持(静かな侵食)</h4>
+        <div class="prob">発生確率 40〜50%</div>
+        <p><strong>進行中:</strong> 辺野古移設の長期化、地位協定の小規模改定、定数の微減。最大のリスクは軍事ではなく認知戦──観光依存、土地取得、姉妹都市、SNS世論工作。CSIS(2020)は沖縄を「日本における中国影響工作の最前線」と位置づけ。</p>
+        <div class="impact"><strong>結果:</strong> 抑止の曖昧さが台湾有事確率を段階的に押し上げる<strong>「ゆでガエル」リスク</strong>。シナリオAへの遷移経路を内包。</div>
+      </div>
+
+    </div>
+
+    <div class="alert-box">
+      <strong style="color:var(--negative)">最大の現実的リスク:</strong> シナリオA単独の確率は5〜8%だが、シナリオD(現状維持)からシナリオAへの遷移経路を考慮すると、累積リスクは2倍以上に膨らむ。<strong>「静かな侵食」が10〜20年スパンで進行した結果、ある時点でティッピングポイントを越える</strong>──これが最も警戒すべき経路である。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 9: 3レイヤー別リテラシー ========== -->
+<div class="section" id="sec-layers" data-accordion>
+  <div class="section-title"><span class="section-icon">🧭</span> 3レイヤー別リテラシー ── 沖縄が理解しておくべきこと</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">沖縄の最大リスクは軍事侵攻ではなく「認知の空白」である。中国の超限戦の浸透経路は議会でも軍隊でもなく、観光・土地・教育・SNS・首長外交である。つまり防衛省や米軍ではなく、首長・行政・県民の判断こそが沖縄の地政学的帰趨を決める。各レイヤーで「何を知っておくべきか」を明確化する。</p>
+
+    <div class="layer-grid">
+
+      <div class="layer-card">
+        <div class="layer-num">LAYER 01</div>
+        <h4>首長(知事・市町村長)</h4>
+        <ul>
+          <li>自分の発言は中国国営メディアと米シンクタンクが常時観測している</li>
+          <li>「基地負担軽減」と「琉球独立論」は質的に異なる。混同した発言は中国の認知戦に素材を与える</li>
+          <li>CSIS・RAND・防衛研究所は沖縄を"決定変数"と位置付けている</li>
+          <li>習近平の2023年6月「琉球」言及は偶発でなく長期戦略の一環</li>
+          <li>県民投票の「反基地72%」は親中ではない。解釈を誤ると外部に誤伝達される</li>
+          <li>訪中時は必ず米国側にも事前通告し、両大国を等距離で扱う</li>
+          <li>「一帯一路」案件は経済合理性だけでなく安保インパクト評価必須</li>
+        </ul>
+      </div>
+
+      <div class="layer-card">
+        <div class="layer-num">LAYER 02</div>
+        <h4>行政団体(県庁・市町村・議会)</h4>
+        <ul>
+          <li>重要土地等調査法(2022施行)の運用責任は地方にもある</li>
+          <li>姉妹都市・学術交流・孔子学院は認知戦の制度的窓口になりうる</li>
+          <li>観光客の国別構成は安全保障マターでもある</li>
+          <li>海底ケーブル22本の相当数が沖縄経由 ── 物理インフラのセキュリティは都市計画と直結</li>
+          <li>南西シフト(2026年度〜射程1,000km超配備)と民間生活の両立設計</li>
+          <li>先島諸島(石垣・宮古・与那国)住民約11万人の有事避難計画</li>
+          <li>教育カリキュラムにおける地政学・歴史の正確性確保</li>
+        </ul>
+      </div>
+
+      <div class="layer-card">
+        <div class="layer-num">LAYER 03</div>
+        <h4>県民</h4>
+        <ul>
+          <li>沖縄は今、5回目の地位再定義局面にある(1609・1879・1945・1972・現在)</li>
+          <li>基地は経済的負担であると同時に、地理的必然性の結果でもある</li>
+          <li>「反基地」と「親中」は別物。自分の意思表示が外部にどう翻訳されるか意識する</li>
+          <li>中国の「琉球地位未定論」は学術言説ではなく戦略カードである</li>
+          <li>台湾有事の発火点に最も近い米軍拠点に住んでいる ── 物理的安全に直結</li>
+          <li>歴史リテラシー: 両属体制・琉球処分・沖縄戦・1972年返還を自分の言葉で語れる</li>
+          <li>家族単位での有事行動計画(先島諸島は特に重要)</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="highlight-box">
+      <strong>3レイヤー共通の3つの「区別」:</strong><br>
+      ① 「基地負担軽減」と「独立論」の区別 — 内政問題と国際係争を混同しない<br>
+      ② 「文化交流」と「認知戦」の区別 — 善意の交流が戦略的に利用される構造を理解する<br>
+      ③ 「反基地世論」と「親中世論」の区別 — 民意が外部にどう翻訳されるかを意識する
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 10: 本質と洞察 ========== -->
+<div class="section" id="sec-insights" data-accordion>
+  <div class="section-title"><span class="section-icon">💡</span> 本質と洞察 ── 6つのインサイト</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">4チーム並列リサーチ(歴史・政治 / 軍事・地政学 / 経済・定量 / シナリオ)から導出された、沖縄の地政学的位置づけに関する6つの本質的洞察。</p>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-num">01</div>
+        <div>
+          <h4>沖縄は「米中システムのスイングステート」である</h4>
+          <p>米国大統領選におけるペンシルベニアやフロリダのように、少数だが結果を決定的に変える票田。他の在日米軍基地で代替できない地理的一意性ゆえに、ここの政治的方向性が西太平洋全体の力学を決める。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">02</div>
+        <div>
+          <h4>軍事的価値と経済構造の「乖離」が脆弱性を生む</h4>
+          <p>復帰時15.5%から5.5%へと基地依存度が低下した結果、県民にとって基地はもはや経済的必要悪ではなく純然たる負担となった。一方で米中対立激化により戦略的価値は逆に高まり続けている。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">03</div>
+        <div>
+          <h4>「静かな侵食」こそが最大の現実的リスク</h4>
+          <p>派手な軍事シナリオよりも、観光依存・水源地土地取得・姉妹都市・SNS世論工作という静かな経路の方がはるかに現実的。CSIS(2020)は沖縄を「日本における中国影響工作の最前線」と位置づけている。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">04</div>
+        <div>
+          <h4>中国の「琉球カード」は10年スパンの計算された長期戦略</h4>
+          <p>2013人民日報論文(言説起動)→ 2023習近平発言(最高指導者レベル)→ 2024北京学術会議(制度化)。10年スパンの段階的展開は、台湾問題で日本を牽制するための長期戦略カードとしての位置づけを示す。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">05</div>
+        <div>
+          <h4>5回目の「再定義局面」に我々はいる</h4>
+          <p>1609・1879・1945・1972に続く、5回目の覇権移行に伴う沖縄の地位再定義局面が現在進行中。歴史パターンに学べば、この再定義は今後10〜20年で何らかの形で決着する可能性が高い。</p>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">06</div>
+        <div>
+          <h4>「最重要拠点」と「最初の標的」は表裏一体</h4>
+          <p>沖縄の戦略的価値の高さは、そのまま中国ミサイル(DF-21D/26)の最優先標的であることと同義。価値と脆弱性のトレードオフこそが、シナリオ確率分析を難しくしている本質的構造。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:20px">
+      <strong style="color:var(--gold-light)">最終的な含意:</strong> 沖縄2075ビジョンの設計においては、「経済発展」「健康」「教育」「環境」と並んで、<strong>「地政学的リテラシー」と「認知戦への防衛」</strong>を独立した政策軸として設定する必要がある。これはOSA(沖縄安全保障自治論)の第七層「参加的安全」と第六層「情報的安全」に直結する課題である。
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 11: 結論再掲 ========== -->
+<div class="section" id="sec-final">
+  <div class="section-title"><span class="section-icon">🏛️</span> 結論再掲 ── 「無関心」が最大のリスクである</div>
+
+  <div class="conclusion-box">
+    <span class="label">Final Statement</span>
+    <div class="lead">沖縄は21世紀の米中覇権競争における戦略的重心であり、半導体・シーレーン・通信インフラ・米中軍事対峙という4要素すべてが半径2,000km圏内で交差する世界で唯一の地点である。</div>
+    <p>歴史を見ると、沖縄の地位は常に県民の意思とは無関係に大国によって決定されてきた(1609薩摩侵攻、1879琉球処分、1945米軍統治、1952切り離し、1972核抜き返還)。</p>
+    <p style="margin-top:10px"><strong style="color:var(--gold-light)">5回目の再定義局面である現在、初めて「県民の意思と理解度」がその帰趨を左右する変数になっている</strong>。これは過去5世紀で初めての歴史的機会であると同時に、初めての歴史的責任でもある。</p>
+    <p style="margin-top:10px">首長は「自分の発言が国際秩序の変数である」ことを、行政は「制度設計が認知戦の防壁である」ことを、県民は「自分のリテラシーが地政学である」ことを──それぞれの立場で<strong style="color:var(--negative)">正確に理解しておくこと</strong>こそが、現代沖縄の最大の安全保障投資である。</p>
+    <p style="margin-top:14px;font-family:'Shippori Mincho B1',serif;font-size:1.05em;color:var(--gold-light);text-align:center">沖縄の最大の敵は中国でも米国でもない。<br>「無関心」と「認知の空白」である。</p>
+  </div>
+</div>
+
+<!-- ========== Section 12: ソース ========== -->
+<div class="section" id="sec-sources" data-accordion>
+  <div class="section-title"><span class="section-icon">📚</span> 主要参考ソース</div>
+  <div class="section-body">
+
+    <h3 style="font-size:1rem;font-weight:700;color:var(--gold-light);margin:8px 0 10px">軍事・地政学</h3>
+    <div class="sources-list">
+      <div class="src">CSIS, "The First Battle of the Next War: Wargaming a Chinese Invasion of Taiwan" (2023.1)</div>
+      <div class="src">CSIS, "Dilemmas of Deterrence: The U.S.-China Smart Strategy"</div>
+      <div class="src">RAND Corporation, "The U.S.-China Military Scorecard" (2015)</div>
+      <div class="src">RAND, "War with China: Thinking Through the Unthinkable" (2016)</div>
+      <div class="src">Hudson Institute, "U.S.-Japan Cooperation on Strategic Island Defense"</div>
+      <div class="src">Oriana Skylar Mastro 議会証言 (2023)</div>
+      <div class="src">防衛省『令和4年版 防衛白書』</div>
+      <div class="src">U.S. Department of Defense, "Indo-Pacific Strategy Report" (2022)</div>
+    </div>
+
+    <h3 style="font-size:1rem;font-weight:700;color:var(--gold-light);margin:18px 0 10px">経済データ</h3>
+    <div class="sources-list">
+      <div class="src">Bloomberg Economics, "Xi, Biden and the $10 Trillion Cost of War Over Taiwan" (2024.1)</div>
+      <div class="src">日経「台湾有事で半導体停止130兆円の打撃」(2023.5)</div>
+      <div class="src">JETRO「世界の半導体工場となった台湾と地政学リスク」</div>
+      <div class="src">沖縄県『県民総所得 基地関連収入割合』</div>
+      <div class="src">りゅうぎん総研『沖縄県経済2024回顧』</div>
+      <div class="src">海上保安庁『海上保安レポート2024』</div>
+      <div class="src">日経「TSMC受託生産シェア70%超え」(2025)</div>
+    </div>
+
+    <h3 style="font-size:1rem;font-weight:700;color:var(--gold-light);margin:18px 0 10px">歴史・政治</h3>
+    <div class="sources-list">
+      <div class="src">国立公文書館『琉球藩を廃し沖縄県を設置する』</div>
+      <div class="src">沖縄県公文書館</div>
+      <div class="src">日経「習近平氏がこだわる琉球」(2023)</div>
+      <div class="src">Newsweek日本版「玉城デニー知事訪中と習近平の琉球発言」</div>
+      <div class="src">JBpress「なぜ中国メディアは沖縄の日本帰属を疑う記事を頻発させるのか」</div>
+      <div class="src">人民日報「論《馬關條約》與釣魚島問題」(2013.5.8)</div>
+      <div class="src">Brookings Institution, "The China-Taiwan-U.S. Triangle"</div>
+    </div>
+
+    <h3 style="font-size:1rem;font-weight:700;color:var(--gold-light);margin:18px 0 10px">超限戦・認知戦</h3>
+    <div class="sources-list">
+      <div class="src">喬良・王湘穂『超限戦』(1999)</div>
+      <div class="src">CSIS, "China's Influence Operations in Japan" (2020)</div>
+      <div class="src">U.S. DoD, "Three Warfares" 関連報告書</div>
+      <div class="src">重要土地等調査法(2021成立・2022施行)関連資料</div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:20px;font-size:.85rem">
+      <strong>注記:</strong> 本レポートは4チーム並列リサーチ(歴史・政治 / 軍事・地政学 / 経済・定量 / シナリオ分析)の統合成果物。各数値は2025〜2026年時点の公開情報に基づく。最新動向については定期的な更新を要する。
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-conclusion" onclick="tocJump('sec-conclusion')"><span class="toc-icon">🎯</span><span class="toc-label">結論</span></a></li>
+      <li><a href="#sec-world" onclick="tocJump('sec-world')"><span class="toc-icon">🌐</span><span class="toc-label">世界情勢</span></a></li>
+      <li><a href="#sec-geography" onclick="tocJump('sec-geography')"><span class="toc-icon">🗺️</span><span class="toc-label">地理</span></a></li>
+      <li><a href="#sec-military" onclick="tocJump('sec-military')"><span class="toc-icon">🛡️</span><span class="toc-label">軍事</span></a></li>
+      <li><a href="#sec-economy" onclick="tocJump('sec-economy')"><span class="toc-icon">💹</span><span class="toc-label">経済</span></a></li>
+      <li><a href="#sec-history" onclick="tocJump('sec-history')"><span class="toc-icon">📜</span><span class="toc-label">歴史(年表)</span></a></li>
+      <li><a href="#sec-occupation" onclick="tocJump('sec-occupation')"><span class="toc-icon">🔍</span><span class="toc-label">占領パターン分析</span></a></li>
+      <li><a href="#sec-unrestricted" onclick="tocJump('sec-unrestricted')"><span class="toc-icon">⚔️</span><span class="toc-label">超限戦</span></a></li>
+      <li><a href="#sec-scenarios" onclick="tocJump('sec-scenarios')"><span class="toc-icon">🎲</span><span class="toc-label">IFシナリオ</span></a></li>
+      <li><a href="#sec-layers" onclick="tocJump('sec-layers')"><span class="toc-icon">🧭</span><span class="toc-label">3レイヤー別リテラシー</span></a></li>
+      <li><a href="#sec-insights" onclick="tocJump('sec-insights')"><span class="toc-icon">💡</span><span class="toc-label">本質と洞察</span></a></li>
+      <li><a href="#sec-final" onclick="tocJump('sec-final')"><span class="toc-icon">🏛️</span><span class="toc-label">結論再掲</span></a></li>
+      <li><a href="#sec-sources" onclick="tocJump('sec-sources')"><span class="toc-icon">📚</span><span class="toc-label">参考ソース</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<!-- Footer -->
+<div class="footer">
+  沖縄政策方針 2075 ｜ 沖縄県の地政学的位置づけ ｜ <a href="../index.html">ポータルへ戻る</a>
+</div>
+
+<script>
+// === Theme Toggle ===
+function toggleTheme(){
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme') || 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '🌙' : '☀️';
+  updateChartsTheme(next);
+}
+(function(){
+  var saved = localStorage.getItem('theme');
+  if(saved){
+    document.documentElement.setAttribute('data-theme', saved);
+    var btn = document.getElementById('themeToggle');
+    if(btn) btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+  }
+})();
+
+// === Chart Theme Helper ===
+function getChartColors(){
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  return {
+    labelColor: theme === 'dark' ? '#8b949e' : '#555555',
+    titleColor: theme === 'dark' ? '#D4A843' : '#7A5C10',
+    gridColor: theme === 'dark' ? 'rgba(48,54,61,0.5)' : 'rgba(0,0,0,0.08)'
+  };
+}
+
+// === Chart 1: Distance from Naha ===
+var chartDIST;
+function createDistanceChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartDistance').getContext('2d');
+  chartDIST = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['台北','上海','ソウル','マニラ','東京','北京','グアム'],
+      datasets: [{
+        label: '那覇からの距離 (km)',
+        data: [630, 820, 1260, 1480, 1556, 1840, 2230],
+        backgroundColor: function(ctx){
+          var v = ctx.raw;
+          if(v <= 900) return 'rgba(218,54,51,0.75)';
+          if(v <= 1500) return 'rgba(184,145,42,0.75)';
+          return 'rgba(88,166,255,0.55)';
+        },
+        borderColor: function(ctx){
+          var v = ctx.raw;
+          if(v <= 900) return '#da3633';
+          if(v <= 1500) return '#B8912A';
+          return '#58a6ff';
+        },
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: '那覇から東アジア主要都市までの距離(km)',
+          color: c.titleColor,
+          font: { size: 15, weight: '700', family: "'Shippori Mincho B1', serif" }
+        },
+        legend: { display: false }
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { color: c.labelColor, font: { size: 12 }, callback: function(v){ return v + 'km'; } },
+          grid: { color: c.gridColor }
+        },
+        y: {
+          ticks: { color: c.labelColor, font: { size: 13 } },
+          grid: { color: c.gridColor }
+        }
+      }
+    }
+  });
+}
+
+// === Chart 2: Base Share (Donut) ===
+var chartBS;
+function createBaseShareChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartBaseShare').getContext('2d');
+  chartBS = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['沖縄県(70.3%)','その他都道府県(29.7%)'],
+      datasets: [{
+        data: [70.3, 29.7],
+        backgroundColor: ['rgba(218,54,51,0.8)','rgba(88,166,255,0.4)'],
+        borderColor: ['#da3633','#58a6ff'],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: '在日米軍専用施設面積 都道府県別シェア',
+          color: c.titleColor,
+          font: { size: 14, weight: '700', family: "'Shippori Mincho B1', serif" }
+        },
+        legend: {
+          position: 'bottom',
+          labels: { color: c.labelColor, font: { size: 12 } }
+        }
+      }
+    }
+  });
+}
+
+// === Chart 3: Senkaku Chinese Vessel Days ===
+var chartSK;
+function createSenkakuChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartSenkaku').getContext('2d');
+  chartSK = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['2012','2014','2016','2018','2020','2022','2024'],
+      datasets: [{
+        label: '中国公船 接続水域確認日数',
+        data: [91, 232, 211, 232, 333, 336, 355],
+        borderColor: '#da3633',
+        backgroundColor: 'rgba(218,54,51,0.15)',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.3,
+        pointBackgroundColor: '#da3633',
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: '尖閣諸島周辺 中国公船 接続水域確認日数の推移',
+          color: c.titleColor,
+          font: { size: 14, weight: '700', family: "'Shippori Mincho B1', serif" }
+        },
+        legend: {
+          labels: { color: c.labelColor, font: { size: 12 } }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: c.labelColor, font: { size: 12 } },
+          grid: { color: c.gridColor }
+        },
+        y: {
+          beginAtZero: true,
+          max: 400,
+          ticks: { color: c.labelColor, font: { size: 12 }, callback: function(v){ return v + '日'; } },
+          grid: { color: c.gridColor }
+        }
+      }
+    }
+  });
+}
+
+// === Chart 4: Base Dependency ===
+var chartBD;
+function createBaseDepChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartBaseDep').getContext('2d');
+  chartBD = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['1965','1972(復帰時)','1985','2000','2015','令和元年(2019)'],
+      datasets: [{
+        label: '基地関連収入の県民総所得比(%)',
+        data: [30.4, 15.5, 7.8, 5.4, 5.4, 5.5],
+        backgroundColor: 'rgba(184,145,42,0.7)',
+        borderColor: '#B8912A',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: '沖縄県 基地依存度の歴史的推移',
+          color: c.titleColor,
+          font: { size: 15, weight: '700', family: "'Shippori Mincho B1', serif" }
+        },
+        legend: {
+          labels: { color: c.labelColor, font: { size: 13 } }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: c.labelColor, font: { size: 12 } },
+          grid: { color: c.gridColor }
+        },
+        y: {
+          beginAtZero: true,
+          max: 35,
+          ticks: { color: c.labelColor, font: { size: 12 }, callback: function(v){ return v + '%'; } },
+          grid: { color: c.gridColor }
+        }
+      }
+    }
+  });
+}
+
+// === Update Charts on Theme Change ===
+function updateChartsTheme(theme){
+  var c = {
+    labelColor: theme === 'dark' ? '#8b949e' : '#555555',
+    titleColor: theme === 'dark' ? '#D4A843' : '#7A5C10',
+    gridColor: theme === 'dark' ? 'rgba(48,54,61,0.5)' : 'rgba(0,0,0,0.08)'
+  };
+  [chartDIST, chartSK, chartBD].forEach(function(chart){
+    if(!chart) return;
+    chart.options.plugins.title.color = c.titleColor;
+    if(chart.options.plugins.legend.labels) chart.options.plugins.legend.labels.color = c.labelColor;
+    if(chart.options.scales && chart.options.scales.x){
+      chart.options.scales.x.ticks.color = c.labelColor;
+      chart.options.scales.x.grid.color = c.gridColor;
+    }
+    if(chart.options.scales && chart.options.scales.y){
+      chart.options.scales.y.ticks.color = c.labelColor;
+      chart.options.scales.y.grid.color = c.gridColor;
+    }
+    chart.update();
+  });
+  if(chartBS){
+    chartBS.options.plugins.title.color = c.titleColor;
+    chartBS.options.plugins.legend.labels.color = c.labelColor;
+    chartBS.update();
+  }
+}
+
+// === Init Charts ===
+document.addEventListener('DOMContentLoaded', function(){
+  createDistanceChart();
+  createBaseShareChart();
+  createSenkakuChart();
+  createBaseDepChart();
+});
+
+// === Accordion ===
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// === TOC ===
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '✕ セクション' : '☰';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+
+</body>
+</html>

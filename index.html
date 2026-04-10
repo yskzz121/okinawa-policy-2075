@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖縄政策方針 2075 ポータル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+/* === Dark Mode (default) === */
+:root, [data-theme="dark"] {
+  --navy: #1A2540;
+  --navy-light: #243352;
+  --navy-dark: #0F1829;
+  --gold: #B8912A;
+  --gold-light: #D4A843;
+  --gold-dim: rgba(184,145,42,0.15);
+  --paper: #F5F2EC;
+  --text-main: #e6edf3;
+  --text-sub: #8b949e;
+  --card-bg: rgba(26,37,64,0.6);
+  --card-border: rgba(184,145,42,0.12);
+  --body-bg: #0F1829;
+  --header-bg-1: #1a2332;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(15,24,41,0.6);
+  --table-hover: rgba(184,145,42,0.04);
+  --table-border: #21262d;
+  --layer-done: rgba(46,160,67,0.15);
+  --layer-done-border: rgba(46,160,67,0.3);
+  --layer-done-text: #3fb950;
+  --layer-next: rgba(184,145,42,0.15);
+  --layer-next-border: rgba(184,145,42,0.4);
+  --layer-next-text: #D4A843;
+  --layer-todo: rgba(139,148,158,0.08);
+  --layer-todo-border: rgba(139,148,158,0.15);
+  --layer-todo-text: #8b949e;
+  --footer-bg: rgba(15,24,41,0.8);
+}
+
+/* === Light Mode === */
+[data-theme="light"] {
+  --navy: #E8E4DC;
+  --navy-light: #F0ECE4;
+  --navy-dark: #F5F2EC;
+  --gold: #8B6914;
+  --gold-light: #7A5C10;
+  --gold-dim: rgba(138,105,20,0.1);
+  --text-main: #1a1a1a;
+  --text-sub: #555555;
+  --card-bg: rgba(255,255,255,0.85);
+  --card-border: rgba(138,105,20,0.15);
+  --body-bg: #F5F2EC;
+  --header-bg-1: #2a3550;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(255,255,255,0.7);
+  --table-hover: rgba(138,105,20,0.05);
+  --table-border: #d8d4cc;
+  --layer-done: rgba(26,127,55,0.1);
+  --layer-done-border: rgba(26,127,55,0.3);
+  --layer-done-text: #1a7f37;
+  --layer-next: rgba(138,105,20,0.12);
+  --layer-next-border: rgba(138,105,20,0.4);
+  --layer-next-text: #8B6914;
+  --layer-todo: rgba(85,85,85,0.06);
+  --layer-todo-border: rgba(85,85,85,0.15);
+  --layer-todo-text: #777;
+  --footer-bg: rgba(232,228,220,0.9);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--body-bg);
+  color: var(--text-main);
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.8;
+  padding: 0;
+  transition: background .3s, color .3s;
+}
+
+/* === Theme Toggle === */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,145,42,0.25);
+  background: var(--navy);
+  color: var(--gold-light);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.theme-toggle:hover {
+  background: var(--gold);
+  color: #0F1829;
+  border-color: var(--gold);
+}
+
+/* === Header === */
+.header {
+  background: linear-gradient(135deg, #1a2332 0%, #1A2540 50%, #0F1829 100%);
+  border-bottom: 1px solid rgba(184,145,42,0.15);
+  padding: 60px 20px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(184,145,42,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(184,145,42,0.06) 0%, transparent 60%);
+}
+.header-content { position: relative; z-index: 1; }
+.header h1 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 2.8em;
+  font-weight: 800;
+  color: #e6edf3;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+.header .subtitle {
+  font-family: 'Shippori Mincho B1', serif;
+  color: #D4A843;
+  font-size: 1.15em;
+  font-weight: 400;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+.header .date {
+  color: #8b949e;
+  font-size: 0.85em;
+}
+
+/* === Container === */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+/* === Section === */
+.section {
+  margin-bottom: 48px;
+}
+.section-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: var(--gold-light);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+/* === Vision Statement === */
+.vision-statement {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 28px 32px;
+  font-size: 0.95em;
+  color: var(--text-sub);
+  line-height: 2;
+  text-align: justify;
+}
+
+/* === Report Cards === */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.report-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 32px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.report-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,0,0,.25);
+  border-color: rgba(184,145,42,0.3);
+}
+.card-icon {
+  font-size: 2.4em;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.card-desc {
+  font-size: 0.88em;
+  color: var(--text-sub);
+  line-height: 1.8;
+  margin-bottom: 16px;
+  flex: 1;
+}
+.card-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.highlight-tag {
+  background: var(--gold-dim);
+  border: 1px solid rgba(184,145,42,0.2);
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.78em;
+  color: var(--gold-light);
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
+}
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  color: var(--gold-light);
+  text-decoration: none;
+  font-size: 0.88em;
+  font-weight: 500;
+  transition: all .2s;
+  align-self: flex-start;
+}
+.card-link:hover {
+  background: var(--gold);
+  color: #0F1829;
+}
+.card-link svg {
+  transition: transform .2s;
+}
+.card-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* === Layer Table === */
+.layer-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+}
+.layer-table th {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.78em;
+  font-weight: 500;
+  color: var(--text-sub);
+  text-align: left;
+  padding: 8px 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.layer-table td {
+  padding: 12px 14px;
+  font-size: 0.9em;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+.layer-table tr td:first-child { border-left: 3px solid transparent; border-radius: 8px 0 0 8px; }
+.layer-table tr td:last-child { border-radius: 0 8px 8px 0; }
+
+.layer-done td { background: var(--layer-done); }
+.layer-done td:first-child { border-left-color: var(--layer-done-border); }
+.layer-done .layer-status { color: var(--layer-done-text); font-weight: 500; }
+
+.layer-next td { background: var(--layer-next); }
+.layer-next td:first-child { border-left-color: var(--layer-next-border); }
+.layer-next .layer-status { color: var(--layer-next-text); font-weight: 600; }
+
+.layer-todo td { background: var(--layer-todo); }
+.layer-todo td:first-child { border-left-color: var(--layer-todo-border); }
+.layer-todo .layer-status { color: var(--layer-todo-text); }
+
+.layer-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 0.85em;
+  color: var(--gold-light);
+  margin-right: 8px;
+}
+.layer-label {
+  font-size: 0.85em;
+}
+.layer-timeline {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85em;
+  color: var(--text-sub);
+}
+
+.layer-note {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: var(--gold-dim);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.85em;
+  color: var(--text-sub);
+  line-height: 1.8;
+}
+
+/* === Footer === */
+.footer {
+  background: var(--footer-bg);
+  border-top: 1px solid var(--card-border);
+  text-align: center;
+  padding: 24px 20px;
+  font-size: 0.8em;
+  color: var(--text-sub);
+  letter-spacing: 1px;
+}
+
+/* === Mobile Responsive === */
+@media (max-width: 768px) {
+  .header { padding: 40px 16px 32px; }
+  .header h1 { font-size: 1.8em; letter-spacing: 1px; }
+  .header .subtitle { font-size: 0.95em; }
+  .container { padding: 24px 16px 40px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .vision-statement { padding: 20px; font-size: 0.9em; }
+  .section-title { font-size: 1.2em; }
+  .layer-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .theme-toggle { width: 38px; height: 38px; font-size: 1rem; top: 12px; right: 12px; }
+}
+@media (max-width: 480px) {
+  .header h1 { font-size: 1.5em; }
+  .card-highlights { gap: 6px; }
+  .highlight-tag { font-size: 0.72em; padding: 3px 10px; }
+  .report-card { padding: 24px 20px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="テーマ切替">
+  <span id="themeIcon">&#9790;</span>
+</button>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <h1>沖縄政策方針 2075</h1>
+    <div class="subtitle">万人が幸せを築き、世代を超えて続く島 ── 沖縄</div>
+    <div class="date">2026年3月</div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+
+  <!-- Vision Statement -->
+  <div class="section">
+    <div class="vision-statement">
+      本ポータルは、沖縄県総合発展マスタープラン（2075年ビジョン）の策定プロセスにおける分析・提言資料を集約するものである。50年後の沖縄が目指す姿——県民所得の全国同等化、健康寿命の全国上位回復、合計特殊出生率2.0、子どもの貧困の構造的解消——に向けた、ボトムアップ分析と戦略設計の成果物を格納する。
+    </div>
+  </div>
+
+  <!-- Report Cards -->
+  <div class="section">
+    <div class="section-title">分析・提言資料</div>
+    <div class="card-grid">
+
+      <!-- Card 1 -->
+      <div class="report-card">
+        <div class="card-icon">&#128202;</div>
+        <div class="card-title">現状分析・因果構造分析報告書</div>
+        <div class="card-desc">
+          沖縄県の16領域にわたる現状分析と、8領域間の因果構造を可視化。負のメインスパイラルと4つのサブループを特定し、3つのレバレッジポイントを評価。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">16領域分析</span>
+          <span class="highlight-tag">Chart.js 12チャート</span>
+          <span class="highlight-tag">Mermaid因果図 5本</span>
+        </div>
+        <a class="card-link" href="reports/current-analysis.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="report-card">
+        <div class="card-icon">&#128260;</div>
+        <div class="card-title">負の再帰ループから正の再帰ループへ</div>
+        <div class="card-desc">
+          負の循環の根本原因（3層構造）を特定し、分岐点変数「賃金」への介入戦略を提示。4フェーズの段階的転換プロセスと正の再帰ループの設計図。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">4フェーズ戦略</span>
+          <span class="highlight-tag">臨界点 2033-2035年</span>
+          <span class="highlight-tag">重点施策 10項目</span>
+        </div>
+        <a class="card-link" href="reports/positive-loop.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 3: OSA -->
+      <div class="report-card">
+        <div class="card-icon">&#128737;</div>
+        <div class="card-title">沖縄安全保障自治論（OSA）概念定義書 v3.0</div>
+        <div class="card-desc">
+          「沖縄にとっての安全保障とは何かを、沖縄が先に定義する」—— 身体的・生存的・精神的・関係的・文化的・情報的・参加的安全の七層設計書。UNDP人間の安全保障を超える「第四の安全保障概念」。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">七層安全設計</span>
+          <span class="highlight-tag">定量的判断基準</span>
+          <span class="highlight-tag">OSA白書骨格</span>
+        </div>
+        <a class="card-link" href="reports/osa-v3.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 4: Policy Gaps -->
+      <div class="report-card">
+        <div class="card-icon">&#9888;</div>
+        <div class="card-title">沖縄県の政策空白 — 見落とされている重要課題</div>
+        <div class="card-desc">
+          県民の暮らしと安全に直結するにもかかわらず統合的対応がなされていない領域を特定。ヤングケアラー、不登校の受け皿、非正規雇用、住民避難計画、海上輸送途絶への備えなど、5つのTier 1空白と構造的原因を分析。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">Tier 1空白 5領域</span>
+          <span class="highlight-tag">構造的原因分析</span>
+          <span class="highlight-tag">統合フレーム提示</span>
+        </div>
+        <a class="card-link" href="reports/policy-gaps.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 7: Construction Industry -->
+      <div class="report-card">
+        <div class="card-icon">&#127981;</div>
+        <div class="card-title">沖縄県 建設産業 総括レポート 2026</div>
+        <div class="card-desc">
+          GRP寄与11.2%（全国の2倍）・就業者6.8万人——沖縄経済の「準基幹産業」を、本土復帰54年の長期統計、地場ゼネコン上位10社の陣容、所得構造（全国比▲100万円超）、住宅市場のRC文化崩壊、2050年までの3シナリオで総合解剖。L2戦略層の産業構造設計に直結する基礎レポート。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">復帰後54年史</span>
+          <span class="highlight-tag">主要10社プロファイル</span>
+          <span class="highlight-tag">2050年 3シナリオ</span>
+        </div>
+        <a class="card-link" href="reports/construction-industry.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 6: Public Works -->
+      <div class="report-card">
+        <div class="card-icon">&#127959;</div>
+        <div class="card-title">沖縄県 公共工事マーケット 完全解剖</div>
+        <div class="card-desc">
+          国直轄51%という本土と全く異なる発注者構造、振興予算▲25%の長期低下、辺野古9,300億円と物理進捗16%の歪み、入札不調率27.5%——沖縄の建設市場の構造を9セクションのインフォグラフィックで可視化。L2戦略層における産業構造転換の出発点となる基礎データ。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">市場4,323億円</span>
+          <span class="highlight-tag">国発注51.2%</span>
+          <span class="highlight-tag">振興予算▲25%</span>
+        </div>
+        <a class="card-link" href="reports/public-works.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 9: Japan-US Alliance -->
+      <div class="report-card">
+        <div class="card-icon">&#9878;</div>
+        <div class="card-title">日米安保体制の構造 — 占領から同盟への80年</div>
+        <div class="card-desc">
+          1945年占領から2025年USFJ統合軍司令部化までの80年。1951年旧安保条約・1960年新条約・日米地位協定全28条・思いやり予算・他国SOFAとの比較・改定論まで法的歴史的構造を解剖。米軍基地レポートの姉妹編として相互参照可能。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">SOFA全28条</span>
+          <span class="highlight-tag">独伊韓SOFA比較</span>
+          <span class="highlight-tag">3チーム並列リサーチ</span>
+        </div>
+        <a class="card-link" href="reports/japan-us-alliance.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 8: US Military Bases -->
+      <div class="report-card">
+        <div class="card-icon">&#128737;</div>
+        <div class="card-title">米軍基地の世界配置 — 沖縄を理解するための地球規模マップ</div>
+        <div class="card-desc">
+          750基地・80カ国・170,000人——米軍の海外配備を11の統合戦闘軍構造から俯瞰。在日米軍主要15基地、アジア太平洋・欧州・中東・アフリカ・中南米の主要拠点を網羅し、国別駐留兵力ランキング1位「日本」の戦略的代替不能性を4軸で論証する補助レポート。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">11統合戦闘軍</span>
+          <span class="highlight-tag">主要40+基地</span>
+          <span class="highlight-tag">4チーム並列リサーチ</span>
+        </div>
+        <a class="card-link" href="reports/us-military-bases.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 7: Geopolitics -->
+      <div class="report-card">
+        <div class="card-icon">&#127760;</div>
+        <div class="card-title">沖縄の地政学的位置づけ — 世界覇権競争における「太平洋の要石」</div>
+        <div class="card-desc">
+          那覇から台北まで630km、在日米軍施設の70.3%集中、台湾有事の世界経済損失10兆ドル——地理・軍事・経済・歴史の四層から沖縄が現代覇権の「スイングステート」であることを論証。中国の超限戦シナリオ、4つのIFシナリオ、3レイヤー別リテラシーまで統合した俯瞰レポート。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">仮説妥当性 4/5</span>
+          <span class="highlight-tag">4チーム並列リサーチ</span>
+          <span class="highlight-tag">超限戦リスク評価</span>
+        </div>
+        <a class="card-link" href="reports/geopolitics.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 5: Food Security -->
+      <div class="report-card">
+        <div class="card-icon">&#127834;</div>
+        <div class="card-title">沖縄の食料安全保障</div>
+        <div class="card-desc">
+          146万人の食料の99%が海上輸送依存。食料行政は5部局に分散し統合戦略が不在。米日の食料政策との比較分析、台湾有事シナリオの食料供給リスク評価、シンガポール「30by30」との対比から5つの提言を提示。
+        </div>
+        <div class="card-highlights">
+          <span class="highlight-tag">自給率32%</span>
+          <span class="highlight-tag">米日沖3国比較</span>
+          <span class="highlight-tag">OSA第二層接続</span>
+        </div>
+        <a class="card-link" href="reports/food-security.html">
+          レポートを開く
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Layer Structure -->
+  <div class="section">
+    <div class="section-title">計画体系図（6層構造）</div>
+    <table class="layer-table">
+      <thead>
+        <tr>
+          <th>層</th>
+          <th>時間軸</th>
+          <th>名称</th>
+          <th>状態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="layer-done">
+          <td><span class="layer-name">L0</span></td>
+          <td><span class="layer-timeline">50年（2075）</span></td>
+          <td><span class="layer-label">文明ビジョン層</span></td>
+          <td><span class="layer-status">策定済み</span></td>
+        </tr>
+        <tr class="layer-done">
+          <td><span class="layer-name">L1</span></td>
+          <td><span class="layer-timeline">30年（2055）</span></td>
+          <td><span class="layer-label">構造転換層</span></td>
+          <td><span class="layer-status">策定済み</span></td>
+        </tr>
+        <tr class="layer-next">
+          <td><span class="layer-name">L2</span></td>
+          <td><span class="layer-timeline">10年（2035）</span></td>
+          <td><span class="layer-label">戦略層</span></td>
+          <td><span class="layer-status">&#9664; 次工程</span></td>
+        </tr>
+        <tr class="layer-todo">
+          <td><span class="layer-name">L3</span></td>
+          <td><span class="layer-timeline">5年（2030）</span></td>
+          <td><span class="layer-label">政策パッケージ層</span></td>
+          <td><span class="layer-status">未着手</span></td>
+        </tr>
+        <tr class="layer-todo">
+          <td><span class="layer-name">L4</span></td>
+          <td><span class="layer-timeline">3年（2028）</span></td>
+          <td><span class="layer-label">実行計画層</span></td>
+          <td><span class="layer-status">未着手</span></td>
+        </tr>
+        <tr class="layer-todo">
+          <td><span class="layer-name">L5</span></td>
+          <td><span class="layer-timeline">1年（2026）</span></td>
+          <td><span class="layer-label">アクションプラン層</span></td>
+          <td><span class="layer-status">未着手</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="layer-note">
+      「現状分析・因果構造分析報告書」および「正の再帰ループ設計」は <strong>Step 1: ボトムアップ分析</strong> の成果物であり、L2 戦略層の策定に入力される位置づけである。
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  沖縄政策方針 2075 ｜ 沖縄県総合発展マスタープラン策定プロセス
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+(function(){
+  var toggle = document.getElementById('themeToggle');
+  var icon = document.getElementById('themeIcon');
+  var html = document.documentElement;
+
+  function setTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('okinawa2075-theme', theme);
+    icon.innerHTML = theme === 'dark' ? '&#9790;' : '&#9728;';
+  }
+
+  var saved = localStorage.getItem('okinawa2075-theme');
+  if (saved) {
+    setTheme(saved);
+  } else {
+    setTheme('dark');
+  }
+
+  toggle.addEventListener('click', function(){
+    var current = html.getAttribute('data-theme') || 'dark';
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+
+</body>
+</html>

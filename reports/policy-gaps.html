@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖縄県の政策空白 — 見落とされている重要課題</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+/* === Dark Mode (default) === */
+:root, [data-theme="dark"] {
+  --navy: #1A2540;
+  --navy-light: #243352;
+  --navy-dark: #0F1829;
+  --gold: #B8912A;
+  --gold-light: #D4A843;
+  --gold-dim: rgba(184,145,42,0.15);
+  --paper: #F5F2EC;
+  --text-main: #e6edf3;
+  --text-sub: #8b949e;
+  --card-bg: rgba(26,37,64,0.6);
+  --card-border: rgba(184,145,42,0.12);
+  --alert: #8B2020;
+  --positive: #2ea043;
+  --negative: #da3633;
+  --body-bg: #0F1829;
+  --header-bg-1: #1a2332;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(15,24,41,0.6);
+  --table-hover: rgba(184,145,42,0.04);
+  --table-border: #21262d;
+  --summary-bg-1: rgba(15,24,41,0.7);
+  --summary-bg-2: rgba(26,37,64,0.5);
+  --summary-text: #c9d1d9;
+  --toc-bg: #1A2540;
+  --toc-link-color: #e6edf3;
+  --toc-hover: rgba(88,166,255,.1);
+  --chart-label-color: '#8b949e';
+  --chart-title-color: '#D4A843';
+  --mermaid-theme: dark;
+}
+
+/* === Light Mode === */
+[data-theme="light"] {
+  --navy: #E8E4DC;
+  --navy-light: #F0ECE4;
+  --navy-dark: #F5F2EC;
+  --gold: #8B6914;
+  --gold-light: #7A5C10;
+  --gold-dim: rgba(138,105,20,0.1);
+  --text-main: #1a1a1a;
+  --text-sub: #555555;
+  --card-bg: rgba(255,255,255,0.85);
+  --card-border: rgba(138,105,20,0.15);
+  --alert: #A52020;
+  --positive: #1a7f37;
+  --negative: #c93030;
+  --body-bg: #F5F2EC;
+  --header-bg-1: #2a3550;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(255,255,255,0.7);
+  --table-hover: rgba(138,105,20,0.05);
+  --table-border: #d8d4cc;
+  --summary-bg-1: rgba(245,242,236,0.9);
+  --summary-bg-2: rgba(232,228,220,0.8);
+  --summary-text: #333;
+  --toc-bg: #fff;
+  --toc-link-color: #1a1a1a;
+  --toc-hover: rgba(138,105,20,.08);
+  --chart-label-color: '#555555';
+  --chart-title-color: '#7A5C10';
+  --mermaid-theme: default;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--body-bg);color:var(--text-main);font-family:'Noto Sans JP',sans-serif;line-height:1.8;padding:0;transition:background .3s,color .3s}
+h1,h2,h3,.section-title{font-family:'Shippori Mincho B1',serif}
+.num,.metric-value,.big-num{font-family:'Playfair Display',serif}
+.data-label{font-family:'Inter',sans-serif}
+
+/* Theme Toggle */
+.theme-toggle{position:fixed;top:16px;right:16px;z-index:1000;width:44px;height:44px;border-radius:50%;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.2);transition:all .2s}
+.theme-toggle:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Back Link */
+.back-link{position:fixed;top:16px;left:16px;z-index:1000;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold-light);text-decoration:none;font-size:.82rem;font-weight:500;font-family:'Noto Sans JP',sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.back-link:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--header-bg-1) 0%,var(--header-bg-2) 50%,var(--header-bg-3) 100%);border-bottom:1px solid rgba(184,145,42,0.15);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header h1,.header .subtitle,.header .date,.header .badge{color:#e6edf3!important}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:800;color:var(--text-main);margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em;margin-top:4px}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header .badge{display:inline-block;background:var(--gold-dim);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px}
+
+/* Container */
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+
+/* Section */
+.section{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:28px 24px;margin-bottom:20px;position:relative}
+.section-title{font-size:1.3em;font-weight:700;color:var(--gold-light);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.2em}
+
+/* Cards Grid */
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.metric-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px;text-align:center;transition:border-color .2s,background .3s}
+.metric-card:hover{border-color:rgba(184,145,42,0.3)}
+.metric-card .icon{font-size:1.8em;margin-bottom:6px}
+.metric-card .metric-value{font-size:1.6em;font-weight:700;color:var(--gold-light)}
+.metric-card .metric-label{font-size:.88rem;color:var(--text-sub);margin-top:4px}
+.metric-card .metric-sub{font-size:.8rem;color:var(--text-sub);margin-top:4px;opacity:.85}
+.metric-card.alert-card .metric-value{color:var(--negative)}
+
+/* Chart */
+.chart-container{position:relative;height:340px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
+.tbl th{background:var(--gold-dim);color:var(--gold-light);padding:11px 14px;text-align:left;font-weight:600;border-bottom:1px solid rgba(184,145,42,0.2)}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--table-border)}
+.tbl tr:hover td{background:var(--table-hover)}
+
+/* Badges */
+.badge-s{background:rgba(139,32,32,0.15);color:var(--negative);padding:3px 10px;border-radius:4px;font-size:.82rem;font-weight:700}
+.badge-a{background:rgba(210,140,30,0.15);color:#d28c1e;padding:3px 10px;border-radius:4px;font-size:.82rem;font-weight:700}
+.badge-b{background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:4px;font-size:.82rem}
+.gap-x{background:rgba(139,32,32,0.2);color:var(--negative);padding:2px 8px;border-radius:4px;font-size:.82rem;font-weight:600}
+.gap-tri{background:rgba(210,140,30,0.15);color:#d28c1e;padding:2px 8px;border-radius:4px;font-size:.82rem}
+.tier-1{background:rgba(139,32,32,0.12);color:var(--negative);padding:2px 8px;border-radius:4px;font-size:.82rem;font-weight:700}
+.tier-2{background:rgba(210,140,30,0.1);color:#d28c1e;padding:2px 8px;border-radius:4px;font-size:.82rem;font-weight:600}
+
+/* Chapter Intro */
+.chapter-intro{font-size:.95rem;color:var(--text-sub);margin-bottom:16px;line-height:1.9;border-left:3px solid var(--gold-dim);padding-left:14px}
+
+/* Highlight & Alert */
+.highlight-box{background:var(--gold-dim);border:1px solid rgba(184,145,42,0.2);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem}
+.alert-box{background:rgba(139,32,32,0.1);border:1px solid rgba(139,32,32,0.25);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem}
+
+/* Two Col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Cause Cards */
+.cause-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.cause-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px 16px;position:relative;overflow:hidden;transition:border-color .2s}
+.cause-card:hover{border-color:rgba(184,145,42,0.3)}
+.cause-card .cause-num{font-family:'Playfair Display',serif;font-size:2em;font-weight:900;color:var(--gold);opacity:.2;position:absolute;top:8px;right:14px}
+.cause-card h4{font-size:.92rem;font-weight:700;color:var(--gold-light);margin-bottom:8px;line-height:1.5}
+.cause-card p{font-size:.85rem;color:var(--text-sub);line-height:1.7}
+
+/* Topic Cards */
+.topic-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:14px;padding:24px 22px;margin-bottom:16px}
+.topic-card h3{font-size:1.1em;font-weight:700;color:var(--gold-light);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.topic-card p,.topic-card li{font-size:.88rem;color:var(--text-sub);line-height:1.8}
+.topic-card ul{list-style:none;padding:0;margin:12px 0}
+.topic-card li{padding:4px 0;padding-left:18px;position:relative}
+.topic-card li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* Step Cards */
+.step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:14px;padding:20px;text-align:center}
+.step-card .step-num{font-family:'Playfair Display',serif;font-size:2.2em;font-weight:900;color:var(--gold);opacity:.4;margin-bottom:8px}
+.step-card h4{font-size:.95rem;font-weight:700;color:var(--gold-light);margin-bottom:8px}
+.step-card p{font-size:.85rem;color:var(--text-sub);line-height:1.7}
+
+/* Mermaid */
+.mermaid-container{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:24px;margin:16px 0;overflow-x:auto}
+.mermaid{display:flex;justify-content:center}
+
+/* Footer */
+.footer{text-align:center;padding:32px 20px;color:var(--text-sub);font-size:.88rem;border-top:1px solid var(--card-border);margin-top:20px}
+.footer a{color:var(--gold-light);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:var(--toc-bg);border-top:1px solid var(--card-border);box-shadow:0 -2px 12px rgba(0,0,0,.15)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--toc-link-color);text-decoration:none;font-size:.9rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:var(--toc-hover)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .chart-container{height:280px}
+  .section{padding:20px 16px}
+  .two-col{grid-template-columns:1fr}
+  .cause-grid{grid-template-columns:1fr 1fr}
+  .step-grid{grid-template-columns:1fr}
+  .chart-row{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:.78rem}
+  .back-link{font-size:.72rem;padding:6px 10px;top:10px;left:10px}
+  .theme-toggle{top:10px;right:10px;width:38px;height:38px;font-size:1rem}
+}
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr!important}
+  .cause-grid{grid-template-columns:1fr!important}
+  .step-grid{grid-template-columns:1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .section-title{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="ダーク/ライト切替">&#x1F319;</button>
+
+<!-- Back Link -->
+<a class="back-link" href="../index.html">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+ポータル</a>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="badge">沖縄政策方針 2075</div>
+    <h1>沖縄県の政策空白</h1>
+    <div class="subtitle">見落とされている重要課題</div>
+    <div class="date">作成日: 2026年3月 ｜ 沖縄政策方針 2075</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ========== Section 1: なぜ「政策空白」が生まれるのか（常時展開） ========== -->
+<div class="section" id="sec-why">
+  <div class="section-title"><span class="section-icon">&#x1F50D;</span> なぜ「政策空白」が生まれるのか</div>
+
+  <div style="background:linear-gradient(135deg,var(--summary-bg-1),var(--summary-bg-2));border:1px solid rgba(184,145,42,0.18);border-radius:14px;padding:24px 28px;margin-bottom:24px;line-height:1.95;font-size:.95rem;color:var(--summary-text)">
+    <p>食料安全保障の分析で明らかになったのは、沖縄県にとって極めてクリティカルな課題であるにもかかわらず、統合的な政策対応がなされていない領域——<strong style="color:var(--gold-light)">政策空白</strong>——が複数存在するという事実である。本レポートは、県民146万人の暮らしと安全に直結する政策空白を特定し、その構造的原因を分析する。</p>
+  </div>
+
+  <div class="cause-grid">
+    <div class="cause-card">
+      <span class="cause-num">1</span>
+      <h4>基地問題への政治資源の集中</h4>
+      <p>県政エネルギーの大部分が辺野古・地位協定に投入され、他の政策課題に割くリソースが構造的に不足している。</p>
+    </div>
+    <div class="cause-card">
+      <span class="cause-num">2</span>
+      <h4>振興予算のハード偏重</h4>
+      <p>年間約3,000億円の振興予算が道路・港湾等のインフラ中心に配分され、ソフト施策に回らない。</p>
+    </div>
+    <div class="cause-card">
+      <span class="cause-num">3</span>
+      <h4>縦割り行政</h4>
+      <p>複数部局にまたがる横断的課題を統合する機能が欠如しており、課題が「誰の所管か」で宙に浮く。</p>
+    </div>
+    <div class="cause-card">
+      <span class="cause-num">4</span>
+      <h4>「沖縄らしさ」の神話</h4>
+      <p>ゆいまーる・なんくるないさーといった文化的言説が、問題の深刻さを覆い隠し、政策対応の緊急性を低下させている。</p>
+    </div>
+    <div class="cause-card">
+      <span class="cause-num">5</span>
+      <h4>有事議論のタブー化</h4>
+      <p>「平和の島」のアイデンティティと有事準備の政治的ジレンマにより、住民保護の議論すら進まない。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 2: 政策空白の全体マップ ========== -->
+<div class="section" id="sec-map" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F5FA;</span> 政策空白の全体マップ</div>
+  <div class="section-body">
+    <p class="chapter-intro">全20領域を「クリティカル度」「沖縄固有性」「空白度」の3軸で評価し、Tier 1（最優先）とTier 2に分類した。空白度「&#x00D7;」は統合的な政策対応がほぼ存在しないことを意味する。</p>
+
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>領域</th>
+          <th>クリティカル度</th>
+          <th>沖縄固有性</th>
+          <th>空白度</th>
+          <th>Tier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>有事住民避難（国民保護＋シェルター）</td>
+          <td><span class="badge-s">S</span></td>
+          <td>極めて高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-1">Tier 1</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>ヤングケアラー</td>
+          <td><span class="badge-s">S</span></td>
+          <td>極めて高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-1">Tier 1</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>非正規雇用からの脱却戦略</td>
+          <td><span class="badge-s">S</span></td>
+          <td>極めて高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-1">Tier 1</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>不登校児童の受け皿</td>
+          <td><span class="badge-s">S</span></td>
+          <td>高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-1">Tier 1</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>有事生存基盤の統合確保</td>
+          <td><span class="badge-s">S</span></td>
+          <td>極めて高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-1">Tier 1</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>孤独・孤立対策</td>
+          <td><span class="badge-a">A</span></td>
+          <td>高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-2">Tier 2</span></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>困難女性支援</td>
+          <td><span class="badge-a">A</span></td>
+          <td>高い</td>
+          <td><span class="gap-tri">&#x25B3;~&#x00D7;</span></td>
+          <td><span class="tier-2">Tier 2</span></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>下水道未整備&#x00D7;サンゴ礁影響</td>
+          <td><span class="badge-a">A</span></td>
+          <td>極めて高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-2">Tier 2</span></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>海岸侵食&#x00D7;サンゴ防護機能低下</td>
+          <td><span class="badge-a">A</span></td>
+          <td>極めて高い</td>
+          <td><span class="gap-tri">&#x25B3;~&#x00D7;</span></td>
+          <td><span class="tier-2">Tier 2</span></td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>地下水汚染（PFAS以外）</td>
+          <td><span class="badge-a">A</span></td>
+          <td>高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-2">Tier 2</span></td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>夜間中学・学び直し</td>
+          <td><span class="badge-a">A</span></td>
+          <td>極めて高い</td>
+          <td><span class="gap-x">&#x00D7;</span></td>
+          <td><span class="tier-2">Tier 2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ========== Section 3: 各論 — 日常の課題として ========== -->
+<div class="section" id="sec-daily" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F3E0;</span> 各論 — 日常の課題として</div>
+  <div class="section-body">
+
+    <!-- 3-1 ヤングケアラー -->
+    <div class="topic-card" id="topic-youngcarer">
+      <h3>&#x1F9D2; 「子どもを守る」— ヤングケアラー支援</h3>
+      <ul>
+        <li>子どもの貧困率全国ワースト＋ひとり親率全国最高の沖縄では、ヤングケアラーが構造的に発生する土壌がある</li>
+        <li>全国調査で中学2年生の5.7%がヤングケアラーと判明。沖縄は貧困・ひとり親の構造から、これを大幅に上回る可能性が高い</li>
+        <li>県独自の実態調査すら行われておらず、「何人いるのか」が把握されていない</li>
+        <li>統合支援計画なし、専門相談窓口なし、予算措置なし——三重の空白状態</li>
+        <li>ヤングケアラー &#x2192; 学業中断 &#x2192; 高校中退 &#x2192; 非正規雇用 &#x2192; 貧困循環という「見えないエンジン」が回り続けている</li>
+      </ul>
+      <div class="metrics-grid" style="margin-top:16px">
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F4CB;</div>
+          <div class="metric-value">未実施</div>
+          <div class="metric-label">実態調査</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F4D1;</div>
+          <div class="metric-value">なし</div>
+          <div class="metric-label">支援計画</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F6C8;</div>
+          <div class="metric-value">なし</div>
+          <div class="metric-label">専門窓口</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-2 不登校 -->
+    <div class="topic-card" id="topic-futoukou">
+      <h3>&#x1F4DA; 「学びの選択肢を増やす」— 不登校児童の受け皿</h3>
+      <ul>
+        <li>不登校児童生徒数7,432人（過去最多、11年連続増加）</li>
+        <li>フリースクールは県内10~15箇所と圧倒的に不足している</li>
+        <li>月額3~5万円の費用がかかり、貧困家庭には利用不可能</li>
+        <li>離島地域には代替教育の選択肢がほぼゼロ</li>
+        <li>不登校特例校（学びの多様化学校）の設置が極めて少ない</li>
+      </ul>
+      <div class="metrics-grid" style="margin-top:16px">
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F393;</div>
+          <div class="metric-value">7,432<span style="font-size:.45em">人</span></div>
+          <div class="metric-label">不登校児童生徒</div>
+        </div>
+        <div class="metric-card">
+          <div class="icon">&#x1F3EB;</div>
+          <div class="metric-value">~15<span style="font-size:.45em">箇所</span></div>
+          <div class="metric-label">フリースクール</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F3DD;</div>
+          <div class="metric-value">ゼロ</div>
+          <div class="metric-label">離島の選択肢</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-3 非正規雇用 -->
+    <div class="topic-card" id="topic-hiseiki">
+      <h3>&#x1F4BC; 「働く人の所得を上げる」— 非正規雇用の正規化</h3>
+      <ul>
+        <li>非正規雇用率39~40%が構造的に高止まりしており、改善の兆しがない</li>
+        <li>女性の非正規率は55%を超え、母子世帯の貧困に直結している</li>
+        <li>観光業の季節変動が非正規雇用を構造的に生産し続けている</li>
+        <li>「どの産業で、どのように正規雇用を増やすか」のロードマップが存在しない</li>
+      </ul>
+      <div class="metrics-grid" style="margin-top:16px">
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F4C9;</div>
+          <div class="metric-value">~40<span style="font-size:.45em">%</span></div>
+          <div class="metric-label">非正規率</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F469;</div>
+          <div class="metric-value">55<span style="font-size:.45em">%超</span></div>
+          <div class="metric-label">女性非正規率</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F5FA;</div>
+          <div class="metric-value">なし</div>
+          <div class="metric-label">正規化戦略</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-4 食料自給 -->
+    <div class="topic-card" id="topic-food">
+      <h3>&#x1F33E; 「沖縄の食を豊かにする」— 食料自給と地産地消</h3>
+      <ul>
+        <li>食料自給率わずか32%、海上輸送に99%を依存する構造的脆弱性</li>
+        <li>台風が来るたびに毎年スーパーの棚が空になるという現実が繰り返される</li>
+        <li>離島の食料品CPIは全国最高水準であり、食のコスト負担が重い</li>
+        <li>シンガポール「30by30」のような数値目標を持つ統合戦略が存在しない</li>
+      </ul>
+      <div class="metrics-grid" style="margin-top:16px">
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F33E;</div>
+          <div class="metric-value">32<span style="font-size:.45em">%</span></div>
+          <div class="metric-label">食料自給率</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F6A2;</div>
+          <div class="metric-value">99<span style="font-size:.45em">%</span></div>
+          <div class="metric-label">海上輸送依存</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F4C4;</div>
+          <div class="metric-value">なし</div>
+          <div class="metric-label">統合戦略</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-5 下水道×サンゴ -->
+    <div class="topic-card" id="topic-sewer">
+      <h3>&#x1F30A; 「海を守る」— 下水道整備とサンゴ礁保全</h3>
+      <ul>
+        <li>下水道普及率71%にとどまり、全国平均81%を大きく下回る</li>
+        <li>老朽化した単独浄化槽からの生活排水がサンゴ礁劣化の一因となっている</li>
+        <li>下水道整備問題とサンゴ礁保全を統合的に扱う計画が存在しない</li>
+        <li>環境部局とインフラ部局の縦割りが、この統合を妨げている</li>
+      </ul>
+      <div class="metrics-grid" style="margin-top:16px">
+        <div class="metric-card">
+          <div class="icon">&#x1F6B0;</div>
+          <div class="metric-value">71<span style="font-size:.45em">%</span></div>
+          <div class="metric-label">下水道普及率</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x26A0;</div>
+          <div class="metric-value">29<span style="font-size:.45em">%</span></div>
+          <div class="metric-label">未整備地域</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F4CB;</div>
+          <div class="metric-value">なし</div>
+          <div class="metric-label">統合計画</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== Section 4: 正面から議論すべき課題 ========== -->
+<div class="section" id="sec-serious" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x26A1;</span> 正面から議論すべき課題</div>
+  <div class="section-body">
+
+    <div class="alert-box" style="margin-bottom:20px">
+      <strong style="color:var(--negative)">「議論を避けること自体が最大のリスク」</strong><br>
+      以下の課題は、台風避難の延長線上として、県民の命を守る仕組みの一部として議論できる。安全保障の文脈ではなく、「災害対策の高度化」として位置づけることが、議論の入口になる。
+    </div>
+
+    <!-- 4-1 住民避難 -->
+    <div class="topic-card" id="topic-evacuation">
+      <h3>&#x1F6A8; 住民避難計画の実効化</h3>
+      <ul>
+        <li>146万人の県民＋年間約1,000万人の観光客を含む避難計画が、形式的には存在するが実効性を伴わない</li>
+        <li>先島諸島5.5万人の航空避難には数週間が必要とされるが、具体的な輸送計画が策定されていない</li>
+        <li>シェルターは実質ゼロ。台風対策として始めれば、有事対策にも自然と繋がる</li>
+        <li>国民保護計画は形式的に存在するが、避難経路・輸送手段・収容施設の具体性が欠如している</li>
+      </ul>
+      <div class="metrics-grid" style="margin-top:16px">
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F46A;</div>
+          <div class="metric-value">~160<span style="font-size:.4em">万人</span></div>
+          <div class="metric-label">避難対象</div>
+          <div class="metric-sub">県民＋観光客</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x1F3D7;</div>
+          <div class="metric-value">0</div>
+          <div class="metric-label">シェルター</div>
+          <div class="metric-sub">実質ゼロ</div>
+        </div>
+        <div class="metric-card alert-card">
+          <div class="icon">&#x2708;</div>
+          <div class="metric-value">数週間</div>
+          <div class="metric-label">先島避難所要時間</div>
+          <div class="metric-sub">5.5万人の航空輸送</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-2 海上輸送途絶 -->
+    <div class="topic-card" id="topic-sealane">
+      <h3>&#x1F6A2; 海上輸送途絶への備え</h3>
+      <ul>
+        <li>「台風の長期化」として議論を始めることができる——有事を持ち出さなくても本質は同じ</li>
+        <li>食料・水・電力・医療物資の全てが海上輸送に依存しているが、途絶時の統合対応計画がない</li>
+        <li>各要素の備蓄日数すら正確に把握されていない——「データがないこと」自体が最大の問題</li>
+      </ul>
+
+      <p style="font-size:.85rem;color:var(--text-sub);margin:16px 0 8px;text-align:center">※以下は概算推定値。正確なデータが存在しないこと自体が問題である</p>
+      <div class="chart-container" style="height:320px">
+        <canvas id="chartSealane"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== Section 5: 統合された時に見える全体像 ========== -->
+<div class="section" id="sec-integration" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F517;</span> 統合された時に見える全体像</div>
+  <div class="section-body">
+    <p class="chapter-intro">個別に見えていた課題は、統合されたとき初めて全体像が浮かび上がる。「日常の課題」と「正面からの議論」は、最終的にひとつの目標——県民の生存的安全の実現——に収束する。</p>
+
+    <div class="mermaid-container">
+      <div class="mermaid">
+graph TB
+    subgraph daily["日常の課題として"]
+        A["&#x1F9D2; ヤングケアラー支援"] --> D["貧困循環の断絶"]
+        B["&#x1F4DA; 不登校の受け皿"] --> D
+        C["&#x1F4BC; 非正規の正規化"] --> D
+        E["&#x1F33E; 食料の自給率向上"] --> F["生存基盤の強化"]
+        G["&#x1F30A; 下水道×サンゴ保全"] --> F
+    end
+    subgraph serious["正面からの議論"]
+        H["&#x1F6A8; 住民避難計画"] --> I["県民の命を守る仕組み"]
+        J["&#x1F6A2; 海上輸送途絶への備え"] --> I
+    end
+    D --> K["統合: 生存的安全の実現"]
+    F --> K
+    I --> K
+    style daily fill:#1a2540,stroke:#B8912A,stroke-width:1px,color:#e6edf3
+    style serious fill:#2a1520,stroke:#da3633,stroke-width:1px,color:#e6edf3
+    style K fill:#B8912A,stroke:#D4A843,stroke-width:2px,color:#0F1829,font-weight:bold
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Section 6: 次のステップ ========== -->
+<div class="section" id="sec-next" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x27A1;</span> 次のステップ</div>
+  <div class="section-body">
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>実態調査の実施</h4>
+        <p>各論テーマの実態調査を優先的に実施する。特にヤングケアラーの県独自調査、不登校児童の受け皿の実態把握、非正規雇用の産業別・地域別分析が急務である。</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>シミュレーションの実施</h4>
+        <p>住民避難と海上輸送途絶に関する県独自のシミュレーションを行う。「台風対策の高度化」として始め、段階的に有事シナリオまで拡張する。</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>統合戦略の設計</h4>
+        <p>政策空白を埋めるための統合的な戦略を設計する。縦割りを超えた横断的な推進体制と、数値目標を持つロードマップの策定が不可欠である。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<div class="footer">
+  <p>沖縄政策方針 2075 — 政策空白分析</p>
+  <p style="margin-top:8px"><a href="../index.html">&#x2190; ポータルに戻る</a></p>
+</div>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-why" onclick="tocJump('sec-why')"><span class="toc-icon">&#x1F50D;</span><span class="toc-label">なぜ「政策空白」が生まれるのか</span></a></li>
+      <li><a href="#sec-map" onclick="tocJump('sec-map')"><span class="toc-icon">&#x1F5FA;</span><span class="toc-label">政策空白の全体マップ</span></a></li>
+      <li><a href="#sec-daily" onclick="tocJump('sec-daily')"><span class="toc-icon">&#x1F3E0;</span><span class="toc-label">各論 — 日常の課題として</span></a></li>
+      <li><a href="#sec-serious" onclick="tocJump('sec-serious')"><span class="toc-icon">&#x26A1;</span><span class="toc-label">正面から議論すべき課題</span></a></li>
+      <li><a href="#sec-integration" onclick="tocJump('sec-integration')"><span class="toc-icon">&#x1F517;</span><span class="toc-label">統合された時に見える全体像</span></a></li>
+      <li><a href="#sec-next" onclick="tocJump('sec-next')"><span class="toc-icon">&#x27A1;</span><span class="toc-label">次のステップ</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">&#x2630;</button>
+
+<script>
+// === Theme ===
+function toggleTheme(){
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme') || 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme-policy-gaps', next);
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '\u{1F319}' : '\u2600\uFE0F';
+  updateChartColors();
+}
+(function(){
+  var saved = localStorage.getItem('theme-policy-gaps');
+  if(saved){
+    document.documentElement.setAttribute('data-theme', saved);
+    document.getElementById('themeToggle').textContent = saved === 'dark' ? '\u{1F319}' : '\u2600\uFE0F';
+  }
+})();
+
+// === Mermaid Init ===
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  themeVariables: {
+    primaryColor: '#1A2540',
+    primaryTextColor: '#e6edf3',
+    primaryBorderColor: '#B8912A',
+    lineColor: '#B8912A',
+    secondaryColor: '#243352',
+    tertiaryColor: '#0F1829',
+    fontFamily: 'Noto Sans JP, sans-serif',
+    fontSize: '14px'
+  }
+});
+
+// === Chart: Sea Lane Disruption ===
+var chartSealane = null;
+function createSealaneChart(){
+  var ctx = document.getElementById('chartSealane');
+  if(!ctx) return;
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  var isDark = theme === 'dark';
+  chartSealane = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['食料（生鮮品）', '食料（保存食）', '燃料（発電用）', '医薬品', '水（ダム）'],
+      datasets: [{
+        label: '推定持続日数',
+        data: [3, 14, 30, 7, 60],
+        backgroundColor: [
+          'rgba(218,54,51,0.7)',
+          'rgba(210,140,30,0.7)',
+          'rgba(46,160,67,0.5)',
+          'rgba(218,54,51,0.5)',
+          'rgba(46,160,67,0.7)'
+        ],
+        borderColor: [
+          'rgba(218,54,51,1)',
+          'rgba(210,140,30,1)',
+          'rgba(46,160,67,1)',
+          'rgba(218,54,51,1)',
+          'rgba(46,160,67,1)'
+        ],
+        borderWidth: 1,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: true,
+          text: '海上輸送途絶時の各要素の推定持続日数',
+          color: isDark ? '#D4A843' : '#7A5C10',
+          font: { family: 'Shippori Mincho B1', size: 15, weight: 700 }
+        },
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx){ return ctx.parsed.x + '日'; }
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: '日数', color: isDark ? '#8b949e' : '#555', font: { family: 'Noto Sans JP' } },
+          ticks: { color: isDark ? '#8b949e' : '#555' },
+          grid: { color: isDark ? 'rgba(48,54,61,0.3)' : 'rgba(0,0,0,0.08)' }
+        },
+        y: {
+          ticks: { color: isDark ? '#8b949e' : '#555', font: { family: 'Noto Sans JP', size: 13 } },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+function updateChartColors(){
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  var isDark = theme === 'dark';
+  if(chartSealane){
+    chartSealane.options.plugins.title.color = isDark ? '#D4A843' : '#7A5C10';
+    chartSealane.options.scales.x.title.color = isDark ? '#8b949e' : '#555';
+    chartSealane.options.scales.x.ticks.color = isDark ? '#8b949e' : '#555';
+    chartSealane.options.scales.x.grid.color = isDark ? 'rgba(48,54,61,0.3)' : 'rgba(0,0,0,0.08)';
+    chartSealane.options.scales.y.ticks.color = isDark ? '#8b949e' : '#555';
+    chartSealane.update();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  createSealaneChart();
+});
+
+// === Accordion ===
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// === TOC ===
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '\u2715 セクション' : '\u2630';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>

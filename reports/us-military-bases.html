@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>米軍基地の世界配置 ── 沖縄を理解するための地球規模マップ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root, [data-theme="dark"] {
+  --navy: #1A2540; --navy-light: #243352; --navy-dark: #0F1829;
+  --gold: #B8912A; --gold-light: #D4A843; --gold-dim: rgba(184,145,42,0.15);
+  --paper: #F5F2EC; --text-main: #e6edf3; --text-sub: #8b949e;
+  --card-bg: rgba(26,37,64,0.6); --card-border: rgba(184,145,42,0.12);
+  --alert: #8B2020; --positive: #2ea043; --negative: #da3633;
+  --body-bg: #0F1829;
+  --header-bg-1: #1a2332; --header-bg-2: #1A2540; --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(15,24,41,0.6);
+  --table-hover: rgba(184,145,42,0.04); --table-border: #21262d;
+  --summary-bg-1: rgba(15,24,41,0.7); --summary-bg-2: rgba(26,37,64,0.5); --summary-text: #c9d1d9;
+  --toc-bg: #1A2540; --toc-link-color: #e6edf3; --toc-hover: rgba(88,166,255,.1);
+}
+[data-theme="light"] {
+  --navy: #E8E4DC; --navy-light: #F0ECE4; --navy-dark: #F5F2EC;
+  --gold: #8B6914; --gold-light: #7A5C10; --gold-dim: rgba(138,105,20,0.1);
+  --text-main: #1a1a1a; --text-sub: #555555;
+  --card-bg: rgba(255,255,255,0.85); --card-border: rgba(138,105,20,0.15);
+  --alert: #A52020; --positive: #1a7f37; --negative: #c93030;
+  --body-bg: #F5F2EC;
+  --header-bg-1: #2a3550; --header-bg-2: #1A2540; --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(255,255,255,0.7);
+  --table-hover: rgba(138,105,20,0.05); --table-border: #d8d4cc;
+  --summary-bg-1: rgba(245,242,236,0.9); --summary-bg-2: rgba(232,228,220,0.8); --summary-text: #333;
+  --toc-bg: #fff; --toc-link-color: #1a1a1a; --toc-hover: rgba(138,105,20,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--body-bg);color:var(--text-main);font-family:'Noto Sans JP',sans-serif;line-height:1.8;padding:0;transition:background .3s,color .3s}
+h1,h2,h3,.section-title{font-family:'Shippori Mincho B1',serif}
+.num,.metric-value,.big-num{font-family:'Inter',sans-serif;font-weight:700;letter-spacing:-0.5px}
+
+.theme-toggle{position:fixed;top:16px;right:16px;z-index:1000;width:44px;height:44px;border-radius:50%;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.2);transition:all .2s}
+.theme-toggle:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+.back-link{position:fixed;top:16px;left:16px;z-index:1000;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold-light);text-decoration:none;font-size:.82rem;font-weight:500;font-family:'Noto Sans JP',sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.back-link:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+.header{background:linear-gradient(135deg,var(--header-bg-1) 0%,var(--header-bg-2) 50%,var(--header-bg-3) 100%);border-bottom:1px solid rgba(184,145,42,0.15);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header h1,.header .subtitle,.header .date,.header .badge{color:#e6edf3!important}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:800;color:var(--text-main);margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em;margin-top:4px}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header .badge{display:inline-block;background:var(--gold-dim);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px}
+
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+
+.section{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:28px 24px;margin-bottom:20px;position:relative}
+.section-title{font-size:1.3em;font-weight:700;color:var(--gold-light);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.2em}
+
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px;text-align:center;transition:border-color .2s}
+.metric-card:hover{border-color:rgba(184,145,42,0.3)}
+.metric-card .icon{font-size:1.8em;margin-bottom:6px}
+.metric-card .metric-value{font-size:1.6em;font-weight:700;color:var(--gold-light);font-family:'Inter',sans-serif;letter-spacing:-0.5px}
+.metric-card .metric-label{font-size:.88rem;color:var(--text-sub);margin-top:4px}
+.metric-card .metric-sub{font-size:.78rem;color:var(--text-sub);margin-top:4px;opacity:.85;line-height:1.5}
+
+.chart-container{position:relative;height:340px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.88rem}
+.tbl th{background:var(--gold-dim);color:var(--gold-light);padding:11px 14px;text-align:left;font-weight:600;border-bottom:1px solid rgba(184,145,42,0.2)}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--table-border);vertical-align:top}
+.tbl tr:hover td{background:var(--table-hover)}
+.badge-strong{background:rgba(46,160,67,0.15);color:var(--positive);padding:3px 10px;border-radius:4px;font-size:.75rem;white-space:nowrap;font-weight:600}
+.badge-moderate{background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:4px;font-size:.75rem;white-space:nowrap;font-weight:600}
+.badge-weak{background:rgba(218,54,51,0.12);color:var(--negative);padding:3px 10px;border-radius:4px;font-size:.75rem;white-space:nowrap;font-weight:600}
+
+.chapter-intro{font-size:.95rem;color:var(--text-sub);margin-bottom:16px;line-height:1.9;border-left:3px solid var(--gold-dim);padding-left:14px}
+.highlight-box{background:var(--gold-dim);border:1px solid rgba(184,145,42,0.2);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem;line-height:1.85}
+.alert-box{background:rgba(139,32,32,0.1);border:1px solid rgba(139,32,32,0.25);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem;line-height:1.85}
+
+.conclusion-box{background:linear-gradient(135deg,rgba(184,145,42,0.12),rgba(184,145,42,0.04));border:1px solid rgba(184,145,42,0.3);border-radius:14px;padding:26px 30px;margin-bottom:24px;line-height:1.95;font-size:.98rem;color:var(--text-main)}
+.conclusion-box .label{font-family:'Inter',sans-serif;font-size:.78rem;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:block}
+.conclusion-box .lead{font-family:'Shippori Mincho B1',serif;font-size:1.12em;font-weight:600;color:var(--gold-light);line-height:1.8;margin-bottom:14px}
+
+.cmd-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0}
+.cmd-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px 20px}
+.cmd-card .cmd-tag{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;display:block;margin-bottom:4px}
+.cmd-card h4{font-size:1em;font-weight:700;color:var(--gold-light);margin-bottom:6px;font-family:'Shippori Mincho B1',serif}
+.cmd-card .cmd-hq{font-size:.78rem;color:var(--text-sub);margin-bottom:8px}
+.cmd-card .cmd-force{font-family:'Inter',sans-serif;font-size:1.4em;font-weight:700;color:var(--text-main);letter-spacing:-0.5px}
+.cmd-card .cmd-force-label{font-size:.7rem;color:var(--text-sub);text-transform:uppercase;letter-spacing:1px;font-family:'Inter',sans-serif}
+.cmd-card p{font-size:.83rem;color:var(--text-sub);line-height:1.7;margin-top:6px}
+
+.reason-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0}
+.reason-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.reason-card .rnum{font-family:'Inter',sans-serif;font-size:1.8em;font-weight:800;color:var(--gold);min-width:38px;line-height:1;letter-spacing:-1px}
+.reason-card h4{font-size:.95rem;font-weight:700;color:var(--gold-light);margin-bottom:6px}
+.reason-card p{font-size:.85rem;color:var(--text-sub);line-height:1.7}
+
+.timeline{position:relative;margin:20px 0;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--gold-dim)}
+.timeline-item{position:relative;margin-bottom:18px;padding-left:20px}
+.timeline-item::before{content:'';position:absolute;left:-20px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid var(--body-bg)}
+.timeline-item h4{font-size:.92rem;font-weight:700;color:var(--gold-light);margin-bottom:4px}
+.timeline-item p{font-size:.86rem;color:var(--text-sub);line-height:1.7}
+
+.sources-list{column-count:2;column-gap:24px;font-size:.78rem;color:var(--text-sub);line-height:1.7}
+.sources-list .src{break-inside:avoid;margin-bottom:8px;padding-left:14px;position:relative}
+.sources-list .src::before{content:'•';position:absolute;left:0;color:var(--gold)}
+
+/* Images / Figures */
+.report-figure{margin:18px 0;border-radius:12px;overflow:hidden;border:1px solid var(--card-border);background:rgba(15,24,41,0.5)}
+.report-figure img{display:block;width:100%;height:auto;max-height:480px;object-fit:cover;filter:saturate(.92) contrast(1.02)}
+.report-figure figcaption{padding:10px 16px;font-size:.78rem;color:var(--text-sub);line-height:1.6;background:rgba(15,24,41,0.6);border-top:1px solid var(--card-border)}
+.report-figure figcaption strong{color:var(--gold-light);font-weight:600}
+.report-figure figcaption .credit{display:block;margin-top:4px;font-size:.7rem;opacity:.7;font-family:'Inter',sans-serif}
+.image-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+@media(max-width:768px){.image-row{grid-template-columns:1fr}.report-figure img{max-height:320px}}
+
+/* Cross-link callout */
+.crosslink{background:linear-gradient(135deg,rgba(88,166,255,0.08),rgba(184,145,42,0.05));border:1px solid rgba(184,145,42,0.25);border-radius:12px;padding:18px 22px;margin:18px 0;display:flex;gap:16px;align-items:center;text-decoration:none;color:var(--text-main);transition:all .2s}
+.crosslink:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.crosslink .cl-icon{font-size:2em;flex-shrink:0}
+.crosslink .cl-tag{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:4px}
+.crosslink .cl-title{font-family:'Shippori Mincho B1',serif;font-size:1.05em;font-weight:700;color:var(--gold-light);margin-bottom:4px}
+.crosslink .cl-desc{font-size:.83rem;color:var(--text-sub);line-height:1.65}
+.crosslink .cl-arrow{font-size:1.4em;color:var(--gold);margin-left:auto;flex-shrink:0}
+@media(max-width:768px){.crosslink{flex-direction:column;align-items:flex-start}.crosslink .cl-arrow{display:none}}
+
+.footer{text-align:center;padding:32px 20px;color:var(--text-sub);font-size:.88rem;border-top:1px solid var(--card-border);margin-top:20px}
+.footer a{color:var(--gold-light);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:9000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:var(--toc-bg);border-top:1px solid var(--card-border);box-shadow:0 -2px 12px rgba(0,0,0,.15)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--toc-link-color);text-decoration:none;font-size:.9rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:var(--toc-hover)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .chart-container{height:280px}
+  .section{padding:20px 16px}
+  .cmd-grid{grid-template-columns:1fr}
+  .reason-grid{grid-template-columns:1fr}
+  .chart-row{grid-template-columns:1fr!important}
+  .sources-list{column-count:1}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:.76rem}
+  .conclusion-box{padding:20px 18px}
+  .conclusion-box .lead{font-size:1em}
+  .back-link{font-size:.72rem;padding:6px 10px;top:10px;left:10px}
+  .theme-toggle{top:10px;right:10px;width:38px;height:38px;font-size:1rem}
+}
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .section-title{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="ダーク/ライト切替">🌙</button>
+
+<a class="back-link" href="../index.html">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+ポータル</a>
+
+<div class="header">
+  <div class="header-content">
+    <div class="badge">沖縄2075 ｜ 補助レポート</div>
+    <h1>米軍基地の世界配置</h1>
+    <div class="subtitle">沖縄を理解するための地球規模マップ ── 750基地・80カ国・170,000人の地政学</div>
+    <div class="date">作成日: 2026年4月 ｜ 沖縄政策方針 2075</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- Section 1: 結論 -->
+<div class="section" id="sec-summary">
+  <div class="section-title"><span class="section-icon">🎯</span> 結論サマリー ── なぜ米軍は世界に基地を持つのか</div>
+
+  <div class="conclusion-box">
+    <span class="label">Executive Summary</span>
+    <div class="lead">米国は世界80カ国以上に約750の海外基地を持ち、約17万人の現役兵力を海外に配備している。その配備構造の中で、日本(特に沖縄)は「最大の受入国」「最も戦略的に代替不能な前方拠点」「最もコスト効率の良い同盟国」という3つの記録を同時に持つ、世界唯一の地点である。</div>
+    <p>本レポートは、沖縄を「世界の中の一拠点」として相対化するための地球規模マップである。米軍の総体規模、11の統合戦闘軍構造、地域別の主要基地、歴史的展開、そして現在の対中戦略構造まで俯瞰することで、<strong style="color:var(--gold-light)">なぜ沖縄が「太平洋の要石」と呼ばれ続けるのか、その軍事的・制度的根拠</strong>を可視化する。</p>
+    <p style="margin-top:10px"><strong style="color:var(--negative)">最も重要な数値:</strong> 在日米軍 約53,000人は世界の米海外駐留兵力の<strong>約31%</strong>を占める。日本単独で2位ドイツの1.5倍。そのうち<strong>沖縄に約25,000〜28,000人</strong>(在日米軍の約半分)が、国土の0.6%の島に集中している。</p>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="icon">👥</div>
+      <div class="metric-value">1.34<span style="font-size:.5em">M</span></div>
+      <div class="metric-label">現役総兵力</div>
+      <div class="metric-sub">予備・州兵含めて約281万人</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">💰</div>
+      <div class="metric-value">$895<span style="font-size:.5em">B</span></div>
+      <div class="metric-label">国防関連予算 FY2025</div>
+      <div class="metric-sub">DoD本体は約8,499億ドル</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🌍</div>
+      <div class="metric-value">750<span style="font-size:.5em">+</span></div>
+      <div class="metric-label">海外基地数</div>
+      <div class="metric-sub">80カ国以上に展開</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🛡️</div>
+      <div class="metric-value">170<span style="font-size:.5em">k</span></div>
+      <div class="metric-label">海外駐留現役兵力</div>
+      <div class="metric-sub">うち日本約31%(世界最大)</div>
+    </div>
+  </div>
+
+  <a class="crosslink" href="japan-us-alliance.html">
+    <div class="cl-icon">⚖️</div>
+    <div>
+      <span class="cl-tag">関連レポート ── 法的・歴史的構造</span>
+      <div class="cl-title">日米安保体制の構造 ── 占領から同盟への80年</div>
+      <div class="cl-desc">本レポートが米軍の世界配置を扱うのに対し、関連レポートは「なぜ日本に米軍基地が置かれることになったのか」その法的・歴史的根拠を扱います。1951年旧安保条約・1960年新条約・日米地位協定全28条・HNS史を解剖。両者を併せ読むことで「世界の中の沖縄」と「制度の中の沖縄」が立体的に見えます。</div>
+    </div>
+    <div class="cl-arrow">→</div>
+  </a>
+</div>
+
+<!-- Section 2: 統合戦闘軍 -->
+<div class="section" id="sec-commands" data-accordion>
+  <div class="section-title"><span class="section-icon">⚙️</span> 11の統合戦闘軍 ── 米軍の指揮構造</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">米軍は地理的7つ・機能的4つの計11の統合戦闘軍(Unified Combatant Commands)に編成されている。各軍種(陸・海・空・海兵・宇宙)は人員の訓練・編成のみを担い、作戦指揮はすべて統合戦闘軍司令官(4つ星)が行う。指揮系統は「大統領 → 国防長官 → 統合戦闘軍司令官」の直接ラインで、統合参謀本部議長は助言役である。</p>
+
+    <div class="chart-container" style="height:360px"><canvas id="chartCmdForce"></canvas></div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">地理統合軍 (Geographic Combatant Commands)</h3>
+
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <span class="cmd-tag">USINDOPACOM</span>
+        <h4>米インド太平洋軍</h4>
+        <div class="cmd-hq">本部: Camp H.M. Smith, Hawaii ｜ 司令官: 海軍大将</div>
+        <div class="cmd-force">375,000<span class="cmd-force-label" style="margin-left:6px">人</span></div>
+        <p>米西海岸〜インド西境、南極〜北極の36カ国を担当。地球表面の<strong>約52%</strong>をカバーする最大かつ最古の統合軍。第7艦隊(横須賀)、第5空軍(横田)、III海兵遠征軍(沖縄)、第3艦隊(ハワイ)を統率。「ペーシング・チャレンジ」としての中国対処の中心。</p>
+      </div>
+
+      <div class="cmd-card">
+        <span class="cmd-tag">USEUCOM</span>
+        <h4>米欧州軍</h4>
+        <div class="cmd-hq">本部: Stuttgart, Germany ｜ 兼: NATO最高司令官(SACEUR)</div>
+        <div class="cmd-force">80,000〜100,000<span class="cmd-force-label" style="margin-left:6px">人</span></div>
+        <p>欧州・NATO加盟国・ロシア西部担当。ウクライナ戦争(2022〜)以降、ピーク10万人超に増強。NATO東方拡大により、ポーランド・ルーマニア・バルト3国への前方展開強化中。</p>
+      </div>
+
+      <div class="cmd-card">
+        <span class="cmd-tag">USCENTCOM</span>
+        <h4>米中央軍</h4>
+        <div class="cmd-hq">本部: MacDill AFB, Tampa ｜ 前方: Al Udeid, Qatar</div>
+        <div class="cmd-force">40,000〜50,000<span class="cmd-force-label" style="margin-left:6px">人</span></div>
+        <p>中東・中央アジア21カ国担当。2023年10月以降のイスラエル・ハマス戦争、フーシ派紅海攻撃で兵力流動的に増強。空母打撃群2個・揚陸即応群を常時展開。</p>
+      </div>
+
+      <div class="cmd-card">
+        <span class="cmd-tag">USAFRICOM</span>
+        <h4>米アフリカ軍</h4>
+        <div class="cmd-hq">本部: Stuttgart, Germany (EUCOMと併設)</div>
+        <div class="cmd-force">6,000<span class="cmd-force-label" style="margin-left:6px">人</span></div>
+        <p>アフリカ53カ国(エジプト除く)担当。アフリカ大陸内に本部なし。2007年設立。2024年8月のニジェール撤退後、サヘル地域から沿岸西アフリカへ重心シフト中。</p>
+      </div>
+
+      <div class="cmd-card">
+        <span class="cmd-tag">USSOUTHCOM</span>
+        <h4>米南方軍</h4>
+        <div class="cmd-hq">本部: Doral, Miami</div>
+        <div class="cmd-force">2,000<span class="cmd-force-label" style="margin-left:6px">人</span></div>
+        <p>中南米・カリブ31カ国担当。最小規模の統合軍。麻薬対策・災害支援が中心。近年は中国の中南米インフラ投資(パナマ運河、ペルーのチャンカイ港等)への対抗を強化。</p>
+      </div>
+
+      <div class="cmd-card">
+        <span class="cmd-tag">USNORTHCOM</span>
+        <h4>米北方軍</h4>
+        <div class="cmd-hq">本部: Peterson SFB, Colorado Springs</div>
+        <div class="cmd-force">本土防衛<span class="cmd-force-label" style="margin-left:6px">主任務</span></div>
+        <p>米本土・アラスカ・カナダ・メキシコ・カリブ一部担当。NORAD(北米航空宇宙防衛司令部)を兼任。国土防衛・ミサイル防衛が中心任務。</p>
+      </div>
+
+      <div class="cmd-card">
+        <span class="cmd-tag">USSPACECOM</span>
+        <h4>米宇宙軍</h4>
+        <div class="cmd-hq">本部: Peterson SFB, Colorado</div>
+        <div class="cmd-force">2019<span class="cmd-force-label" style="margin-left:6px">再設置</span></div>
+        <p>宇宙領域での作戦・戦闘を担当。宇宙監視・衛星防護・対衛星作戦。トランプ第1期で再設置。</p>
+      </div>
+
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">機能統合軍 (Functional Combatant Commands)</h3>
+
+    <table class="tbl">
+      <thead><tr><th>コマンド</th><th>本部</th><th>主任務</th></tr></thead>
+      <tbody>
+        <tr><td><strong>USSOCOM</strong> 米特殊作戦軍</td><td>MacDill AFB, FL</td><td>約7万人の特殊部隊を統合 (グリーンベレー、Navy SEALs、デルタフォース等)</td></tr>
+        <tr><td><strong>USSTRATCOM</strong> 米戦略軍</td><td>Offutt AFB, NE</td><td>核三位一体・グローバル打撃・ミサイル防衛</td></tr>
+        <tr><td><strong>USTRANSCOM</strong> 米輸送軍</td><td>Scott AFB, IL</td><td>グローバル兵站・戦略輸送(空輸・海上輸送)</td></tr>
+        <tr><td><strong>USCYBERCOM</strong> 米サイバー軍</td><td>Fort Meade, MD</td><td>サイバー攻防・NSA長官と兼務体制</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Section 3: 在日米軍 -->
+<div class="section" id="sec-japan" data-accordion>
+  <div class="section-title"><span class="section-icon">🇯🇵</span> 在日米軍 (USFJ) ── 世界最大の受入国</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">在日米軍(USFJ)は世界最大の海外駐留拠点。総兵力 約53,000〜55,000人、専用施設76箇所・約263km²、うち約70%が沖縄に集中。2025年3月、USFJは従来の「行政司令部」から「統合軍司令部(JFHQ)」へ格上げが開始され、自衛隊統合作戦司令部(JJOC)発足と連動した日米常時即応指揮体制が構築されつつある。</p>
+
+    <div class="image-row">
+      <figure class="report-figure">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Kadena_Air_Base_20100526.jpg/1200px-Kadena_Air_Base_20100526.jpg" alt="嘉手納空軍基地 航空写真" loading="lazy">
+        <figcaption><strong>嘉手納空軍基地(沖縄県嘉手納町)。</strong>面積19.86km²、3,700m級滑走路2本を持つ極東最大の米空軍基地。第18航空団司令部・約7,300人。台湾海峡まで給油なしで戦闘行動可能な唯一の米空軍基地。<span class="credit">Photo: U.S. Air Force / Public Domain via Wikimedia Commons</span></figcaption>
+      </figure>
+      <figure class="report-figure">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Marine_Corps_Air_Station_Futenma_20160720.jpg/1200px-Marine_Corps_Air_Station_Futenma_20160720.jpg" alt="普天間飛行場 航空写真" loading="lazy">
+        <figcaption><strong>普天間飛行場(沖縄県宜野湾市)。</strong>市街地のど真ん中に位置する米海兵隊航空基地。市域の約25%を占有。MV-22オスプレイ24機等が常駐。1996年SACO合意で辺野古移設が決まったが工事継続中。<span class="credit">Photo: U.S. Marine Corps / Public Domain via Wikimedia Commons</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="icon">👥</div>
+        <div class="metric-value">~54<span style="font-size:.5em">k</span></div>
+        <div class="metric-label">在日米軍総兵力</div>
+        <div class="metric-sub">世界の米海外配備の約31%</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">🏗️</div>
+        <div class="metric-value">76</div>
+        <div class="metric-label">専用施設数</div>
+        <div class="metric-sub">総面積 約263 km²</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">🏝️</div>
+        <div class="metric-value">70<span style="font-size:.5em">%</span></div>
+        <div class="metric-label">沖縄集中度</div>
+        <div class="metric-sub">国土の0.6%に施設の70%</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">💴</div>
+        <div class="metric-value">¥2,110<span style="font-size:.5em">億</span></div>
+        <div class="metric-label">同盟強靱化予算 (年平均)</div>
+        <div class="metric-sub">2022〜2026年度 5年で1兆551億円</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">軍種別内訳</h3>
+    <table class="tbl">
+      <thead><tr><th>軍種</th><th>主要拠点</th><th>兵力</th><th>主力</th></tr></thead>
+      <tbody>
+        <tr><td><strong>米海軍</strong> (USNAVFORJ)</td><td>横須賀・佐世保・厚木</td><td>約 20,000</td><td>第7艦隊(空母CSG・揚陸艦ARG)</td></tr>
+        <tr><td><strong>米海兵隊</strong> (III MEF)</td><td>沖縄(普天間・シュワブ・ハンセン・コートニー)・岩国</td><td>約 20,000</td><td>第3海兵遠征軍・第1海兵航空団</td></tr>
+        <tr><td><strong>米空軍</strong> (5AF)</td><td>横田・嘉手納・三沢</td><td>約 12,000</td><td>第18・第35・第374航空団</td></tr>
+        <tr><td><strong>米陸軍</strong> (USARJ)</td><td>キャンプ座間・トリイ</td><td>約 2,500</td><td>第1軍団前方司令部・特殊作戦群</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">主要15基地ファクトシート</h3>
+    <table class="tbl">
+      <thead><tr><th>基地</th><th>所在</th><th>面積</th><th>駐留部隊・装備</th><th>機能</th></tr></thead>
+      <tbody>
+        <tr><td><strong>横田飛行場</strong></td><td>東京都福生市</td><td>7.14 km²</td><td>USFJ司令部・第5空軍司令部・第374空輸航空団 (約3,400人) C-130J/CV-22B</td><td>戦略空輸ハブ・司令機能</td></tr>
+        <tr><td><strong>横須賀海軍施設</strong></td><td>神奈川県横須賀</td><td>2.36 km²</td><td>第7艦隊司令部・空母ジョージ・ワシントン・旗艦ブルー・リッジ (約20,000人)</td><td>米国外唯一の空母前方展開母港</td></tr>
+        <tr><td><strong>厚木海軍飛行場</strong></td><td>神奈川県大和市</td><td>5.07 km²</td><td>MH-60R/S等(艦載固定翼は2018年に岩国へ)</td><td>艦載機整備・ヘリ拠点</td></tr>
+        <tr><td><strong>キャンプ座間</strong></td><td>神奈川県座間市</td><td>2.30 km²</td><td>在日米陸軍司令部・第1軍団前方司令部 (約4,000人)</td><td>米陸軍の極東指揮中枢</td></tr>
+        <tr><td><strong>三沢飛行場</strong></td><td>青森県三沢市</td><td>15.8 km² (共用)</td><td>第35戦闘航空団 F-16CJ→2026年F-35Aへ更新 (約5,000人)</td><td>対ロ・対北朝鮮制空・SEAD</td></tr>
+        <tr><td><strong>岩国海兵隊航空基地</strong></td><td>山口県岩国市</td><td>8.64 km²</td><td>第1海兵航空団・第5空母航空団 F-35B/F/A-18E/F 約120機 (約10,000人)</td><td>海兵航空・艦載機前進拠点</td></tr>
+        <tr><td><strong>佐世保海軍施設</strong></td><td>長崎県佐世保市</td><td>5.51 km²</td><td>強襲揚陸艦アメリカ・第11水陸両用戦即応隊</td><td>遠征強襲即応・掃海</td></tr>
+        <tr><td><strong>嘉手納飛行場</strong></td><td>沖縄県嘉手納町</td><td>19.86 km²</td><td>第18航空団 F-22/F-35ローテ・KC-135・E-3・RC-135 約100機 (約7,300人)</td><td>極東最大の米空軍基地</td></tr>
+        <tr><td><strong>普天間飛行場</strong></td><td>沖縄県宜野湾市</td><td>4.80 km²</td><td>第1海兵航空団 MV-22B・CH-53E・KC-130J 約58機 (約3,000人)</td><td>海兵航空(回転翼)拠点</td></tr>
+        <tr><td><strong>キャンプ・シュワブ</strong></td><td>沖縄県名護市辺野古</td><td>20.63 km²</td><td>第3海兵師団・第4海兵連隊 (V字滑走路1,800m建設中)</td><td>普天間代替施設(FRF)</td></tr>
+        <tr><td><strong>キャンプ・ハンセン</strong></td><td>沖縄県金武町他</td><td>51.46 km² (県内最大)</td><td>第3海兵師団・第12海兵沿岸連隊(MLR)</td><td>中部訓練区域・海兵訓練中核</td></tr>
+        <tr><td><strong>キャンプ・コートニー</strong></td><td>沖縄県うるま市</td><td>1.34 km²</td><td>第3海兵遠征軍(III MEF)司令部</td><td>III MEF中枢</td></tr>
+        <tr><td><strong>ホワイトビーチ地区</strong></td><td>沖縄県うるま市勝連</td><td>1.57 km²</td><td>原潜・強襲揚陸艦寄港岸壁</td><td>沖縄唯一の海軍港湾</td></tr>
+        <tr><td><strong>キャンプ・キンザー</strong></td><td>沖縄県浦添市</td><td>2.74 km²</td><td>第3海兵兵站群</td><td>海兵隊兵站中核 (返還計画中)</td></tr>
+        <tr><td><strong>トリイ通信施設</strong></td><td>沖縄県読谷村</td><td>1.90 km²</td><td>第1特殊部隊群第1大隊(グリーンベレー)</td><td>在日米陸軍特殊作戦拠点</td></tr>
+      </tbody>
+    </table>
+
+    <figure class="report-figure">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/US_military_bases_in_Okinawa.svg/1200px-US_military_bases_in_Okinawa.svg.png" alt="沖縄県内の米軍基地配置図" loading="lazy">
+      <figcaption><strong>沖縄県内の米軍施設配置図。</strong>沖縄本島の約14〜15%が米軍基地で占められている。日本国土の0.6%に在日米軍専用施設の70.3%が集中する異常な配置構造。<span class="credit">Map: Wikimedia Commons / CC BY-SA</span></figcaption>
+    </figure>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">沖縄集中の歴史的経緯</h3>
+    <div class="timeline">
+      <div class="timeline-item"><h4>1945 沖縄戦・ニミッツ布告</h4><p>米軍が直接占領。土地を「銃剣とブルドーザー」で接収</p></div>
+      <div class="timeline-item"><h4>1952 サンフランシスコ講和条約 第3条</h4><p>日本主権回復するも沖縄のみ米施政下に残存。講和後10年で沖縄基地面積は1.7倍に拡大</p></div>
+      <div class="timeline-item"><h4>1953〜56 本土→沖縄玉突き移転</h4><p>本土の反基地運動(内灘・砂川等)激化を受け、海兵隊が岐阜・山梨等から沖縄へ。<strong>これが現在の沖縄集中の直接要因</strong></p></div>
+      <div class="timeline-item"><h4>1972 沖縄返還</h4><p>基地は本土並み縮小されず大半が存続。返還時点で沖縄集中度は約58%</p></div>
+      <div class="timeline-item"><h4>1996 SACO最終報告</h4><p>1995年少女暴行事件を受け普天間返還合意。2006年米軍再編ロードマップで辺野古移設・海兵隊約9,000人グアム移転決定</p></div>
+      <div class="timeline-item"><h4>2023 第12海兵沿岸連隊(12th MLR) 配備</h4><p>キャンプ・ハンセンに配備。第一列島線初のMLR。2025年NMESIS対艦ミサイル配備</p></div>
+      <div class="timeline-item"><h4>2025/3 USFJ統合軍司令部(JFHQ) 化開始</h4><p>従来約150人規模の行政司令部から作戦計画・執行権限を持つJFHQへ格上げ。日本の自衛隊統合作戦司令部(JJOC)発足と連動</p></div>
+    </div>
+
+    <div class="alert-box">
+      <strong>日米地位協定(SOFA):</strong> 1960年締結以来一度も改正されていない(運用改善・合意議事録のみ)。公務執行中の犯罪は米側が第一次裁判権、日本の基地内立入制限、環境・騒音規制の日本法適用制限などが継続論点。
+    </div>
+
+    <a class="crosslink" href="japan-us-alliance.html#sec-sofa">
+      <div class="cl-icon">📜</div>
+      <div>
+        <span class="cl-tag">詳細解説 ── 関連レポート</span>
+        <div class="cl-title">日米地位協定の全28条解説 / 占領期からの歴史的経緯 → 関連レポートへ</div>
+        <div class="cl-desc">SOFAの詳細条項(第2条/第3条/第17条/第24条等)、運用問題(PFAS汚染・横田空域・刑事裁判権)、他国SOFA(独・伊・韓)との比較、改定論まで網羅した姉妹レポートで深く理解できます。</div>
+      </div>
+      <div class="cl-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<!-- Section 4: アジア太平洋 -->
+<div class="section" id="sec-apac" data-accordion>
+  <div class="section-title"><span class="section-icon">🌏</span> アジア太平洋 ── 第一・第二・第三列島線</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">USINDOPACOM(約37.5万人)は世界最大の統合軍。日本を中核に、第一列島線(日韓比)・第二列島線(グアム)・第三列島線(ハワイ・豪州)の三層構造で対中抑止を構築する。2023年のEDCA拡大(フィリピン)、2024年のキャンプ・ブラズ(グアム)海兵隊移転開始、AUKUS下の豪州原潜計画など、近年の動きはすべて対中シフトの加速を示す。</p>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">韓国 (USFK)</h3>
+    <table class="tbl">
+      <thead><tr><th>基地</th><th>所在</th><th>規模・機能</th></tr></thead>
+      <tbody>
+        <tr><td><strong>キャンプ・ハンフリーズ</strong></td><td>京畿道平沢市</td><td>14.7 km² (海外最大の米軍基地) ・ USFK本部・第8軍本部・第2歩兵師団 ・ 約36,000人(家族含)</td></tr>
+        <tr><td><strong>烏山(オサン)空軍基地</strong></td><td>京畿道平沢市</td><td>第7空軍本部・第51戦闘航空団(A-10/F-16)・U-2偵察機</td></tr>
+        <tr><td><strong>群山(クンサン)空軍基地</strong></td><td>全羅北道</td><td>第8戦闘航空団(F-16)「ウルフパック」</td></tr>
+        <tr><td><strong>釜山港 Pier 8</strong></td><td>釜山広域市</td><td>第837輸送大隊・戦略海上補給ハブ</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.86rem;color:var(--text-sub);margin:8px 0 0;line-height:1.75"><strong>総兵力:</strong> 約24,200〜28,500人(SOFA上限) ｜ <strong>歴史:</strong> 1950年朝鮮戦争で再派遣 → 1953年米韓相互防衛条約 → 2018年USFK本部を平沢へ集約完了 ｜ <strong>戦時OPCON:</strong> 依然米韓連合司令官(米軍大将)が保持</p>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">グアム ── 第二列島線の要石</h3>
+    <table class="tbl">
+      <thead><tr><th>基地</th><th>機能</th></tr></thead>
+      <tbody>
+        <tr><td><strong>アンダーセン空軍基地</strong></td><td>第36航空団・B-52H/B-1B/B-2Aローテ展開・KC-135・MQ-4Cトライトン ・ 西太平洋最大の航空弾薬庫</td></tr>
+        <tr><td><strong>アプラ海軍基地</strong></td><td>第15潜水艦戦隊本部・ロサンゼルス級攻撃原潜(SSN)4隻前方配備</td></tr>
+        <tr><td><strong>キャンプ・ブラズ</strong></td><td>2020年10月正式開設 ・ 沖縄からの第3海兵遠征軍 約4,000〜5,000人移転先 ・ 2024年1月から司令部要員受入開始</td></tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <strong>戦略位置:</strong> 沖縄・台湾から約2,500km、中国東部から約3,000km。中国DF-26「グアム・キラー」の射程内にあり、脆弱性と同時に「攻撃されれば米本土並みの意味合いを持つ」抑止の核。MILCON(軍事建設費)累計1兆円規模、2024年「ディフェンス・オブ・グアム」統合防空ミサイル防衛配備本格化。
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">ハワイ ── INDOPACOM本部</h3>
+    <table class="tbl">
+      <thead><tr><th>基地</th><th>機能</th></tr></thead>
+      <tbody>
+        <tr><td><strong>キャンプ・スミス</strong></td><td>INDOPACOM司令部・MARFORPAC(太平洋海兵隊)司令部</td></tr>
+        <tr><td><strong>統合基地パールハーバー・ヒッカム</strong></td><td>51 km² ・ 米太平洋艦隊司令部・第3艦隊・潜水艦部隊司令部</td></tr>
+        <tr><td><strong>スコフィールド・バラックス</strong></td><td>第25歩兵師団「トロピック・ライトニング」</td></tr>
+        <tr><td><strong>マリンコープス基地ハワイ(カネオヘベイ)</strong></td><td>第3海兵沿岸連隊(MLR)母体・EABO(機動展開前進基地作戦)中核</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.86rem;color:var(--text-sub);margin:8px 0 0"><strong>総兵力:</strong> 約50,000人超(家族含め14万人)</p>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">フィリピン (EDCA) ── 9拠点に拡大</h3>
+    <p style="font-size:.92rem;color:var(--text-sub);margin-bottom:10px;line-height:1.85">1991年フィリピン上院がMBA延長否決、1992年スービック・クラーク返還で米軍は一旦撤退。2014年防衛協力強化協定(EDCA)で復活。当初5拠点が<strong>2023年2月に4拠点追加で計9拠点に拡大</strong>──追加3拠点(カガヤン×2、イサベラ)が台湾海峡対面の北部ルソンに集中し、台湾有事における前方展開の地理的選択肢が劇的に拡大した。</p>
+    <table class="tbl">
+      <thead><tr><th>EDCA拠点</th><th>所在</th><th>戦略意義</th></tr></thead>
+      <tbody>
+        <tr><td>バサ空軍基地</td><td>パンパンガ州</td><td>マニラ首都圏防空</td></tr>
+        <tr><td>フォート・マグサイサイ</td><td>ヌエバエシハ州</td><td>陸軍訓練・相互運用</td></tr>
+        <tr><td>アントニオ・バウティスタ空軍基地</td><td>パラワン州</td><td>南シナ海スプラトリー方面</td></tr>
+        <tr><td>マクタン・ベニート・エブエン空軍基地</td><td>セブ</td><td>中部ハブ・HADR</td></tr>
+        <tr><td>ルンビア空軍基地</td><td>ミンダナオ島</td><td>対テロ</td></tr>
+        <tr><td><strong>カミーロ・オシアス海軍基地</strong></td><td>カガヤン州北端</td><td><strong>バシー海峡・台湾海峡に最接近</strong></td></tr>
+        <tr><td><strong>ラル・ロ空港</strong></td><td>カガヤン州</td><td><strong>対台湾</strong></td></tr>
+        <tr><td>メルチョア・デラ・クルス駐屯地</td><td>イサベラ州</td><td>北部ルソン</td></tr>
+        <tr><td><strong>バラバク島</strong></td><td>パラワン州最南部</td><td>スプラトリーに最接近</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">豪州 ── 南方の縦深</h3>
+    <table class="tbl">
+      <thead><tr><th>施設</th><th>所在</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>ロバートソン・バラックス</td><td>ダーウィン</td><td>MRF-D(海兵隊ローテーション部隊) 当初200名→2,500名規模に拡大</td></tr>
+        <tr><td>RAAFティンダル</td><td>北部準州</td><td>2022年米B-52運用のため拡張・6機同時運用施設建設</td></tr>
+        <tr><td>パイン・ギャップ</td><td>NT州アリススプリングス</td><td>米豪共同SIGINT施設・弾道ミサイル早期警戒・約800名(過半数米国人)</td></tr>
+        <tr><td>HMASスターリング</td><td>西豪州パース</td><td>AUKUS下で2027年頃から米英原潜ローテーション寄港(SRF-West)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">ディエゴガルシア (英領インド洋)</h3>
+    <p style="font-size:.92rem;color:var(--text-sub);line-height:1.85">面積27 km²、米英共同。<strong>米本土を除く唯一のインド洋戦略爆撃機運用拠点</strong>。海軍支援施設(NSF)・事前集積艦(MPSRON-2)・B-1/B-2/B-52展開・P-8哨戒機・約4,000人。1991年湾岸戦争・2001年アフガン・2003年イラクでB-52発進拠点。2024年10月、英・モーリシャス間で主権返還+99年リース継続合意(批准手続中)。</p>
+  </div>
+</div>
+
+<!-- Section 5: 欧州 -->
+<div class="section" id="sec-europe" data-accordion>
+  <div class="section-title"><span class="section-icon">🇪🇺</span> 欧州 (EUCOM) ── ウクライナ戦争後の再展開</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">本部はドイツ・シュトゥットガルト。2022年ウクライナ侵攻後、約65,000人から最大10万人超に増強。NATO東方拡大(フィンランド・スウェーデン加盟)とポーランド・ルーマニアの常設化が進行。在欧米軍の拠点は依然ドイツ・イタリア・英国の3カ国に集中している。</p>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">ドイツ ── 在欧米軍の中核</h3>
+    <table class="tbl">
+      <thead><tr><th>基地</th><th>規模</th><th>機能</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ラムシュタイン空軍基地</strong></td><td>14 km²・約57,000人(家族含)</td><td>在欧米空軍(USAFE-AFAFRICA)本部・C-5/C-17戦略輸送・KC-135・NATO空中作戦センター ・ <strong>ウクライナ武器供与のハブ</strong></td></tr>
+        <tr><td><strong>シュトゥットガルト</strong></td><td>約25,000人</td><td>EUCOM本部・AFRICOM本部・SOCEUR(欧州特殊作戦軍)本部</td></tr>
+        <tr><td><strong>ヴィースバーデン</strong></td><td>約18,000人</td><td>米陸軍欧州・アフリカ(USAREUR-AF)本部</td></tr>
+        <tr><td><strong>グラーフェンヴェーア演習場</strong></td><td>400 km²超</td><td>欧州最大級の地上軍合同訓練場・<strong>ウクライナ兵訓練拠点</strong></td></tr>
+        <tr><td><strong>シュパンダーレム空軍基地</strong></td><td>約11,000人</td><td>第52戦闘航空団(F-16CJ/SEAD任務)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">イタリア・英国・スペイン・トルコ</h3>
+    <table class="tbl">
+      <thead><tr><th>基地</th><th>所在</th><th>機能</th></tr></thead>
+      <tbody>
+        <tr><td>アヴィアーノ空軍基地</td><td>イタリア・フリウリ州</td><td>第31戦闘航空団(F-16)・<strong>B61核共有拠点</strong></td></tr>
+        <tr><td>ナポリ海軍基地</td><td>イタリア・カンパニア州</td><td>第6艦隊司令部・NATO南方統合軍本部</td></tr>
+        <tr><td>シゴネラ海軍航空基地</td><td>シチリア島</td><td>P-8A哨戒機・MQ-4Cトライトン・地中海/アフリカ監視ハブ</td></tr>
+        <tr><td>RAFレイクンヒース</td><td>英国</td><td>第48戦闘航空団(F-15E) ・ 2021年F-35A配備開始 ・ 2022年米B61-12核兵器再配備報道</td></tr>
+        <tr><td>RAFミルデンホール</td><td>英国</td><td>第100空中給油航空団(KC-135)・第352特殊作戦航空団(CV-22)</td></tr>
+        <tr><td>ロタ海軍基地</td><td>スペイン</td><td>イージスBMD駆逐艦4隻常駐(2024年6隻へ増強承認)</td></tr>
+        <tr><td>インジルリク空軍基地</td><td>トルコ</td><td>第39航空基地航空団・<strong>B61核重力爆弾約50発配備(核共有)</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">NATO東方展開(2022年以降強化)</h3>
+    <table class="tbl">
+      <thead><tr><th>国</th><th>展開</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ポーランド</strong></td><td>ポズナン(V軍団前方司令部、2022年恒久化)・ジャゴド・ニーキ(Aegis Ashore BMD、2023年運用開始)・約10,000人</td></tr>
+        <tr><td><strong>ルーマニア</strong></td><td>デヴェセル基地(Aegis Ashore 2016年運用開始)・ミハイル・コガルニチャーヌ空軍基地(米国外最大級基地への拡大計画)</td></tr>
+        <tr><td>バルト3国</td><td>継続的ローテーション展開・EDI(欧州抑止イニシアティブ)予算増</td></tr>
+        <tr><td>ノルウェー</td><td>2021年補足防衛協力協定で4拠点(リガルドモーエン等)米軍使用権</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Section 6: 中東 -->
+<div class="section" id="sec-mena" data-accordion>
+  <div class="section-title"><span class="section-icon">🕌</span> 中東 (CENTCOM) ── 紅海・対イラン抑止</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">本部は米フロリダ・タンパ、前方司令部はカタール・アル・ウデイド。総兵力は約40,000〜50,000人で流動的。2023年10月のハマス・イスラエル戦争以降、フーシ派紅海攻撃に対応し空母打撃群2個・揚陸即応群を常時展開している。</p>
+
+    <table class="tbl">
+      <thead><tr><th>国</th><th>基地</th><th>機能・規模</th></tr></thead>
+      <tbody>
+        <tr><td><strong>カタール</strong></td><td>アル・ウデイド空軍基地</td><td><strong>CENTCOM前方司令部</strong>・第379航空遠征航空団 ・ 約10,000人 ・ 中東最大の米空軍拠点 ・ B-1B/B-52ローテ・KC-135・RC-135</td></tr>
+        <tr><td><strong>バーレーン</strong></td><td>NSAバーレーン</td><td><strong>第5艦隊司令部</strong>・CTF-150/151/152 ・ 約9,000人 ・ ホルムズ海峡・紅海担当</td></tr>
+        <tr><td><strong>クウェート</strong></td><td>キャンプ・アリフジャン他</td><td>約13,000人 ・ 地上部隊兵站ハブ ・ A-10/F-16ローテ</td></tr>
+        <tr><td><strong>UAE</strong></td><td>アル・ダフラ空軍基地</td><td>第380航空遠征航空団 ・ F-22/F-35A/MQ-9/U-2 ・ 約3,500人</td></tr>
+        <tr><td><strong>イラク</strong></td><td>ユニオンIII・アル・アサド</td><td>OIR作戦(IS掃討) ・ 2024年米イラク合意で2026年末までに戦闘任務終了方針 ・ 約2,500人</td></tr>
+        <tr><td><strong>シリア</strong></td><td>北東部各拠点</td><td>対IS・SDF支援 ・ 約900〜2,000人</td></tr>
+        <tr><td><strong>ヨルダン</strong></td><td>ムワッファク・サルティ・タワー22</td><td>F-16・MQ-9 ・ 2024年1月タワー22ドローン攻撃で米兵3名死亡</td></tr>
+        <tr><td><strong>サウジアラビア</strong></td><td>プリンス・スルタン空軍基地</td><td>2019年再展開 ・ THAAD・パトリオット・F-22/F-35ローテ</td></tr>
+        <tr><td><strong>イスラエル</strong></td><td>ネゲブ「サイト512」</td><td>AN/TPY-2早期警戒レーダー(2008年〜)・2024年10月THAAD部隊約100名配備</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Section 7: アフリカ・中南米 -->
+<div class="section" id="sec-africa" data-accordion>
+  <div class="section-title"><span class="section-icon">🌍</span> アフリカ (AFRICOM) ・ 中南米 (SOUTHCOM)</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">AFRICOMはアフリカ大陸内に本部を持たず、ドイツのシュトゥットガルトに置かれている。アフリカ唯一の恒久基地はジブチのキャンプ・レモニエ。2023〜24年のニジェール・マリ・ブルキナファソでのクーデター・反米感情で、サヘル地域からの撤退が進行中。SOUTHCOMは最小規模の統合軍で、対麻薬・災害支援が中心。</p>
+
+    <table class="tbl">
+      <thead><tr><th>拠点</th><th>国</th><th>機能</th></tr></thead>
+      <tbody>
+        <tr><td><strong>キャンプ・レモニエ</strong></td><td>ジブチ</td><td><strong>AFRICOM前方司令部</strong>・CJTF-HOA(アフリカの角統合任務部隊) ・ アフリカ唯一の恒久米軍基地 ・ 約4,000人 ・ 対ソマリア(アル・シャバブ)・イエメン作戦拠点</td></tr>
+        <tr><td>マンダ湾海軍基地</td><td>ケニア</td><td>対アル・シャバブ拠点 ・ 2020年襲撃で米兵3名死亡</td></tr>
+        <tr><td><strong>エアベース201</strong></td><td>ニジェール (撤退済)</td><td>MQ-9リーパー拠点・建設費1.1億ドル ・ <strong>2024年8月完全撤退</strong></td></tr>
+        <tr><td><strong>グアンタナモ湾海軍基地</strong></td><td>キューバ</td><td>116 km² ・ 1903年永久リース ・ <strong>現存する最古の米海外基地</strong> ・ 約6,000人 ・ GTMO拘置施設</td></tr>
+        <tr><td>ソト・カノ空軍基地</td><td>ホンジュラス</td><td>統合任務部隊ブラボー ・ 約500人 ・ 中米対麻薬</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert-box">
+      <strong>アフリカからの撤退ドミノ:</strong> 2023年ニジェール、2022年ブルキナファソ、2021年マリでクーデター・反米感情が高まり、ロシア(ワグネル/アフリカ軍団)の代替進出が顕著。米国は沿岸西アフリカ諸国(コートジボワール、ベナン等)へ重心シフト中。
+    </div>
+  </div>
+</div>
+
+<!-- Section 8: 海外配備の構造 -->
+<div class="section" id="sec-global" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 海外配備の構造 ── 数値で見る世界配置</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">米国の海外駐留兵力は現役約170,000人。地域別ではインド太平洋が約48%と最大シェアを占め、欧州39%、中東15〜20%が続く。国別ランキングでは日本が圧倒的1位で、2位ドイツの約1.5倍。これらの数値が、なぜ「日本(沖縄)が世界の中で特別なのか」を客観的に示している。</p>
+
+    <div class="chart-row">
+      <div class="chart-container"><canvas id="chartRegion"></canvas></div>
+      <div class="chart-container"><canvas id="chartCountry"></canvas></div>
+    </div>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">国別駐留兵力ランキング (2024年概数)</h3>
+    <table class="tbl">
+      <thead><tr><th>順位</th><th>国</th><th>現役兵力</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>日本</strong></td><td><strong>約 53,000〜54,800</strong></td><td><span class="badge-strong">世界最大</span> 海外配備の約31%</td></tr>
+        <tr><td>2</td><td>ドイツ</td><td>約 35,000〜35,500</td><td>NATO中核・ラムシュタイン</td></tr>
+        <tr><td>3</td><td>韓国</td><td>約 24,200〜28,500</td><td>SOFA上限・キャンプ・ハンフリーズ</td></tr>
+        <tr><td>4</td><td>イタリア</td><td>約 12,400</td><td>第6艦隊・アヴィアーノ</td></tr>
+        <tr><td>5</td><td>英国</td><td>約 10,000〜10,400</td><td>RAFレイクンヒース・ミルデンホール</td></tr>
+        <tr><td>6</td><td>バーレーン</td><td>約 4,000</td><td>第5艦隊司令部</td></tr>
+        <tr><td>7</td><td>スペイン</td><td>約 3,200</td><td>ロタ海軍基地</td></tr>
+        <tr><td>8</td><td>ジブチ</td><td>約 2,000〜4,000</td><td>キャンプ・レモニエ・アフリカ唯一恒久</td></tr>
+        <tr><td>9</td><td>トルコ</td><td>約 1,700</td><td>インジルリク・核共有</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <strong>地域別比率:</strong> インド太平洋 約48% (約81,000人) ｜ 欧州 約39% (約67,200人、ウクライナ戦争で最大10万) ｜ 中東 15〜20% (流動的) ｜ アフリカ・南米・他 5%未満。<strong>世界の米海外駐留の半分近くが、台湾を中心とした半径3,000km圏内に集中している</strong>。
+    </div>
+  </div>
+</div>
+
+<!-- Section 9: 歴史 -->
+<div class="section" id="sec-history" data-accordion>
+  <div class="section-title"><span class="section-icon">📜</span> 歴史 ── 海外基地ネットワークの8期</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">米軍の海外基地ネットワークは1945年以降、80年かけて段階的に構築・再編されてきた。各期の動機(WWII占領→冷戦→対テロ→対中)を理解することで、現在の配置の論理が見えてくる。</p>
+
+    <div class="timeline">
+      <div class="timeline-item"><h4>1945-1950 構築期</h4><p>WWII後ピーク2,000以上の海外施設。ドイツ・日本(占領軍)、フィリピン、沖縄、アイスランドに大規模展開。1947年国家安全保障法でDoD・CIA・NSC創設、冷戦構造を制度化</p></div>
+      <div class="timeline-item"><h4>1950-1970s 朝鮮戦争・冷戦固定期</h4><p>朝鮮戦争(1950-53)で在韓・在日米軍が恒久化。NATO(1949)→欧州に約40万人駐留がピーク(1960年代)</p></div>
+      <div class="timeline-item"><h4>1960s-70s ベトナム戦争と太平洋展開</h4><p>嘉手納・岩国・佐世保・横須賀・クラーク・スービックが対越出撃拠点化。1972年沖縄返還後も基地機能は維持</p></div>
+      <div class="timeline-item"><h4>1990s 冷戦終結と縮小期</h4><p>BRAC(基地閉鎖再編)1988〜2005の5ラウンドで国内350以上の基地を閉鎖。欧州駐留は30万→10万へ半減。クラーク・スービック(比)から撤退(1991-92)</p></div>
+      <div class="timeline-item"><h4>2001-2014 対テロ戦争期</h4><p>アフガン(OEF)・イラク(OIF)でCENTCOM AORに一時15万人超展開。バグラム・カンダハル・アル・ウデイド・インジルリク拡張。「Lily Pad(睡蓮の葉)」戦略=小規模分散前方配備の思想が定着</p></div>
+      <div class="timeline-item"><h4>2011〜 アジア再均衡期</h4><p>オバマ政権「Pivot to Asia」→海兵隊ダーウィン(豪)ローテーション、シンガポールLCS配備。海軍力の60%を太平洋配分</p></div>
+      <div class="timeline-item"><h4>2018〜 対中競争期</h4><p>2018/2022 NDSでPRCを「pacing challenge」と明記。EDCA拡大(2023年新規4拠点)、AUKUS(2021)、PNG防衛協定(2023)。第12海兵沿岸連隊(MLR)を沖縄に配備(2023)</p></div>
+      <div class="timeline-item"><h4>2022〜 ウクライナ戦争後の欧州再展開</h4><p>欧州駐留が危機前約6.5万→ピーク10万超。ポーランド常設米軍駐屯地新設。フィンランド・スウェーデンNATO加盟でバルト・北極圏の戦略空間拡大</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 10: 戦略構造 -->
+<div class="section" id="sec-strategy" data-accordion>
+  <div class="section-title"><span class="section-icon">⚔️</span> 現在の戦略構造 ── 対中シフトの本丸</div>
+  <div class="section-body">
+
+    <p class="chapter-intro">2022年国家防衛戦略(NDS)は中国を「ペーシング・チャレンジ」と明記。「統合抑止(Integrated Deterrence)」を中核概念とし、全領域(陸海空宇宙サイバー)・全国家機能・同盟国を統合して抑止力を生成する。第一・第二・第三列島線の三層構造と、海兵隊「Force Design 2030」がその実装である。</p>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">2022 NDSの4優先事項</h3>
+    <table class="tbl">
+      <thead><tr><th>優先順位</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>本土防衛</strong> (対中多領域脅威を踏まえて)</td></tr>
+        <tr><td>2</td><td>戦略攻撃の抑止</td></tr>
+        <tr><td>3</td><td><strong>インド太平洋での対中抑止</strong>、次いで欧州での対露抑止</td></tr>
+        <tr><td>4</td><td>レジリエントな統合軍の構築</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">三層列島線構造</h3>
+    <table class="tbl">
+      <thead><tr><th>ライン</th><th>地理</th><th>役割</th><th>主要拠点</th></tr></thead>
+      <tbody>
+        <tr><td><strong>第一列島線</strong></td><td>九州-沖縄-台湾-フィリピン-ボルネオ</td><td>接近阻止(A2/AD)の最前線</td><td><strong>沖縄</strong>・嘉手納・III MEF・12th MLR・EDCA基地</td></tr>
+        <tr><td><strong>第二列島線</strong></td><td>伊豆-小笠原-グアム-パラオ</td><td>戦略予備・兵站結節</td><td>アンダーセン・アプラ・キャンプ・ブラズ</td></tr>
+        <tr><td><strong>第三列島線</strong></td><td>ハワイ-ミッドウェー-アリューシャン-NZ</td><td>戦略縦深・後方</td><td>INDOPACOM本部・パールハーバー</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:1.05em;font-weight:700;color:var(--gold-light);margin:20px 0 12px">海兵隊 Force Design 2030</h3>
+    <p style="font-size:.92rem;color:var(--text-sub);line-height:1.85;margin-bottom:10px">2020年Berger司令官発表の10年計画。<strong>戦車大隊全廃、歩兵大隊削減、長射程対艦ミサイル・無人機・分散作戦能力に投資</strong>。「島嶼を動く要塞として使う」EABO(遠征前進基地作戦)概念の中核。</p>
+    <table class="tbl">
+      <thead><tr><th>海兵沿岸連隊(MLR)</th><th>所在</th><th>位置づけ</th></tr></thead>
+      <tbody>
+        <tr><td><strong>3d MLR</strong></td><td>ハワイ</td><td>2022年初の編成</td></tr>
+        <tr><td><strong>12th MLR</strong></td><td><strong>沖縄キャンプ・ハンセン</strong></td><td><strong>2023年11月配備・第一列島線初のMLR</strong> ・ 2025年NMESIS対艦ミサイル配備 ・ キャンプ・シュワブに新3個中隊編成(2025)</td></tr>
+        <tr><td>第3のMLR</td><td>グアム/検討中</td><td>配置先未確定</td></tr>
+      </tbody>
+    </table>
+
+    <div class="alert-box">
+      <strong>沖縄が「撃つ基地」へ:</strong> 12th MLRの沖縄配置は単なる兵力増強ではなく、Force Design 2030の象徴。沖縄は対艦ミサイル・対空・無人機の<strong>分散発射拠点</strong>として再定義された。2025年3月のUSFJ統合軍司令部(JFHQ)化と合わせ、沖縄は日米同盟における「指揮中枢+前方発射拠点」の二重機能を担うことになる。
+    </div>
+  </div>
+</div>
+
+<!-- Section 11: 沖縄の特別性 -->
+<div class="section" id="sec-okinawa">
+  <div class="section-title"><span class="section-icon">🏝️</span> なぜ沖縄は特別か ── 4つの理由</div>
+
+  <p class="chapter-intro">本レポートを通じて見えてきた、沖縄が世界の中で唯一無二の立ち位置を持つ4つの理由。これは沖縄の問題ではなく、米国のグローバル配備構造そのものの特殊性である。</p>
+
+  <div class="reason-grid">
+    <div class="reason-card">
+      <div class="rnum">01</div>
+      <div>
+        <h4>地政学的結節点</h4>
+        <p>第一列島線の中央結節。台湾まで約630km、上海まで約820km、朝鮮半島南端まで約800km。これら3つの潜在紛争すべてをカバーできる<strong>唯一の位置</strong>。</p>
+      </div>
+    </div>
+    <div class="reason-card">
+      <div class="rnum">02</div>
+      <div>
+        <h4>全軍種が揃う唯一の海外拠点</h4>
+        <p>空軍(嘉手納)、海兵隊(III MEF・12th MLR)、海軍(ホワイトビーチ)、陸軍(トリイ・特殊作戦)が同一地域に集結。<strong>ハワイ・グアム以外で全軍種統合展開する場所は世界的にも稀少</strong>。</p>
+      </div>
+    </div>
+    <div class="reason-card">
+      <div class="rnum">03</div>
+      <div>
+        <h4>地位協定とコスト効率</h4>
+        <p>日米地位協定+同盟強靱化予算 約2,110億円/年=駐留コストの<strong>約75%を日本が負担</strong>。米国にとって世界で最もコスト効率の良い前方展開先。</p>
+      </div>
+    </div>
+    <div class="reason-card">
+      <div class="rnum">04</div>
+      <div>
+        <h4>2022 NDS / Force Design 2030 における代替不能性</h4>
+        <p>「ペーシング・チャレンジ」としての中国に対し、<strong>沖縄は第一列島線で消耗されずに機能せねばならない唯一の米軍集積地</strong>。GPR 2021で日本の役割は「最適化」ではなく「強化」と結論された唯一の主要駐留地。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="conclusion-box" style="margin-top:24px">
+    <span class="label">Final Statement</span>
+    <div class="lead">日本(特に沖縄)は米国のグローバル配備構造において、定量的に最大の受入国・定性的に最も戦略的に代替不能な前方拠点・経済的に最も効率的な同盟国の三点で世界唯一の位置を占める。</div>
+    <p>本レポートが示した750基地・80カ国・170,000人の海外配備の中で、<strong style="color:var(--gold-light)">沖縄は単なる「日本の一県」ではなく、米国の世界戦略の重心点</strong>として機能している。これは沖縄の問題ではなく、米中覇権競争の構造そのものが沖縄を特殊化させているのである。</p>
+    <p style="margin-top:10px">この理解こそが、沖縄2075ビジョンを設計する際の<strong>動かぬ前提条件</strong>となる。沖縄の未来を考えるとは、世界の覇権構造を考えることと等価である。</p>
+  </div>
+</div>
+
+<!-- Section 12: ソース -->
+<div class="section" id="sec-sources" data-accordion>
+  <div class="section-title"><span class="section-icon">📚</span> 主要参考ソース</div>
+  <div class="section-body">
+
+    <h3 style="font-size:.95rem;font-weight:700;color:var(--gold-light);margin:8px 0 10px">米国政府・軍 公式</h3>
+    <div class="sources-list">
+      <div class="src">U.S. Department of Defense, Base Structure Report (FY2018最終公開版)</div>
+      <div class="src">U.S. Indo-Pacific Command (pacom.mil)</div>
+      <div class="src">U.S. European Command (eucom.mil)</div>
+      <div class="src">U.S. Central Command (centcom.mil)</div>
+      <div class="src">U.S. Africa Command (africom.mil)</div>
+      <div class="src">U.S. Southern Command (southcom.mil)</div>
+      <div class="src">U.S. Forces Japan (usfj.mil)</div>
+      <div class="src">U.S. Forces Korea (usfk.mil)</div>
+      <div class="src">2022 National Defense Strategy (DoD)</div>
+      <div class="src">DMDC(防衛人員データセンター)四半期報告</div>
+    </div>
+
+    <h3 style="font-size:.95rem;font-weight:700;color:var(--gold-light);margin:18px 0 10px">議会調査局・シンクタンク</h3>
+    <div class="sources-list">
+      <div class="src">CRS Report R48123 "U.S. Overseas Basing"</div>
+      <div class="src">CRS Report IF12604 "Defense Primer: USINDOPACOM"</div>
+      <div class="src">CRS Report R42077 "The Unified Command Plan and Combatant Commands"</div>
+      <div class="src">CRS "U.S. Defense Infrastructure Overseas"</div>
+      <div class="src">CRS "U.S. Military Withdrawal from Niger" (2024)</div>
+      <div class="src">CSIS "A Vital Next Step for the U.S.-Japan Alliance: C2 Modernization"</div>
+      <div class="src">CSIS "2022 NDS: Implications for China and the Indo-Pacific"</div>
+      <div class="src">RAND "U.S. Overseas Military Posture" シリーズ</div>
+      <div class="src">Stimson Center "Beyond Policy Limits: Rethinking U.S.-Japan C2"</div>
+      <div class="src">David Vine, "Base Nation" (2015) / "Lists of U.S. Military Bases Abroad"</div>
+      <div class="src">SIPRI Yearbook 2024</div>
+      <div class="src">IISS Military Balance 2024</div>
+    </div>
+
+    <h3 style="font-size:.95rem;font-weight:700;color:var(--gold-light);margin:18px 0 10px">日本側公式・報道</h3>
+    <div class="sources-list">
+      <div class="src">防衛省『令和6年版 防衛白書』</div>
+      <div class="src">防衛省「在日米軍施設・区域(専用施設)面積」2025年版</div>
+      <div class="src">外務省「在日米軍主要部隊・戦力展開状況」</div>
+      <div class="src">防衛省「同盟強靱化予算(在日米軍駐留経費負担)」</div>
+      <div class="src">国立国会図書館 調査と情報No.1181「在日米軍駐留経費負担の概要と論点」</div>
+      <div class="src">沖縄県「沖縄から伝えたい。米軍基地の話。Q&amp;A Book 令和5年版」</div>
+      <div class="src">USNI News, Stars and Stripes, Naval News, Defense News</div>
+      <div class="src">時事通信「F-35A配備開始は26年春」(2024.11)</div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:20px;font-size:.85rem">
+      <strong>注記:</strong> 本レポートは4チーム並列リサーチ(在日米軍 / アジア太平洋 / 欧州中東アフリカ / 米軍全体構造)の統合成果物。各数値は2024〜2026年時点の公開情報に基づき、出典により幅がある場合は併記した。リアルタイム情報は出典を確認のこと。
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-summary" onclick="tocJump('sec-summary')"><span class="toc-icon">🎯</span><span>結論サマリー</span></a></li>
+      <li><a href="#sec-commands" onclick="tocJump('sec-commands')"><span class="toc-icon">⚙️</span><span>11の統合戦闘軍</span></a></li>
+      <li><a href="#sec-japan" onclick="tocJump('sec-japan')"><span class="toc-icon">🇯🇵</span><span>在日米軍 (USFJ)</span></a></li>
+      <li><a href="#sec-apac" onclick="tocJump('sec-apac')"><span class="toc-icon">🌏</span><span>アジア太平洋</span></a></li>
+      <li><a href="#sec-europe" onclick="tocJump('sec-europe')"><span class="toc-icon">🇪🇺</span><span>欧州 (EUCOM)</span></a></li>
+      <li><a href="#sec-mena" onclick="tocJump('sec-mena')"><span class="toc-icon">🕌</span><span>中東 (CENTCOM)</span></a></li>
+      <li><a href="#sec-africa" onclick="tocJump('sec-africa')"><span class="toc-icon">🌍</span><span>アフリカ・中南米</span></a></li>
+      <li><a href="#sec-global" onclick="tocJump('sec-global')"><span class="toc-icon">📊</span><span>海外配備の構造</span></a></li>
+      <li><a href="#sec-history" onclick="tocJump('sec-history')"><span class="toc-icon">📜</span><span>歴史(8期)</span></a></li>
+      <li><a href="#sec-strategy" onclick="tocJump('sec-strategy')"><span class="toc-icon">⚔️</span><span>現在の戦略構造</span></a></li>
+      <li><a href="#sec-okinawa" onclick="tocJump('sec-okinawa')"><span class="toc-icon">🏝️</span><span>なぜ沖縄は特別か</span></a></li>
+      <li><a href="#sec-sources" onclick="tocJump('sec-sources')"><span class="toc-icon">📚</span><span>参考ソース</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<div class="footer">
+  沖縄政策方針 2075 ｜ 米軍基地の世界配置 ｜ <a href="../index.html">ポータルへ戻る</a>
+</div>
+
+<script>
+function toggleTheme(){
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme') || 'dark';
+  var next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.getElementById('themeToggle').textContent = next === 'dark' ? '🌙' : '☀️';
+  updateChartsTheme(next);
+}
+(function(){
+  var saved = localStorage.getItem('theme');
+  if(saved){
+    document.documentElement.setAttribute('data-theme', saved);
+    var btn = document.getElementById('themeToggle');
+    if(btn) btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+  }
+})();
+
+function getChartColors(){
+  var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  return {
+    labelColor: theme === 'dark' ? '#8b949e' : '#555555',
+    titleColor: theme === 'dark' ? '#D4A843' : '#7A5C10',
+    gridColor: theme === 'dark' ? 'rgba(48,54,61,0.5)' : 'rgba(0,0,0,0.08)'
+  };
+}
+
+// Chart 1: Combatant Command force size
+var chartCMD;
+function createCmdChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartCmdForce').getContext('2d');
+  chartCMD = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['INDOPACOM','EUCOM','CENTCOM','AFRICOM','SOUTHCOM'],
+      datasets: [{
+        label: '兵力(千人)',
+        data: [375, 90, 45, 6, 2],
+        backgroundColor: ['rgba(218,54,51,0.8)','rgba(184,145,42,0.7)','rgba(184,145,42,0.55)','rgba(88,166,255,0.6)','rgba(88,166,255,0.4)'],
+        borderColor: ['#da3633','#B8912A','#B8912A','#58a6ff','#58a6ff'],
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: { display: true, text: '地理統合軍 兵力規模(千人)', color: c.titleColor, font: { size: 15, weight: '700', family: "'Shippori Mincho B1', serif" } },
+        legend: { display: false }
+      },
+      scales: {
+        x: { ticks: { color: c.labelColor, font: { size: 12 } }, grid: { color: c.gridColor } },
+        y: { beginAtZero: true, ticks: { color: c.labelColor, font: { size: 12 }, callback: function(v){ return v + 'k'; } }, grid: { color: c.gridColor } }
+      }
+    }
+  });
+}
+
+// Chart 2: Region distribution
+var chartREG;
+function createRegionChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartRegion').getContext('2d');
+  chartREG = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['インド太平洋(48%)','欧州(39%)','中東(15%)','その他(5%)'],
+      datasets: [{
+        data: [48, 39, 15, 5],
+        backgroundColor: ['rgba(218,54,51,0.8)','rgba(184,145,42,0.7)','rgba(88,166,255,0.6)','rgba(139,148,158,0.5)'],
+        borderColor: ['#da3633','#B8912A','#58a6ff','#8b949e'],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: { display: true, text: '海外駐留兵力 地域別構成', color: c.titleColor, font: { size: 14, weight: '700', family: "'Shippori Mincho B1', serif" } },
+        legend: { position: 'bottom', labels: { color: c.labelColor, font: { size: 11 } } }
+      }
+    }
+  });
+}
+
+// Chart 3: Country ranking
+var chartCNT;
+function createCountryChart(){
+  var c = getChartColors();
+  var ctx = document.getElementById('chartCountry').getContext('2d');
+  chartCNT = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['日本','ドイツ','韓国','イタリア','英国','バーレーン','スペイン','ジブチ','トルコ'],
+      datasets: [{
+        label: '駐留兵力(人)',
+        data: [54000, 35500, 26000, 12400, 10400, 4000, 3200, 3000, 1700],
+        backgroundColor: function(ctx){
+          return ctx.dataIndex === 0 ? 'rgba(218,54,51,0.85)' : 'rgba(184,145,42,0.65)';
+        },
+        borderColor: function(ctx){
+          return ctx.dataIndex === 0 ? '#da3633' : '#B8912A';
+        },
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: { display: true, text: '国別駐留兵力 TOP9', color: c.titleColor, font: { size: 14, weight: '700', family: "'Shippori Mincho B1', serif" } },
+        legend: { display: false }
+      },
+      scales: {
+        x: { beginAtZero: true, ticks: { color: c.labelColor, font: { size: 11 }, callback: function(v){ return (v/1000) + 'k'; } }, grid: { color: c.gridColor } },
+        y: { ticks: { color: c.labelColor, font: { size: 12 } }, grid: { color: c.gridColor } }
+      }
+    }
+  });
+}
+
+function updateChartsTheme(theme){
+  var c = {
+    labelColor: theme === 'dark' ? '#8b949e' : '#555555',
+    titleColor: theme === 'dark' ? '#D4A843' : '#7A5C10',
+    gridColor: theme === 'dark' ? 'rgba(48,54,61,0.5)' : 'rgba(0,0,0,0.08)'
+  };
+  [chartCMD, chartCNT].forEach(function(chart){
+    if(!chart) return;
+    chart.options.plugins.title.color = c.titleColor;
+    if(chart.options.plugins.legend.labels) chart.options.plugins.legend.labels.color = c.labelColor;
+    if(chart.options.scales && chart.options.scales.x){
+      chart.options.scales.x.ticks.color = c.labelColor;
+      chart.options.scales.x.grid.color = c.gridColor;
+    }
+    if(chart.options.scales && chart.options.scales.y){
+      chart.options.scales.y.ticks.color = c.labelColor;
+      chart.options.scales.y.grid.color = c.gridColor;
+    }
+    chart.update();
+  });
+  if(chartREG){
+    chartREG.options.plugins.title.color = c.titleColor;
+    chartREG.options.plugins.legend.labels.color = c.labelColor;
+    chartREG.update();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  createCmdChart();
+  createRegionChart();
+  createCountryChart();
+});
+
+// Accordion
+var touchStartY = 0, touchStartX = 0, touchStartTime = 0;
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// TOC
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '✕ セクション' : '☰';
+}
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+
+</body>
+</html>

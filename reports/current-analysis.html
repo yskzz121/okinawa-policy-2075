@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖縄県 現状分析・因果構造分析報告書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+/* === Dark Mode (default) === */
+:root, [data-theme="dark"] {
+  --navy: #1A2540;
+  --navy-light: #243352;
+  --navy-dark: #0F1829;
+  --gold: #B8912A;
+  --gold-light: #D4A843;
+  --gold-dim: rgba(184,145,42,0.15);
+  --paper: #F5F2EC;
+  --text-main: #e6edf3;
+  --text-sub: #8b949e;
+  --card-bg: rgba(26,37,64,0.6);
+  --card-border: rgba(184,145,42,0.12);
+  --alert: #8B2020;
+  --positive: #2ea043;
+  --negative: #da3633;
+  --body-bg: #0F1829;
+  --header-bg-1: #1a2332;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(15,24,41,0.6);
+  --table-hover: rgba(184,145,42,0.04);
+  --table-border: #21262d;
+  --mermaid-bg: rgba(15,24,41,0.5);
+  --summary-bg-1: rgba(15,24,41,0.7);
+  --summary-bg-2: rgba(26,37,64,0.5);
+  --summary-text: #c9d1d9;
+  --toc-bg: #1A2540;
+  --toc-link-color: #e6edf3;
+  --toc-hover: rgba(88,166,255,.1);
+  --chart-label-color: '#8b949e';
+  --chart-title-color: '#D4A843';
+}
+
+/* === Light Mode === */
+[data-theme="light"] {
+  --navy: #E8E4DC;
+  --navy-light: #F0ECE4;
+  --navy-dark: #F5F2EC;
+  --gold: #8B6914;
+  --gold-light: #7A5C10;
+  --gold-dim: rgba(138,105,20,0.1);
+  --text-main: #1a1a1a;
+  --text-sub: #555555;
+  --card-bg: rgba(255,255,255,0.85);
+  --card-border: rgba(138,105,20,0.15);
+  --alert: #A52020;
+  --positive: #1a7f37;
+  --negative: #c93030;
+  --body-bg: #F5F2EC;
+  --header-bg-1: #2a3550;
+  --header-bg-2: #1A2540;
+  --header-bg-3: #0F1829;
+  --metric-card-bg: rgba(255,255,255,0.7);
+  --table-hover: rgba(138,105,20,0.05);
+  --table-border: #d8d4cc;
+  --mermaid-bg: rgba(255,255,255,0.6);
+  --summary-bg-1: rgba(245,242,236,0.9);
+  --summary-bg-2: rgba(232,228,220,0.8);
+  --summary-text: #333;
+  --toc-bg: #fff;
+  --toc-link-color: #1a1a1a;
+  --toc-hover: rgba(138,105,20,.08);
+  --chart-label-color: '#555555';
+  --chart-title-color: '#7A5C10';
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--body-bg);color:var(--text-main);font-family:'Noto Sans JP',sans-serif;line-height:1.8;padding:0;transition:background .3s,color .3s}
+h1,h2,h3,.section-title{font-family:'Shippori Mincho B1',serif}
+.num,.metric-value,.big-num{font-family:'Playfair Display',serif}
+.data-label{font-family:'Inter',sans-serif}
+
+/* Theme Toggle */
+.theme-toggle{position:fixed;top:16px;right:16px;z-index:1000;width:44px;height:44px;border-radius:50%;background:var(--card-bg);border:1px solid var(--card-border);color:var(--gold);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.2);transition:all .2s}
+.theme-toggle:hover{background:var(--gold);color:var(--body-bg);border-color:var(--gold)}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--header-bg-1) 0%,var(--header-bg-2) 50%,var(--header-bg-3) 100%);border-bottom:1px solid rgba(184,145,42,0.15);padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header h1,.header .subtitle,.header .date,.header .badge{color:#e6edf3!important}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:800;color:var(--text-main);margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em;margin-top:4px}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header .badge{display:inline-block;background:var(--gold-dim);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px}
+
+/* Container */
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+
+/* Section */
+.section{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:28px 24px;margin-bottom:20px;position:relative}
+.section-title{font-size:1.3em;font-weight:700;color:var(--gold-light);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.2em}
+
+/* Cards Grid */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px;text-align:center;transition:border-color .2s,background .3s}
+.metric-card:hover{border-color:rgba(184,145,42,0.3)}
+.metric-card .icon{font-size:1.8em;margin-bottom:6px}
+.metric-card .metric-value{font-size:1.6em;font-weight:700;color:var(--gold-light)}
+.metric-card .metric-label{font-size:.88rem;color:var(--text-sub);margin-top:4px}
+.metric-card .metric-sub{font-size:.8rem;color:var(--text-sub);margin-top:4px;opacity:.85}
+
+/* Chart */
+.chart-container{position:relative;height:340px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
+.tbl th{background:var(--gold-dim);color:var(--gold-light);padding:11px 14px;text-align:left;font-weight:600;border-bottom:1px solid rgba(184,145,42,0.2)}
+.tbl td{padding:11px 14px;border-bottom:1px solid var(--table-border)}
+.tbl tr:hover td{background:var(--table-hover)}
+.badge-strong{background:rgba(46,160,67,0.15);color:var(--positive);padding:3px 10px;border-radius:4px;font-size:.82rem}
+.badge-moderate{background:var(--gold-dim);color:var(--gold);padding:3px 10px;border-radius:4px;font-size:.82rem}
+
+/* Mermaid */
+.mermaid-wrap{background:var(--mermaid-bg);border-radius:12px;padding:20px;margin:16px 0;overflow-x:auto}
+.mermaid{text-align:center}
+
+/* LP Cards */
+.lp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.lp-card{border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.lp-card.gold{background:linear-gradient(135deg,rgba(184,145,42,0.15),rgba(184,145,42,0.05));border:1px solid rgba(184,145,42,0.3)}
+.lp-card.blue{background:linear-gradient(135deg,rgba(88,166,255,0.12),rgba(88,166,255,0.04));border:1px solid rgba(88,166,255,0.25)}
+.lp-card.purple{background:linear-gradient(135deg,rgba(163,113,247,0.12),rgba(163,113,247,0.04));border:1px solid rgba(163,113,247,0.25)}
+.lp-card .lp-num{font-family:'Playfair Display',serif;font-size:2.2em;font-weight:900;opacity:.2;position:absolute;top:8px;right:16px}
+.lp-card h4{font-size:1em;font-weight:700;margin-bottom:6px}
+.lp-card .lp-meta{font-size:.88rem;color:var(--text-sub)}
+
+/* Strategy Cards */
+.strategy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.strategy-card{background:rgba(15,24,41,0.5);border:1px solid var(--card-border);border-radius:12px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+.strategy-num{font-family:'Playfair Display',serif;font-size:1.6em;font-weight:900;color:var(--gold);min-width:32px}
+.strategy-card{background:var(--metric-card-bg);border:1px solid var(--card-border);border-radius:12px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+.strategy-card h4{font-size:.95rem;font-weight:700;margin-bottom:4px}
+.strategy-card p{font-size:.88rem;color:var(--text-sub);line-height:1.6}
+
+/* Chapter Intro */
+.chapter-intro{font-size:.95rem;color:var(--text-sub);margin-bottom:16px;line-height:1.9;border-left:3px solid var(--gold-dim);padding-left:14px}
+
+/* Highlight */
+.highlight-box{background:var(--gold-dim);border:1px solid rgba(184,145,42,0.2);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem}
+.alert-box{background:rgba(139,32,32,0.1);border:1px solid rgba(139,32,32,0.25);border-radius:10px;padding:16px 18px;margin:12px 0;font-size:.92rem}
+
+/* KPI Table */
+.kpi-tbl{width:100%;border-collapse:collapse;font-size:.88rem;margin:12px 0}
+.kpi-tbl th{background:var(--gold-dim);color:var(--gold-light);padding:10px 12px;text-align:left;font-weight:600;border-bottom:1px solid rgba(184,145,42,0.2)}
+.kpi-tbl td{padding:10px 12px;border-bottom:1px solid var(--table-border)}
+
+/* Two Col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Footer */
+.footer{text-align:center;padding:32px 20px;color:var(--text-sub);font-size:.88rem;border-top:1px solid var(--card-border);margin-top:20px}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:var(--toc-bg);border-top:1px solid var(--card-border);box-shadow:0 -2px 12px rgba(0,0,0,.15)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--toc-link-color);text-decoration:none;font-size:.9rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:var(--toc-hover)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .lp-cards{grid-template-columns:1fr}
+  .chart-container{height:250px}
+  .section{padding:20px 16px}
+  .two-col{grid-template-columns:1fr}
+  .strategy-grid{grid-template-columns:1fr}
+  .chart-row{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl,.kpi-tbl{font-size:.78rem}
+}
+@media(max-width:480px){
+  .metrics-grid{grid-template-columns:1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .section-title{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="ダーク/ライト切替">🌙</button>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="badge">沖縄県総合発展マスタープラン Step 1</div>
+    <h1>沖縄県 現状分析・因果構造分析報告書</h1>
+    <div class="subtitle">8領域の現状分析と因果構造の可視化</div>
+    <div class="date">作成日: 2026年3月 ｜ v1.0</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ========== Executive Summary ========== -->
+<div class="section" id="sec-summary">
+  <div class="section-title"><span class="section-icon">📋</span> エグゼクティブサマリー</div>
+
+  <!-- 文章サマリー -->
+  <div style="background:linear-gradient(135deg,rgba(15,24,41,0.7),rgba(26,37,64,0.5));border:1px solid rgba(184,145,42,0.18);border-radius:14px;padding:24px 28px;margin-bottom:24px;line-height:1.95;font-size:.92rem;color:#c9d1d9">
+    <p style="margin-bottom:14px">沖縄県は、1972年の本土復帰から半世紀を経てなお、<span style="color:#D4A843;font-weight:600">経済・教育・健康・人口の全領域で全国最下位水準の構造的課題</span>を抱えている。1人当たり県民所得は全国平均の約70%にとどまり27年以上連続で最下位、製造業のGDP構成比は全国の5分の1に過ぎない。この産業構造の歪みは、米軍統治期（1945〜1972年）に本土の高度経済成長期の産業基盤投資を受けられなかったという歴史的断絶に根本原因がある。</p>
+    <p style="margin-bottom:14px">子どもの貧困率21.8%は全国平均の約2倍。大学進学率46.7%は全国最下位であり、<span style="color:#D4A843;font-weight:600">「低所得→教育機会喪失→低スキル就労→低所得」の世代間連鎖</span>が固定化している。離婚率22年連続全国1位、DV保護命令全国2位という家庭の不安定性がこの連鎖を増幅する。健康面では男性平均寿命が1985年の全国1位から43位へ急落し、20〜64歳の年齢調整死亡率は男女とも全国ワースト。「若い世代ほど不健康」という世代間二重構造が進行している。</p>
+    <p style="margin-bottom:14px">県土の8.2%を占める米軍基地（在日米軍専用施設の70.3%が集中）は都市計画を分断し産業用地を制約する一方、返還跡地では経済効果が28〜32倍に拡大した実績がある。エネルギー自給率2.7%、火力発電94%という構造は産業用電力コストを全国の約2倍に押し上げ、製造業誘致の障壁となっている。49の有人離島は全課題の「不利の乗数」として機能し、高校設置はわずか3島、診療所は一人医師体制が基本である。</p>
+    <p style="margin:0">これらの課題は個別に存在するのではなく、<span style="color:#D4A843;font-weight:600">相互に連鎖する「負のメインスパイラル」</span>を形成している。本報告書の因果構造分析は、低賃金を分岐点とする健康・家庭崩壊・人材流出・離島過疎の4つのサブループがこのスパイラルを加速させていることを実証した。介入のレバレッジポイントは、短期の労働生産性向上、中期の教育⇒雇用パイプライン強化、長期の人口・地域持続可能性設計の3層に整理される。</p>
+  </div>
+
+  <p style="font-size:.82rem;color:var(--text-sub);margin-bottom:16px;font-weight:500;letter-spacing:.5px">▼ 16領域の構造的課題を横断的に可視化。各指標は全国比較における沖縄県の現在地を示す。</p>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="icon">💰</div>
+      <div class="metric-value">224.9<span style="font-size:.5em">万円</span></div>
+      <div class="metric-label">1人当たり県民所得</div>
+      <div class="metric-sub">全国比70% / 全国最下位27年以上</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">👶</div>
+      <div class="metric-value">21.8<span style="font-size:.5em">%</span></div>
+      <div class="metric-label">子どもの困窮層割合</div>
+      <div class="metric-sub">全国平均の1.9倍</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🎓</div>
+      <div class="metric-value">46.7<span style="font-size:.5em">%</span></div>
+      <div class="metric-label">大学進学率</div>
+      <div class="metric-sub">全国最下位（全国61.8%）</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">👥</div>
+      <div class="metric-value">1.54</div>
+      <div class="metric-label">合計特殊出生率</div>
+      <div class="metric-sub">40年連続1位だが急落中</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">❤️</div>
+      <div class="metric-value">43<span style="font-size:.5em">位</span>/46<span style="font-size:.5em">位</span></div>
+      <div class="metric-label">平均寿命(男)/健康寿命(女)</div>
+      <div class="metric-sub">かつての長寿県から急落</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🏗️</div>
+      <div class="metric-value">70.3<span style="font-size:.5em">%</span></div>
+      <div class="metric-label">在日米軍専用施設の沖縄集中率</div>
+      <div class="metric-sub">国土面積0.6%に集中</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">🏝️</div>
+      <div class="metric-value">49<span style="font-size:.5em">島</span></div>
+      <div class="metric-label">有人離島数</div>
+      <div class="metric-sub">高校設置は3島のみ</div>
+    </div>
+    <div class="metric-card">
+      <div class="icon">⚡</div>
+      <div class="metric-value">2.7<span style="font-size:.5em">%</span></div>
+      <div class="metric-label">エネルギー自給率</div>
+      <div class="metric-sub">火力発電94% / 再エネ6%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== Part 1: 現状分析 ========== -->
+
+<!-- Chapter 1: 経済生産性 -->
+<div class="section" id="sec-economy" data-accordion>
+  <div class="section-title"><span class="section-icon">💰</span> 第1章：経済生産性（重点章）</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      沖縄県の1人当たり県民所得は224.9万円（全国平均の約70%）で、全国最下位を27年以上継続。第3次産業構成比85.9%という極端な偏重と、製造業GDP比率4.3〜4.5%（全国20.7%）という構造的歪みが根本原因。米軍統治期（1945-1972年）に高度経済成長の産業基盤投資を受けられなかった歴史的断絶に起因する。
+    </div>
+    <div class="chart-container" style="height:360px">
+      <canvas id="chartIncome"></canvas>
+    </div>
+    <div class="highlight-box">
+      <strong>構造的要因:</strong> 製造業の質的脆弱性（約40%が食料品製造業）、非正規雇用率39.6%、電力コスト全国平均の約2倍が製造業誘致を阻害。観光収入は2023年度に過去最高の8,507億円を記録するも、量から質への転換が課題。
+    </div>
+    <table class="tbl">
+      <thead><tr><th>指標</th><th>沖縄県</th><th>全国平均</th><th>備考</th></tr></thead>
+      <tbody>
+        <tr><td>労働生産性（全国=100）</td><td style="color:var(--negative)">60.2</td><td>100</td><td>全産業</td></tr>
+        <tr><td>製造業GDP構成比</td><td style="color:var(--negative)">4.3〜4.5%</td><td>20.7%</td><td>全国の約1/5</td></tr>
+        <tr><td>第3次産業構成比</td><td>85.9%</td><td>約73%</td><td>+約13pt</td></tr>
+        <tr><td>完全失業率（2024年）</td><td style="color:var(--negative)">3.2%</td><td>2.5%</td><td>全国ワースト1位</td></tr>
+        <tr><td>最低賃金（2025年）</td><td>1,023円</td><td>1,121円</td><td>差98円</td></tr>
+        <tr><td>観光収入（2023年度）</td><td style="color:var(--positive)">8,507億円</td><td>—</td><td>過去最高</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Chapter 2: 子どもの貧困 -->
+<div class="section" id="sec-poverty" data-accordion>
+  <div class="section-title"><span class="section-icon">👶</span> 第2章：子どもの貧困（重点章）</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      子どもの困窮層割合は29.9%（2015年）から21.8%（2024年）へ改善したが、全国平均の1.9倍。統計上の改善とは裏腹に、食料困窮経験率は48.7%から58.2%へ悪化。離婚率22年連続全国1位、母子世帯出現率全国1位が貧困を構造化。
+    </div>
+    <div class="chart-container" style="height:320px">
+      <canvas id="chartPoverty"></canvas>
+    </div>
+    <div class="alert-box">
+      <strong>注意:</strong> 中2保護者（困窮層）の食料困窮経験率は2015年の48.7%から2024年には58.2%へと<strong style="color:var(--negative)">+9.5pt上昇</strong>。名目的改善と実質的悪化の乖離が深刻。
+    </div>
+    <table class="tbl">
+      <thead><tr><th>指標</th><th>沖縄県</th><th>全国平均</th><th>順位</th></tr></thead>
+      <tbody>
+        <tr><td>離婚率（人口千対、2024年）</td><td style="color:var(--negative)">2.24</td><td>1.55</td><td>1位（22年連続）</td></tr>
+        <tr><td>母子世帯出現率</td><td style="color:var(--negative)">2.6%</td><td>1.4%</td><td>1位</td></tr>
+        <tr><td>就学援助率（2023年）</td><td>23.57%</td><td>13.66%</td><td>2位</td></tr>
+        <tr><td>DV保護命令（人口10万対）</td><td>3.3件</td><td>—</td><td>2位</td></tr>
+        <tr><td>生活保護率（2024年）</td><td>26.89‰</td><td>16.2‰</td><td>3位</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Chapter 3: 教育⇒雇用 -->
+<div class="section" id="sec-education" data-accordion>
+  <div class="section-title"><span class="section-icon">🎓</span> 第3章：教育⇒雇用パイプライン（重点章）</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      パイプラインは入口（基礎学力）、中間（進路選択）、出口（就労）のいずれでも全国との格差。大学進学率46.7%は全国最下位、無業者率11.7%は全国4.9%の2.4倍。中学数学-10.3ptの格差がSTEM進路を構造的に狭める。
+    </div>
+    <div class="chart-row">
+      <div class="chart-container" style="height:320px">
+        <canvas id="chartAcademic"></canvas>
+      </div>
+      <div>
+        <table class="tbl">
+          <thead><tr><th>進路</th><th>沖縄県</th><th>全国平均</th><th>順位</th></tr></thead>
+          <tbody>
+            <tr><td>大学進学率</td><td style="color:var(--negative)">46.7%</td><td>61.8%</td><td>最下位</td></tr>
+            <tr><td>専門学校進学率</td><td>25.6%</td><td>15.5%</td><td>1位</td></tr>
+            <tr><td>無業者率</td><td style="color:var(--negative)">11.7%</td><td>4.9%</td><td>ワースト</td></tr>
+            <tr><td>不登校（小学校千人あたり）</td><td style="color:var(--negative)">35.4人</td><td>約23人</td><td>ワースト</td></tr>
+            <tr><td>転出超過（2024年）</td><td style="color:var(--negative)">-1,529人</td><td>—</td><td>19-24歳中心</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight-box" style="margin-top:12px">
+          <strong>経済的制約による進路歪み:</strong> 4年制大学の費用を負担できない世帯が専門学校を選択。専門学校進学率全国1位の裏側には、経済格差が投影されている。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chapter 4: 人口動態 -->
+<div class="section" id="sec-population" data-accordion>
+  <div class="section-title"><span class="section-icon">👥</span> 第4章：人口動態（準重点章）</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      総人口約146.6万人（2024推計）は3年連続減少。TFRは1.96（2015年）から1.54（2024年）へ0.42pt低下。40年連続全国1位を維持するも、低下速度は全国平均を上回る。社人研推計では2050年に約126万人まで減少する見通し。
+    </div>
+    <div class="chart-container" style="height:340px">
+      <canvas id="chartTFR"></canvas>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>年次</th><th>推計人口</th><th>2024年比</th></tr></thead>
+      <tbody>
+        <tr><td>2024年</td><td>約146.6万人</td><td>—</td></tr>
+        <tr><td>2030年</td><td>約143万人</td><td style="color:var(--negative)">-2.5%</td></tr>
+        <tr><td>2040年</td><td>約136万人</td><td style="color:var(--negative)">-7.2%</td></tr>
+        <tr><td>2050年</td><td>約126万人</td><td style="color:var(--negative)">-14.1%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Chapter 5: 健康 -->
+<div class="section" id="sec-health" data-accordion>
+  <div class="section-title"><span class="section-icon">❤️</span> 第5章：健康アウトカム・死亡構造分析</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      「かつての長寿県」から「若い世代ほど不健康な県」へ変容。男性平均寿命は1985年全国1位から2020年43位へ急落。75歳以上は男性2位・女性1位だが、20歳時平均余命は男性43位という世代間二重構造が存在。年間死亡者数は約14,600人（2022年）。
+    </div>
+
+    <!-- 基本指標カード -->
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">💀</div><div class="metric-value num" style="color:var(--negative)">14,585</div><div class="metric-label">年間死亡者数</div><div class="metric-sub">2022年（2018年比+20%）</div></div>
+      <div class="metric-card"><div class="icon">📉</div><div class="metric-value num" style="color:var(--negative)">43位</div><div class="metric-label">男性平均寿命</div><div class="metric-sub">1985年1位→2020年43位</div></div>
+      <div class="metric-card"><div class="icon">🍺</div><div class="metric-value num" style="color:var(--negative)">2.7倍</div><div class="metric-label">アルコール性肝疾患</div><div class="metric-sub">全国1位・78%増(2016-23)</div></div>
+      <div class="metric-card"><div class="icon">🩺</div><div class="metric-value num" style="color:var(--negative)">1位</div><div class="metric-label">20-64歳死亡率</div><div class="metric-sub">男女とも全国ワースト</div></div>
+    </div>
+
+    <!-- 平均寿命順位推移チャート -->
+    <h3 style="color:var(--gold-light);font-size:1rem;margin:20px 0 8px">平均寿命 全国順位の推移</h3>
+    <div class="chart-container" style="height:300px">
+      <canvas id="chartLifespan"></canvas>
+    </div>
+
+    <!-- 死因カテゴリ構成（ドーナツ）+ 年間死亡者数推移（棒） -->
+    <h3 style="color:var(--gold-light);font-size:1rem;margin:24px 0 8px">死亡構造の全体像</h3>
+    <div class="chart-row">
+      <div>
+        <div class="chart-container" style="height:300px">
+          <canvas id="chartDeathCategory"></canvas>
+        </div>
+      </div>
+      <div>
+        <div class="chart-container" style="height:300px">
+          <canvas id="chartDeathTrend"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- 死因別死亡数 横棒（全国比較） -->
+    <h3 style="color:var(--gold-light);font-size:1rem;margin:24px 0 8px">死因別 沖縄 vs 全国 死亡率（人口10万対）</h3>
+    <div class="chart-container" style="height:400px">
+      <canvas id="chartDeathCause"></canvas>
+    </div>
+
+    <!-- 年齢階級別死亡数 棒グラフ -->
+    <h3 style="color:var(--gold-light);font-size:1rem;margin:24px 0 8px">年齢階級別 死亡者数（2022年）</h3>
+    <div class="chart-container" style="height:320px">
+      <canvas id="chartDeathByAge"></canvas>
+    </div>
+
+    <!-- 年齢階級別 主要死因テーブル -->
+    <h3 style="color:var(--gold-light);font-size:1rem;margin:24px 0 8px">年齢階級別 主要死因（沖縄県の特徴）</h3>
+    <table class="tbl">
+      <thead><tr><th>年齢</th><th>第1位</th><th>第2位</th><th>第3位</th><th>沖縄県の特徴</th></tr></thead>
+      <tbody>
+        <tr><td>0-9歳</td><td>先天奇形等</td><td>周産期疾患</td><td>不慮の事故</td><td>—</td></tr>
+        <tr><td>10-19歳</td><td style="color:var(--negative)">自殺</td><td>不慮の事故</td><td>悪性新生物</td><td>若年層の自殺が深刻</td></tr>
+        <tr><td>20-29歳</td><td style="color:var(--negative)">自殺</td><td>不慮の事故</td><td>悪性新生物</td><td>外因死が大半を占める</td></tr>
+        <tr><td>30-39歳</td><td style="color:var(--negative)">自殺</td><td>悪性新生物</td><td>心疾患</td><td>肝疾患の出現が始まる</td></tr>
+        <tr><td>40-49歳</td><td>悪性新生物</td><td>心疾患</td><td>自殺</td><td style="color:var(--negative)">肝疾患・糖尿病が全国比で突出</td></tr>
+        <tr><td>50-59歳</td><td>悪性新生物</td><td>心疾患</td><td style="color:var(--negative)">肝疾患</td><td style="color:var(--negative)">アルコール性肝疾患が最も深刻な年代</td></tr>
+        <tr><td>60-69歳</td><td>悪性新生物</td><td>心疾患</td><td>脳血管疾患</td><td>生活習慣病の蓄積が顕在化</td></tr>
+        <tr><td>70-79歳</td><td>悪性新生物</td><td>心疾患</td><td>脳血管疾患</td><td>この世代から全国並み水準に</td></tr>
+        <tr><td>80歳以上</td><td>老衰</td><td>心疾患</td><td>悪性新生物</td><td style="color:var(--gold)">伝統食世代。依然として長寿</td></tr>
+      </tbody>
+    </table>
+
+    <!-- 世代間二重構造アラート -->
+    <div class="alert-box" style="margin-top:20px">
+      <strong>世代間二重構造の核心:</strong> 75歳以上は男性2位・女性1位の長寿（戦前世代の伝統食の恩恵）だが、40〜59歳男性の死亡率は全国ワースト圏。アルコール性肝疾患（全国の2.7倍）、糖尿病（同1.6倍）、肥満率50%がこの年代に集中。世代交代に伴い、平均寿命は今後さらに低下するリスクがある。
+    </div>
+
+    <!-- 沖縄で特に高い死因 -->
+    <h3 style="color:var(--gold-light);font-size:1rem;margin:24px 0 8px">全国比で突出して高い死因</h3>
+    <table class="tbl">
+      <thead><tr><th>死因</th><th>沖縄/全国比</th><th>全国順位</th><th>背景要因</th></tr></thead>
+      <tbody>
+        <tr><td>アルコール性肝疾患</td><td style="color:var(--negative);font-weight:700">2.5〜2.7倍</td><td style="color:var(--negative)">1位（長期連続）</td><td>泡盛文化・模合・飲酒運転率ワースト</td></tr>
+        <tr><td>糖尿病</td><td style="color:var(--negative);font-weight:700">1.5〜1.6倍</td><td style="color:var(--negative)">1〜3位</td><td>肥満率全国上位・食の欧米化・車社会</td></tr>
+        <tr><td>肝疾患全体</td><td style="color:var(--negative);font-weight:700">1.8倍</td><td style="color:var(--negative)">上位</td><td>アルコール性＋ウイルス性</td></tr>
+        <tr><td>腎不全</td><td style="color:var(--negative)">1.14倍</td><td>上位</td><td>糖尿病性腎症の合併症</td></tr>
+        <tr><td>不慮の事故</td><td style="color:var(--negative)">1.11倍</td><td>上位</td><td>溺水・交通事故がやや高い</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Chapter 6: 基地問題 -->
+<div class="section" id="sec-base" data-accordion>
+  <div class="section-title"><span class="section-icon">🏗️</span> 第6章：米軍基地問題（経済的側面）</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      在沖米軍基地31施設、18,483ha、県土の約8.2%を占拠。基地経済依存度は30.4%（1965年）から5.5%（2019年）に低下し「基地が経済を支えている」時代は終了。返還跡地の経済効果28〜32倍は、基地が経済活動の機会費用を奪っていることの実証。
+    </div>
+    <div class="chart-row">
+      <div class="chart-container" style="height:300px">
+        <canvas id="chartBaseDep"></canvas>
+      </div>
+      <div class="chart-container" style="height:300px">
+        <canvas id="chartBaseEffect"></canvas>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <strong>返還跡地の変貌:</strong> 那覇新都心 — 直接経済効果<strong>32倍</strong>、雇用<strong>94倍</strong>、税収<strong>33倍</strong>。北谷町美浜 — 固定資産税<strong>81倍</strong>。SACO/統合計画で嘉手納以南約1,048ha超の返還を予定（普天間481ha含む）。
+    </div>
+  </div>
+</div>
+
+<!-- Chapter 7: 離島 -->
+<div class="section" id="sec-island" data-accordion>
+  <div class="section-title"><span class="section-icon">🏝️</span> 第7章：離島条件不利</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      49の有人離島を擁する日本最大の離島県。高校は3島のみで15歳が「強制的な島離れ」の契機に。一人医師体制の診療所が基本。過去50年間で約4万人が離島から流出。全領域の課題を増幅する「不利の乗数」として機能。
+    </div>
+    <div class="metrics-grid" style="margin-bottom:12px">
+      <div class="metric-card"><div class="metric-value">49<span style="font-size:.5em">島</span></div><div class="metric-label">有人離島数</div></div>
+      <div class="metric-card"><div class="metric-value">3<span style="font-size:.5em">島</span></div><div class="metric-label">高校設置島数</div></div>
+      <div class="metric-card"><div class="metric-value">-4<span style="font-size:.5em">万人</span></div><div class="metric-label">過去50年の人口減少</div></div>
+      <div class="metric-card"><div class="metric-value">+20<span style="font-size:.5em">円/L</span></div><div class="metric-label">ガソリン価格差</div></div>
+    </div>
+    <div class="alert-box">
+      <strong>離島過疎スパイラル:</strong> 人口減少→サービス撤退→利便性低下→更なる人口流出という自己強化ループが形成。教育・医療・エネルギーの各課題が離島では2〜3倍のインパクトで顕在化する。
+    </div>
+  </div>
+</div>
+
+<!-- Chapter 8: エネルギー -->
+<div class="section" id="sec-energy" data-accordion>
+  <div class="section-title"><span class="section-icon">⚡</span> 第8章：エネルギー依存</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      電源構成は石炭65%・LNG24%・石油5%・再エネ6%。火力発電94%、エネルギー自給率約2.7%。特別高圧電力料金は全国平均の約2倍（34.01円 vs 16.87円/kWh）。広域連系線の不在が需給調整・再エネ導入を制約。
+    </div>
+    <div class="chart-row">
+      <div class="chart-container" style="height:300px">
+        <canvas id="chartEnergy"></canvas>
+      </div>
+      <div>
+        <table class="tbl">
+          <thead><tr><th>指標</th><th>沖縄県</th><th>全国平均</th></tr></thead>
+          <tbody>
+            <tr><td>エネルギー自給率</td><td style="color:var(--negative)">約2.7%</td><td>—</td></tr>
+            <tr><td>再エネ比率</td><td style="color:var(--negative)">約6%</td><td>約20%超</td></tr>
+            <tr><td>特別高圧電力料金</td><td style="color:var(--negative)">34.01円/kWh</td><td>16.87円/kWh</td></tr>
+          </tbody>
+        </table>
+        <div class="highlight-box" style="margin-top:12px">
+          <strong>構造的制約:</strong> 本土との広域連系線が不在。台風リスク、狭小な系統規模、離島36島への個別電力供給の高コストが再エネ拡大を阻害。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 補章：追加領域分析 ========== -->
+
+<!-- 補章A: 医療・福祉制度 -->
+<div class="section" id="sec-medical" data-accordion>
+  <div class="section-title"><span class="section-icon">🏥</span> 補章A：医療・福祉制度</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">第5章（健康アウトカム）が「結果」を分析したのに対し、本章は「原因としての医療供給体制」を分析する。</p>
+
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card">
+        <div class="icon">👨‍⚕️</div>
+        <div class="metric-value num">245人</div>
+        <div class="metric-label">人口10万人あたり医師数</div>
+        <div class="metric-sub">全国平均270人を下回る</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">🔬</div>
+        <div class="metric-value num" style="color:var(--negative)">~33%</div>
+        <div class="metric-label">特定健診受診率</div>
+        <div class="metric-sub">全国平均55%（全国最低水準）</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">🏝️</div>
+        <div class="metric-value num">49島</div>
+        <div class="metric-label">有人離島</div>
+        <div class="metric-sub">診療所は一人医師体制が基本</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">💊</div>
+        <div class="metric-value num" style="color:var(--negative)">26.89‰</div>
+        <div class="metric-label">生活保護率</div>
+        <div class="metric-sub">全国3位・受給者過去最多</div>
+      </div>
+    </div>
+
+    <h3 style="color:var(--gold-light);font-size:1rem;margin:16px 0 8px">構造的課題</h3>
+    <table class="tbl">
+      <tr><th>課題</th><th>内容</th><th>影響</th></tr>
+      <tr><td>医師偏在</td><td>那覇・中部に集中、北部・離島は慢性的不足</td><td>離島の一人医師体制→不在時に無医地区化</td></tr>
+      <tr><td>予防医療の不全</td><td>健診受診率33%（全国最低）</td><td>未受診→リスク未発見→重症化→医療費増大</td></tr>
+      <tr><td>制度的断絶</td><td>国民皆保険参加が本土より10年遅延（1972年）</td><td>医療アクセス習慣の形成遅れが現在に影響</td></tr>
+      <tr><td>福祉への過重負荷</td><td>国保赤字補填の常態化、医療扶助の膨張</td><td>予防投資の余力喪失→悪循環の固定化</td></tr>
+    </table>
+
+    <h3 style="color:var(--gold-light);font-size:1rem;margin:16px 0 8px">他領域との因果接続</h3>
+    <table class="tbl">
+      <tr><th>関連領域</th><th>因果の方向</th><th>メカニズム</th></tr>
+      <tr><td>健康（第5章）</td><td>医療供給→健康</td><td>予防不足・医師偏在が健康悪化の直接原因</td></tr>
+      <tr><td>子どもの貧困（第2章）</td><td>貧困⇄医療</td><td>受診抑制→重症化→貧困再生産</td></tr>
+      <tr><td>離島（第7章）</td><td>地理→医療</td><td>搬送困難が医療アクセスの二重の不利を形成</td></tr>
+      <tr><td>経済（第1章）</td><td>医療費→財政</td><td>重症化医療費の膨張→政策投資余地の縮小</td></tr>
+      <tr><td>人口動態（第4章）</td><td>周産期→TFR</td><td>出産環境の不安がTFRに影響</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 補章C: 行財政・ガバナンス -->
+<div class="section" id="sec-finance" data-accordion>
+  <div class="section-title"><span class="section-icon">🏛️</span> 補章C：行財政・ガバナンス</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">全政策介入の実行基盤。自主財源比率は全国最低水準、振興予算は縮減傾向。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">💰</div><div class="metric-value num" style="color:var(--negative)">~27%</div><div class="metric-label">自主財源比率</div><div class="metric-sub">全国平均45〜50%</div></div>
+      <div class="metric-card"><div class="icon">📊</div><div class="metric-value num">0.34</div><div class="metric-label">財政力指数（県）</div><div class="metric-sub">全国平均0.50</div></div>
+      <div class="metric-card"><div class="icon">📉</div><div class="metric-value num">3,190億</div><div class="metric-label">沖縄振興予算</div><div class="metric-sub">ピーク4,500億から縮減</div></div>
+      <div class="metric-card"><div class="icon">🏘️</div><div class="metric-value num" style="color:var(--negative)">0.1台〜</div><div class="metric-label">離島町村の財政力</div><div class="metric-sub">独自施策の余地ほぼゼロ</div></div>
+    </div>
+    <table class="tbl">
+      <tr><th>構造的課題</th><th>内容</th></tr>
+      <tr><td>税収基盤の脆弱性</td><td>製造業GDP比5%、県民所得全国最下位→法人税・住民税の基盤が薄い</td></tr>
+      <tr><td>振興予算の制度設計</td><td>一括計上方式で県の裁量限定。一括交付金は創設時の半分に縮減</td></tr>
+      <tr><td>リンク論</td><td>振興予算と基地受入れの政治的結びつきが自立的政策立案を萎縮</td></tr>
+      <tr><td>ザル経済</td><td>公共投資の多くが県外ゼネコン・県外資材に流出、県内循環が弱い</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 補章D: 環境・自然資本 -->
+<div class="section" id="sec-environment" data-accordion>
+  <div class="section-title"><span class="section-icon">🌊</span> 補章D：環境・自然資本</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">2024年に過去最大のサンゴ白化。火力94%の電源構成がCO2排出の主因。PFAS汚染も深刻。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">🪸</div><div class="metric-value num" style="color:var(--negative)">84%</div><div class="metric-label">サンゴ白化率</div><div class="metric-sub">石西礁湖（2024年）過去最大</div></div>
+      <div class="metric-card"><div class="icon">🏭</div><div class="metric-value num" style="color:var(--negative)">94%</div><div class="metric-label">火力発電比率</div><div class="metric-sub">CO2排出の最大要因</div></div>
+      <div class="metric-card"><div class="icon">♻️</div><div class="metric-value num">~14%</div><div class="metric-label">リサイクル率</div><div class="metric-sub">全国平均20%を下回る</div></div>
+      <div class="metric-card"><div class="icon">🌳</div><div class="metric-value num" style="color:var(--gold)">2021年</div><div class="metric-label">世界自然遺産</div><div class="metric-sub">やんばる・西表登録</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章E: 建築・住宅 -->
+<div class="section" id="sec-housing" data-accordion>
+  <div class="section-title"><span class="section-icon">🏠</span> 補章E：建築・住宅</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">持家率は全国最下位。RC造比率70-80%は台風耐性だがコスト1.3〜1.5倍。住宅面積は全国最低。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">🏗️</div><div class="metric-value num" style="color:var(--negative)">50.2%</div><div class="metric-label">持家率</div><div class="metric-sub">全国最下位（全国61.2%）</div></div>
+      <div class="metric-card"><div class="icon">🧱</div><div class="metric-value num">70-80%</div><div class="metric-label">RC造比率</div><div class="metric-sub">全国7-8%（台風・塩害対策）</div></div>
+      <div class="metric-card"><div class="icon">📐</div><div class="metric-value num" style="color:var(--negative)">~30㎡</div><div class="metric-label">1人あたり住宅面積</div><div class="metric-sub">全国最低（全国40㎡）</div></div>
+      <div class="metric-card"><div class="icon">🏢</div><div class="metric-value num">5-10倍</div><div class="metric-label">公営住宅応募倍率</div><div class="metric-sub">セーフティネット不全</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章F: 防災・国土保全 -->
+<div class="section" id="sec-disaster" data-accordion>
+  <div class="section-title"><span class="section-icon">🌀</span> 補章F：防災・国土保全</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">台風接近年間7〜8個（全国最高頻度）。離島の孤立リスク、気候変動による激甚化が深刻。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">🌀</div><div class="metric-value num">7-8個/年</div><div class="metric-label">台風接近数</div><div class="metric-sub">全国最高頻度</div></div>
+      <div class="metric-card"><div class="icon">💸</div><div class="metric-value num" style="color:var(--negative)">数百億円</div><div class="metric-label">台風6号損失</div><div class="metric-sub">2023年・停電17万戸</div></div>
+      <div class="metric-card"><div class="icon">🌊</div><div class="metric-value num">+0.6〜1.0m</div><div class="metric-label">海面上昇予測</div><div class="metric-sub">2100年（高排出シナリオ）</div></div>
+      <div class="metric-card"><div class="icon">🏝️</div><div class="metric-value num">39島</div><div class="metric-label">孤立リスク離島</div><div class="metric-sub">台風時に航路・航空路途絶</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章G: 文化・アイデンティティ -->
+<div class="section" id="sec-culture" data-accordion>
+  <div class="section-title"><span class="section-icon">🎶</span> 補章G：文化・アイデンティティ</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">「うちなーんちゅの誇り」9割だが、しまくとぅば話者は20〜30年で消滅の危機。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">🗣️</div><div class="metric-value num" style="color:var(--negative)">0.4%</div><div class="metric-label">しまくとぅば使用率（10代）</div><div class="metric-sub">70代以上54.0%との断絶</div></div>
+      <div class="metric-card"><div class="icon">⚠️</div><div class="metric-value num" style="color:var(--negative)">5/8</div><div class="metric-label">消滅危機言語</div><div class="metric-sub">日本国内8言語中5が沖縄</div></div>
+      <div class="metric-card"><div class="icon">🎭</div><div class="metric-value num" style="color:var(--gold)">2010年</div><div class="metric-label">組踊ユネスコ登録</div><div class="metric-sub">無形文化遺産</div></div>
+      <div class="metric-card"><div class="icon">❤️</div><div class="metric-value num" style="color:var(--gold)">~90%</div><div class="metric-label">うちなーんちゅの誇り</div><div class="metric-sub">県民意識調査</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章H: 治安・安全 -->
+<div class="section" id="sec-safety" data-accordion>
+  <div class="section-title"><span class="section-icon">🔒</span> 補章H：治安・安全</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">飲酒運転率は全国平均の3倍でワースト常態化。米軍関連犯罪、DV・虐待も構造的課題。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">🍺</div><div class="metric-value num" style="color:var(--negative)">3倍</div><div class="metric-label">飲酒運転率</div><div class="metric-sub">対全国平均（ワースト常態化）</div></div>
+      <div class="metric-card"><div class="icon">🪖</div><div class="metric-value num">6,000件超</div><div class="metric-label">米軍関連犯罪</div><div class="metric-sub">復帰後累計</div></div>
+      <div class="metric-card"><div class="icon">🚨</div><div class="metric-value num" style="color:var(--negative)">3-4千件/年</div><div class="metric-label">DV相談件数</div><div class="metric-sub">増加傾向</div></div>
+      <div class="metric-card"><div class="icon">👦</div><div class="metric-value num">全国上位</div><div class="metric-label">少年犯罪率</div><div class="metric-sub">深夜徘徊も突出</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章I: 水資源 -->
+<div class="section" id="sec-water" data-accordion>
+  <div class="section-title"><span class="section-icon">💧</span> 補章I：水資源・水道行政</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">大河川なし、ダム依存80%超。PFAS汚染で45万人の水源に影響。基地内調査は4回拒否。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">🏔️</div><div class="metric-value num" style="color:var(--negative)">~80%</div><div class="metric-label">ダム依存率</div><div class="metric-sub">大規模河川なし</div></div>
+      <div class="metric-card"><div class="icon">☠️</div><div class="metric-value num" style="color:var(--negative)">45万人</div><div class="metric-label">PFAS影響人口</div><div class="metric-sub">北谷浄水場給水区域</div></div>
+      <div class="metric-card"><div class="icon">🚫</div><div class="metric-value num" style="color:var(--negative)">4回拒否</div><div class="metric-label">基地内調査申請</div><div class="metric-sub">地位協定の壁</div></div>
+      <div class="metric-card"><div class="icon">🏝️</div><div class="metric-value num">200-400円</div><div class="metric-label">離島淡水化コスト/㎥</div><div class="metric-sub">通常浄水の数倍</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章J: 不発弾 -->
+<div class="section" id="sec-uxo" data-accordion>
+  <div class="section-title"><span class="section-icon">💣</span> 補章J：戦後処理・不発弾</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">沖縄戦から80年。1日1件以上の不発弾処理が今も続く。完全処理は22世紀まで要する見通し。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">💣</div><div class="metric-value num" style="color:var(--negative)">432件/年</div><div class="metric-label">不発弾処理件数</div><div class="metric-sub">2024年度（1日1件以上）</div></div>
+      <div class="metric-card"><div class="icon">⚠️</div><div class="metric-value num" style="color:var(--negative)">~2,000t</div><div class="metric-label">推定残存量</div><div class="metric-sub">全国の処理件数の約半数</div></div>
+      <div class="metric-card"><div class="icon">⏳</div><div class="metric-value num">70-100年</div><div class="metric-label">完全処理まで</div><div class="metric-sub">22世紀まで要する</div></div>
+      <div class="metric-card"><div class="icon">🦴</div><div class="metric-value num">~2,800柱</div><div class="metric-label">未収集遺骨</div><div class="metric-sub">戦没者約20万人</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章K: 一次産業 -->
+<div class="section" id="sec-agriculture" data-accordion>
+  <div class="section-title"><span class="section-icon">🌾</span> 補章K：一次産業（農林水産業）</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">GDP比1.4%だが離島経済の基盤。もずく全国90%超、車海老1位。担い手高齢化が深刻。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">👨‍🌾</div><div class="metric-value num" style="color:var(--negative)">67歳</div><div class="metric-label">農業従事者平均年齢</div><div class="metric-sub">大量離農が10-15年内に</div></div>
+      <div class="metric-card"><div class="icon">🏚️</div><div class="metric-value num" style="color:var(--negative)">~20%</div><div class="metric-label">耕作放棄地率</div><div class="metric-sub">赤土流出→サンゴ劣化の一因</div></div>
+      <div class="metric-card"><div class="icon">🥢</div><div class="metric-value num" style="color:var(--negative)">34%</div><div class="metric-label">食料自給率</div><div class="metric-sub">台風時に棚が空になるリスク</div></div>
+      <div class="metric-card"><div class="icon">🦐</div><div class="metric-value num" style="color:var(--gold)">90%超</div><div class="metric-label">もずく全国シェア</div><div class="metric-sub">車海老も全国1位</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章L: DX -->
+<div class="section" id="sec-dx" data-accordion>
+  <div class="section-title"><span class="section-icon">💻</span> 補章L：情報通信・DX・イノベーション</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">IT企業791社・売上4,031億円だが70%がコールセンター。OIST発スタートアップ35社が成長中。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">🏢</div><div class="metric-value num">791社</div><div class="metric-label">IT関連企業数</div><div class="metric-sub">売上4,031億円（+6.0%）</div></div>
+      <div class="metric-card"><div class="icon">📞</div><div class="metric-value num" style="color:var(--negative)">~70%</div><div class="metric-label">コールセンター比率</div><div class="metric-sub">低付加価値型が主体</div></div>
+      <div class="metric-card"><div class="icon">🚀</div><div class="metric-value num" style="color:var(--gold)">35社</div><div class="metric-label">OIST発スタートアップ</div><div class="metric-sub">Incubator拡張中</div></div>
+      <div class="metric-card"><div class="icon">📡</div><div class="metric-value num" style="color:var(--gold)">95%超</div><div class="metric-label">5Gカバー率</div><div class="metric-sub">小規模離島は未整備</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章M: ジェンダー -->
+<div class="section" id="sec-gender" data-accordion>
+  <div class="section-title"><span class="section-icon">♀♂</span> 補章M：ジェンダー・多文化共生</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">子どもの貧困の根因はジェンダー構造にある。在留外国人28,519人は過去最高で急増中。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">👶</div><div class="metric-value num" style="color:var(--negative)">2.4倍</div><div class="metric-label">10代出産率</div><div class="metric-sub">対全国平均</div></div>
+      <div class="metric-card"><div class="icon">💔</div><div class="metric-value num" style="color:var(--negative)">278万円</div><div class="metric-label">母子世帯総収入</div><div class="metric-sub">全国348万円の80%</div></div>
+      <div class="metric-card"><div class="icon">🌏</div><div class="metric-value num">28,519人</div><div class="metric-label">在留外国人</div><div class="metric-sub">過去最高（+16.8%）</div></div>
+      <div class="metric-card"><div class="icon">👩‍💼</div><div class="metric-value num">17.8%</div><div class="metric-label">女性管理職比率</div><div class="metric-sub">県庁課長級以上</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 補章N: 食料安全保障 -->
+<div class="section" id="sec-food" data-accordion>
+  <div class="section-title"><span class="section-icon">🍚</span> 補章N：食料安全保障・食料政策</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">県外食料の99%が海上輸送依存。食料行政は5部局に分散し統合戦略が不在。OSA第二層「生存的安全」の中核。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="icon">🌾</div><div class="metric-value num" style="color:var(--negative)">32%</div><div class="metric-label">食料自給率</div><div class="metric-sub">カロリーベース（全国38%）</div></div>
+      <div class="metric-card"><div class="icon">🚢</div><div class="metric-value num" style="color:var(--negative)">99%</div><div class="metric-label">海上輸送依存率</div><div class="metric-sub">台風で毎年途絶する構造</div></div>
+      <div class="metric-card"><div class="icon">😢</div><div class="metric-value num" style="color:var(--negative)">58.2%</div><div class="metric-label">食料困窮経験率</div><div class="metric-sub">困窮層・中2保護者（悪化中）</div></div>
+      <div class="metric-card"><div class="icon">🏛️</div><div class="metric-value num" style="color:var(--negative)">5部局</div><div class="metric-label">食料行政の分散</div><div class="metric-sub">統合戦略・計画なし</div></div>
+    </div>
+    <div class="alert-box">
+      <strong>致命的な構造:</strong> 2023年台風6号では全スーパーが臨時休業し棚が空に。台湾有事のシーレーン封鎖シナリオに対する備蓄・自給戦略は事実上未整備。シンガポールは「30by30」（2030年に30%自給）を国家戦略化しているが、沖縄にはこの種の統合戦略が存在しない。
+    </div>
+    <table class="tbl">
+      <thead><tr><th>課題</th><th>内容</th><th>OSAとの接続</th></tr></thead>
+      <tbody>
+        <tr><td>海上輸送99%依存</td><td>単一障害点。台風で毎年、有事で数ヶ月途絶</td><td>第二層：生存的安全の根幹</td></tr>
+        <tr><td>行政の分散</td><td>農林水産部・保健医療・教育庁・企画部・国の5部局</td><td>統合的食料安全保障政策の不在</td></tr>
+        <tr><td>食文化の変容</td><td>伝統食→ファストフード。野菜摂取量全国最下位</td><td>健康悪化の主因</td></tr>
+        <tr><td>離島の二重コスト</td><td>本土→本島→離島の輸送コスト重畳</td><td>食料CPI全国最高水準</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 補章B: 交通・インフラ -->
+<div class="section" id="sec-transport" data-accordion>
+  <div class="section-title"><span class="section-icon">🚗</span> 補章B：交通・インフラ</div>
+  <div class="section-body">
+    <p style="color:var(--text-sub);margin-bottom:16px">47都道府県で唯一鉄道がなく、車依存が固定化。渋滞損失は年間500〜800億円規模。</p>
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card">
+        <div class="icon">🚃</div>
+        <div class="metric-value num" style="color:var(--negative)">0km</div>
+        <div class="metric-label">鉄道路線延長</div>
+        <div class="metric-sub">モノレール17kmのみ</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">🚌</div>
+        <div class="metric-value num" style="color:var(--negative)">~8%</div>
+        <div class="metric-label">公共交通通勤分担率</div>
+        <div class="metric-sub">全国平均28〜30%</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">🚧</div>
+        <div class="metric-value num">500-800億</div>
+        <div class="metric-label">渋滞経済損失/年</div>
+        <div class="metric-sub">県GDP比約1.5%</div>
+      </div>
+      <div class="metric-card">
+        <div class="icon">⛴️</div>
+        <div class="metric-value num">~20航路</div>
+        <div class="metric-label">離島航路</div>
+        <div class="metric-sub">大半が赤字路線</div>
+      </div>
+    </div>
+    <table class="tbl">
+      <tr><th>構造的課題</th><th>内容</th></tr>
+      <tr><td>鉄道不在の歴史</td><td>戦前の軽便鉄道は沖縄戦で破壊。米軍統治期に復旧されず車社会が固定化</td></tr>
+      <tr><td>車依存の自己強化</td><td>公共交通不在→車依存→渋滞→バス定時運行困難→バス離れ加速の悪循環</td></tr>
+      <tr><td>基地による道路分断</td><td>国道58号等が基地を迂回。東西連絡道路が建設不可</td></tr>
+      <tr><td>離島航路の維持困難</td><td>利用者減→赤字→減便→人口流出の負のスパイラル</td></tr>
+      <tr><td>貧困への固定負担</td><td>「車必須」が低所得世帯に月3〜5万円の固定コストを強制</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ========== Part 2: 因果構造分析 ========== -->
+
+<!-- Chapter 9: 因果マッピング -->
+<div class="section" id="sec-causal" data-accordion>
+  <div class="section-title"><span class="section-icon">🔗</span> 第9章：因果マッピング — 負のメインスパイラル</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      8領域は独立した課題ではなく、複数の因果経路で相互接続し「負の連鎖構造」を形成。「低賃金」が全サブループの分岐点変数であり、時間軸の非対称性（主ループ20-30年、サブループ数年〜10年）が介入を困難にしている。
+    </div>
+    <div class="mermaid-wrap">
+      <div class="mermaid">
+graph LR
+    A["弱い産業構造"] -->|"+"| B["低い労働生産性"]
+    B -->|"+"| C["低賃金"]
+    C -->|"+"| D["子どもの貧困"]
+    D -->|"+"| E["教育機会の不足"]
+    E -->|"+"| F["低スキル再生産"]
+    F -->|"+"| A
+    G["基地による土地制約"] -.->|"+"| A
+    H["高エネルギーコスト"] -.->|"+"| A
+      </div>
+    </div>
+    <div class="highlight-box">
+      <strong>構造的知見:</strong> 基地・エネルギーの外部固定要因が「ロック・イン」構造を形成。内部リンクの断切と外部制約の緩和を同時に追求する必要がある。
+    </div>
+
+    <h3 style="font-size:1em;color:var(--gold-light);margin:20px 0 12px">サブループ</h3>
+    <div class="two-col">
+      <div class="mermaid-wrap">
+        <p style="font-size:.8rem;color:var(--gold);margin-bottom:8px;font-weight:600">サブループ① 健康スパイラル</p>
+        <div class="mermaid">
+graph TD
+    C["低所得"] -->|"+"| HS1["不健康な食生活"]
+    HS1 -->|"+"| HS2["肥満・生活習慣病"]
+    HS2 -->|"+"| HS3["医療費増・早期死亡"]
+    HS3 -->|"+"| HS4["労働力の質的低下"]
+    HS4 -->|"+"| C
+        </div>
+      </div>
+      <div class="mermaid-wrap">
+        <p style="font-size:.8rem;color:var(--gold);margin-bottom:8px;font-weight:600">サブループ② 家庭崩壊スパイラル</p>
+        <div class="mermaid">
+graph TD
+    FL1["経済的困窮"] -->|"+"| FL2["DV・離婚"]
+    FL2 -->|"+"| FL3["母子世帯化"]
+    FL3 -->|"+"| FL4["貧困の深化"]
+    FL4 -->|"+"| FL1
+        </div>
+      </div>
+    </div>
+    <div class="two-col" style="margin-top:14px">
+      <div class="mermaid-wrap">
+        <p style="font-size:.8rem;color:var(--gold);margin-bottom:8px;font-weight:600">サブループ③ 人材流出スパイラル</p>
+        <div class="mermaid">
+graph LR
+    EX1["低賃金"] -->|"+"| EX2["若年層転出"]
+    EX2 -->|"+"| EX3["高スキル人材不足"]
+    EX3 -->|"+"| EX4["産業高度化停滞"]
+    EX4 -->|"+"| EX1
+        </div>
+      </div>
+      <div class="mermaid-wrap">
+        <p style="font-size:.8rem;color:var(--gold);margin-bottom:8px;font-weight:600">サブループ④ 離島過疎スパイラル</p>
+        <div class="mermaid">
+graph TD
+    IS1["離島人口減少"] -->|"+"| IS2["サービス縮小"]
+    IS2 -->|"+"| IS3["生活利便性低下"]
+    IS3 -->|"+"| IS4["さらなる人口流出"]
+    IS4 -->|"+"| IS1
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chapter 10: スパイラル検証 -->
+<div class="section" id="sec-verify" data-accordion>
+  <div class="section-title"><span class="section-icon">🔍</span> 第10章：負のスパイラル仮説の検証</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead><tr><th>リンク</th><th>仮説</th><th>評価</th><th>根拠</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>弱い産業構造→低生産性</td>
+          <td>観光・建設・公共偏重が労働生産性を押し下げ</td>
+          <td><span class="badge-strong">◎ 強く支持</span></td>
+          <td>製造業GDP比4.3%、生産性全国比60.2</td>
+        </tr>
+        <tr>
+          <td>低生産性→低賃金</td>
+          <td>生産性の低さが賃金を全国最低水準に固定</td>
+          <td><span class="badge-strong">◎ 強く支持</span></td>
+          <td>賃金格差（全国比74.4%）は生産性格差と比例</td>
+        </tr>
+        <tr>
+          <td>低賃金→子どもの貧困</td>
+          <td>低賃金が家計所得を押し下げ貧困率を上昇</td>
+          <td><span class="badge-strong">◎ 強く支持</span></td>
+          <td>ワーキングプア構造、母子世帯率1位が増幅</td>
+        </tr>
+        <tr>
+          <td>子どもの貧困→教育機会不足</td>
+          <td>経済的困窮が教育達成を阻害</td>
+          <td><span class="badge-strong">◎ 強く支持</span></td>
+          <td>学力格差（中学数学-10.3pt）、進学率格差</td>
+        </tr>
+        <tr>
+          <td>教育機会不足→低スキル再生産</td>
+          <td>教育達成度の低さが低スキル労働参入を決定</td>
+          <td><span class="badge-moderate">○ 概ね支持</span></td>
+          <td>高卒以下の労働参入率高。ただし雇用受け皿も不足</td>
+        </tr>
+        <tr>
+          <td>低スキル再生産→産業構造固定化</td>
+          <td>低スキル人材多数で知識集約型産業の立地が阻害</td>
+          <td><span class="badge-moderate">○ 概ね支持</span></td>
+          <td>IT進出がBPO等低付加価値に偏る傾向</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box" style="margin-top:14px">
+      <strong>総合判定:</strong> 主ループは概ね支持される。最初の4リンク（産業構造→生産性→賃金→貧困→教育）は強固なエビデンスで裏付け。後半2リンクは外部制約との重畳を考慮すべき。介入戦略は内部リンクの断切と外部制約の緩和を同時に追求する必要がある。
+    </div>
+  </div>
+</div>
+
+<!-- Chapter 11: レバレッジポイント -->
+<div class="section" id="sec-leverage" data-accordion>
+  <div class="section-title"><span class="section-icon">🎯</span> 第11章：レバレッジポイントの評価</div>
+  <div class="section-body">
+    <div class="chapter-intro">
+      3つのレバレッジポイントは独立した選択肢ではなく、時間軸上で連結した一体の戦略として設計すべき。<br>
+      <strong>LP1（短期：時間を稼ぐ）→ LP2（中期：循環を断つ）→ LP3（長期：構造を変える）</strong>
+    </div>
+    <div class="lp-cards">
+      <div class="lp-card gold">
+        <div class="lp-num" style="color:var(--gold)">01</div>
+        <h4 style="color:var(--gold-light)">LP1: 労働生産性向上</h4>
+        <p style="font-size:.85rem;margin:8px 0">「低生産性→低賃金」リンクを直接弱める。分岐点変数「低賃金」を起点とする全サブループの回転力を同時に減衰。</p>
+        <div class="lp-meta">
+          <span>時間軸: <strong>短期（1-3年）</strong></span><br>
+          <span>実現可能性: <strong style="color:var(--positive)">◎</strong> 既存政策の延長で着手可能</span><br>
+          <span>波及: 賃金上昇→健康・家庭・人材流出の全サブループに同時波及</span>
+        </div>
+      </div>
+      <div class="lp-card blue">
+        <div class="lp-num" style="color:#58a6ff">02</div>
+        <h4 style="color:#79c0ff">LP2: 教育⇒雇用パイプライン強化</h4>
+        <p style="font-size:.85rem;margin:8px 0">主ループの世代間伝達メカニズムを直接断ち切る。外部固定要因に依存しない介入。</p>
+        <div class="lp-meta">
+          <span>時間軸: <strong>中期（10-20年）</strong></span><br>
+          <span>実現可能性: <strong style="color:var(--gold)">○</strong> 県独自で実行可能だが成果発現に時間</span><br>
+          <span>波及: 教育達成向上→高スキル人材→産業高度化→賃金上昇の好循環</span>
+        </div>
+      </div>
+      <div class="lp-card purple">
+        <div class="lp-num" style="color:#a371f7">03</div>
+        <h4 style="color:#c9b1ff">LP3: 人口・地域持続可能性設計</h4>
+        <p style="font-size:.85rem;margin:8px 0">外部固定要因の解除（基地返還跡地活用）と離島過疎スパイラルの減速。</p>
+        <div class="lp-meta">
+          <span>時間軸: <strong>長期（20年超）</strong></span><br>
+          <span>実現可能性: <strong style="color:var(--negative)">△</strong> 基地返還は外交マターで不確実性高</span><br>
+          <span>波及: 返還跡地→新規産業→雇用→産業構造転換</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chapter 12: 戦略テーマ -->
+<div class="section" id="sec-strategy" data-accordion>
+  <div class="section-title"><span class="section-icon">🧭</span> 第12章：L2戦略層への入力 — 7つの戦略テーマ</div>
+  <div class="section-body">
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <div class="strategy-num">1</div>
+        <div>
+          <h4>「高付加価値サービス島嶼経済」への転換</h4>
+          <p>製造業比率の引上げではなく、第3次産業の質的転換。IT/デジタル（GDP比10%）、ウェルネス・長寿（7%）、国際物流ハブ（7%）を3本柱に県内総生産を4.5兆→6.0〜6.5兆円へ</p>
+        </div>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">2</div>
+        <div>
+          <h4>教育から雇用への一貫パイプラインの再構築</h4>
+          <p>STEM教育の強化（中学数学格差-10.3ptの解消）、大学進学率の引き上げ（46.7%→55%以上）、県内高付加価値雇用との接続</p>
+        </div>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">3</div>
+        <div>
+          <h4>子どもの貧困の構造的解消</h4>
+          <p>ひとり親世帯の経済基盤強化、食料困窮の実質的解消、セーフティネットの捕捉率向上</p>
+        </div>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">4</div>
+        <div>
+          <h4>エネルギー構造転換と産業競争力の基盤整備</h4>
+          <p>再エネ比率の大幅引き上げ（6%→30%以上）、産業用電力コストの全国水準への収斂、離島エネルギー自立モデル</p>
+        </div>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">5</div>
+        <div>
+          <h4>健康寿命の回復と世代間二重構造の解消</h4>
+          <p>20-64歳の年齢調整死亡率の改善、肥満率の低減、アルコール性肝疾患対策の強化</p>
+        </div>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-num">6</div>
+        <div>
+          <h4>基地返還跡地の戦略的活用による空間再編</h4>
+          <p>GW2050 PROJECTSの推進、返還跡地への産業集積と都市機能再編、再エネ施設との複合活用</p>
+        </div>
+      </div>
+      <div class="strategy-card" style="grid-column:1/-1">
+        <div class="strategy-num">7</div>
+        <div>
+          <h4>離島の持続可能性確保と条件不利の軽減</h4>
+          <p>遠隔教育・遠隔医療の高度化、離島交通コストの低減、15歳の「強制的島離れ」の緩和策。遠隔教育含め全島高校アクセスカバーを目標。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1em;color:var(--gold-light);margin:20px 0 12px">主要KPI候補</h3>
+    <table class="kpi-tbl">
+      <thead><tr><th>#</th><th>戦略テーマ</th><th>主要KPI</th><th>2024年現状値</th><th>2035年目標</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>産業構造高度化</td><td>1人当たり県民所得（対全国比）</td><td style="color:var(--negative)">約70%</td><td style="color:var(--positive)">85%以上</td></tr>
+        <tr><td></td><td></td><td>製造業GDP構成比</td><td style="color:var(--negative)">4.3〜4.5%</td><td style="color:var(--positive)">10%以上</td></tr>
+        <tr><td>2</td><td>教育パイプライン</td><td>大学進学率</td><td style="color:var(--negative)">46.7%</td><td style="color:var(--positive)">55%以上</td></tr>
+        <tr><td></td><td></td><td>中学数学の全国平均との差</td><td style="color:var(--negative)">-10.3pt</td><td style="color:var(--positive)">-3pt以内</td></tr>
+        <tr><td>3</td><td>子どもの貧困解消</td><td>子どもの困窮率</td><td style="color:var(--negative)">21.8%</td><td style="color:var(--positive)">15%以下</td></tr>
+        <tr><td></td><td></td><td>食料困窮経験率（困窮層）</td><td style="color:var(--negative)">58.2%</td><td style="color:var(--positive)">30%以下</td></tr>
+        <tr><td>4</td><td>エネルギー構造転換</td><td>再エネ比率</td><td style="color:var(--negative)">約6%</td><td style="color:var(--positive)">30%以上</td></tr>
+        <tr><td>5</td><td>健康寿命回復</td><td>健康寿命（男性）全国順位</td><td style="color:var(--negative)">45位</td><td style="color:var(--positive)">30位以内</td></tr>
+        <tr><td>6</td><td>基地跡地活用</td><td>跡地雇用創出数</td><td>—</td><td style="color:var(--positive)">累計3万人以上</td></tr>
+        <tr><td>7</td><td>離島持続可能性</td><td>離島高校アクセス率</td><td style="color:var(--negative)">3島/49島</td><td style="color:var(--positive)">全島カバー</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- CTA: 正の循環ページへの誘導 -->
+<div class="section" style="background:linear-gradient(135deg,rgba(46,160,67,0.08),rgba(184,145,42,0.08));border:1px solid rgba(46,160,67,0.2);text-align:center;padding:36px 24px">
+  <div style="font-size:2.2em;margin-bottom:8px">🔄</div>
+  <h3 style="color:var(--gold-light);font-size:1.3em;margin-bottom:10px;font-family:'Shippori Mincho B1',serif">負の再帰ループから正の再帰ループへ</h3>
+  <p style="color:var(--text-sub);font-size:.95rem;max-width:640px;margin:0 auto 20px;line-height:1.8">本報告書の因果構造分析から導かれた構造転換シナリオ。<br>負の循環の根本原因の特定、分岐点変数「賃金」への介入戦略、<br>4フェーズの段階的転換プロセス、正の再帰ループの設計図を提示。</p>
+  <a href="positive-loop.html" style="display:inline-block;background:var(--gold);color:#0F1829;padding:14px 36px;border-radius:10px;text-decoration:none;font-weight:700;font-size:1rem;font-family:'Noto Sans JP',sans-serif;transition:all .2s;box-shadow:0 2px 12px rgba(184,145,42,0.3)">構造転換シナリオを読む →</a>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>沖縄県 現状分析・因果構造分析報告書 v1.0 ｜ 作成日: 2026年3月</p>
+  <p style="margin-top:4px">沖縄県総合発展マスタープラン策定プロセス Step 1 成果物</p>
+</div>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-summary" onclick="tocJump('sec-summary')"><span class="toc-icon">📋</span><span class="toc-label">エグゼクティブサマリー</span></a></li>
+      <li><a href="#sec-economy" onclick="tocJump('sec-economy')"><span class="toc-icon">💰</span><span class="toc-label">第1章：経済生産性</span></a></li>
+      <li><a href="#sec-poverty" onclick="tocJump('sec-poverty')"><span class="toc-icon">👶</span><span class="toc-label">第2章：子どもの貧困</span></a></li>
+      <li><a href="#sec-education" onclick="tocJump('sec-education')"><span class="toc-icon">🎓</span><span class="toc-label">第3章：教育⇒雇用パイプライン</span></a></li>
+      <li><a href="#sec-population" onclick="tocJump('sec-population')"><span class="toc-icon">👥</span><span class="toc-label">第4章：人口動態</span></a></li>
+      <li><a href="#sec-health" onclick="tocJump('sec-health')"><span class="toc-icon">❤️</span><span class="toc-label">第5章：健康アウトカム</span></a></li>
+      <li><a href="#sec-base" onclick="tocJump('sec-base')"><span class="toc-icon">🏗️</span><span class="toc-label">第6章：米軍基地問題</span></a></li>
+      <li><a href="#sec-island" onclick="tocJump('sec-island')"><span class="toc-icon">🏝️</span><span class="toc-label">第7章：離島条件不利</span></a></li>
+      <li><a href="#sec-energy" onclick="tocJump('sec-energy')"><span class="toc-icon">⚡</span><span class="toc-label">第8章：エネルギー依存</span></a></li>
+      <li><a href="#sec-medical" onclick="tocJump('sec-medical')"><span class="toc-icon">🏥</span><span class="toc-label">補章A：医療・福祉制度</span></a></li>
+      <li><a href="#sec-transport" onclick="tocJump('sec-transport')"><span class="toc-icon">🚗</span><span class="toc-label">補章B：交通・インフラ</span></a></li>
+      <li><a href="#sec-finance" onclick="tocJump('sec-finance')"><span class="toc-icon">🏛️</span><span class="toc-label">補章C：行財政</span></a></li>
+      <li><a href="#sec-environment" onclick="tocJump('sec-environment')"><span class="toc-icon">🌊</span><span class="toc-label">補章D：環境・自然資本</span></a></li>
+      <li><a href="#sec-housing" onclick="tocJump('sec-housing')"><span class="toc-icon">🏠</span><span class="toc-label">補章E：建築・住宅</span></a></li>
+      <li><a href="#sec-disaster" onclick="tocJump('sec-disaster')"><span class="toc-icon">🌀</span><span class="toc-label">補章F：防災</span></a></li>
+      <li><a href="#sec-culture" onclick="tocJump('sec-culture')"><span class="toc-icon">🎶</span><span class="toc-label">補章G：文化</span></a></li>
+      <li><a href="#sec-safety" onclick="tocJump('sec-safety')"><span class="toc-icon">🔒</span><span class="toc-label">補章H：治安・安全</span></a></li>
+      <li><a href="#sec-water" onclick="tocJump('sec-water')"><span class="toc-icon">💧</span><span class="toc-label">補章I：水資源</span></a></li>
+      <li><a href="#sec-uxo" onclick="tocJump('sec-uxo')"><span class="toc-icon">💣</span><span class="toc-label">補章J：戦後処理・不発弾</span></a></li>
+      <li><a href="#sec-agriculture" onclick="tocJump('sec-agriculture')"><span class="toc-icon">🌾</span><span class="toc-label">補章K：一次産業</span></a></li>
+      <li><a href="#sec-dx" onclick="tocJump('sec-dx')"><span class="toc-icon">💻</span><span class="toc-label">補章L：DX・イノベーション</span></a></li>
+      <li><a href="#sec-gender" onclick="tocJump('sec-gender')"><span class="toc-icon">♀♂</span><span class="toc-label">補章M：ジェンダー・多文化共生</span></a></li>
+      <li><a href="#sec-food" onclick="tocJump('sec-food')"><span class="toc-icon">🍚</span><span class="toc-label">補章N：食料安全保障</span></a></li>
+      <li><a href="#sec-causal" onclick="tocJump('sec-causal')"><span class="toc-icon">🔗</span><span class="toc-label">第9章：因果マッピング</span></a></li>
+      <li><a href="#sec-verify" onclick="tocJump('sec-verify')"><span class="toc-icon">🔍</span><span class="toc-label">第10章：スパイラル検証</span></a></li>
+      <li><a href="#sec-leverage" onclick="tocJump('sec-leverage')"><span class="toc-icon">🎯</span><span class="toc-label">第11章：レバレッジポイント</span></a></li>
+      <li><a href="#sec-strategy" onclick="tocJump('sec-strategy')"><span class="toc-icon">🧭</span><span class="toc-label">第12章：戦略テーマ</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Mermaid init
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  themeVariables: {
+    primaryColor: '#243352',
+    primaryBorderColor: '#B8912A',
+    primaryTextColor: '#e6edf3',
+    lineColor: '#B8912A',
+    secondaryColor: '#1A2540',
+    tertiaryColor: '#0F1829',
+    fontFamily: 'Noto Sans JP, sans-serif',
+    fontSize: '13px'
+  }
+});
+
+// Chart.js defaults
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = 'rgba(48,54,61,0.4)';
+Chart.defaults.font.family = "'Inter','Noto Sans JP',sans-serif";
+
+// Chart 1: Income
+new Chart(document.getElementById('chartIncome'),{
+  type:'bar',
+  data:{
+    labels:['2015','2016','2017','2018','2019','2020','2021','2022'],
+    datasets:[
+      {label:'沖縄県（万円）',data:[217,220,223,230,241,221,218,224.9],backgroundColor:'rgba(184,145,42,0.7)',borderColor:'#B8912A',borderWidth:1,borderRadius:4},
+      {label:'全国平均（万円）',data:[305,308,312,316,319,310,315,319],backgroundColor:'rgba(88,166,255,0.4)',borderColor:'#58a6ff',borderWidth:1,borderRadius:4}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'1人当たり県民所得の推移',color:'#D4A843',font:{size:14,weight:'bold'}},legend:{labels:{usePointStyle:true,pointStyle:'rect'}}},scales:{y:{beginAtZero:false,min:150,title:{display:true,text:'万円'}}}}
+});
+
+// Chart 2: Poverty
+new Chart(document.getElementById('chartPoverty'),{
+  type:'line',
+  data:{
+    labels:['2015','2018','2021','2024'],
+    datasets:[
+      {label:'沖縄県',data:[29.9,26.5,23.2,21.8],borderColor:'#da3633',backgroundColor:'rgba(218,54,51,0.1)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:'#da3633'},
+      {label:'全国平均',data:[13.9,12.5,11.5,11.5],borderColor:'#58a6ff',backgroundColor:'rgba(88,166,255,0.1)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:'#58a6ff'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'子どもの困窮層割合の推移（%）',color:'#D4A843',font:{size:14,weight:'bold'}},legend:{labels:{usePointStyle:true}}},scales:{y:{beginAtZero:false,min:5,title:{display:true,text:'%'}}}}
+});
+
+// Chart 3: TFR
+new Chart(document.getElementById('chartTFR'),{
+  type:'line',
+  data:{
+    labels:['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+    datasets:[
+      {label:'沖縄県',data:[1.96,1.95,1.94,1.89,1.82,1.86,1.80,1.70,1.60,1.54],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.1)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:'#B8912A'},
+      {label:'全国',data:[1.45,1.44,1.43,1.42,1.36,1.33,1.30,1.26,1.20,1.18],borderColor:'#8b949e',backgroundColor:'rgba(139,148,158,0.1)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#8b949e'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'合計特殊出生率（TFR）の推移',color:'#D4A843',font:{size:14,weight:'bold'}},legend:{labels:{usePointStyle:true}},annotation:{}},scales:{y:{beginAtZero:false,min:1.0,max:2.1,title:{display:true,text:'TFR'}}}}
+});
+
+// Chart 4: Base dependency
+new Chart(document.getElementById('chartBaseDep'),{
+  type:'bar',
+  data:{
+    labels:['1965','1972','1980','1990','2000','2010','2019'],
+    datasets:[{label:'基地経済依存度（%）',data:[30.4,15.5,11.0,7.5,6.2,5.4,5.5],backgroundColor:function(ctx){return ctx.raw>10?'rgba(218,54,51,0.6)':'rgba(184,145,42,0.6)'},borderColor:function(ctx){return ctx.raw>10?'#da3633':'#B8912A'},borderWidth:1,borderRadius:4}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'基地経済依存度の推移（%）',color:'#D4A843',font:{size:13,weight:'bold'}},legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'%'}}}}
+});
+
+// Chart 5: Base effect (horizontal bar)
+new Chart(document.getElementById('chartBaseEffect'),{
+  type:'bar',
+  data:{
+    labels:['経済効果（億円）','雇用（人）','税収（億円）','美浜固定資産税（億円）'],
+    datasets:[
+      {label:'返還前',data:[52,160,6,0.0357],backgroundColor:'rgba(139,148,158,0.5)',borderRadius:4},
+      {label:'返還後',data:[1634,15000,199,2.86],backgroundColor:'rgba(46,160,67,0.6)',borderRadius:4}
+    ]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'返還跡地の経済効果（那覇新都心・北谷町美浜）',color:'#D4A843',font:{size:13,weight:'bold'}},legend:{labels:{usePointStyle:true,pointStyle:'rect'}}},scales:{x:{type:'logarithmic',title:{display:true,text:'（対数スケール）'}}}}
+});
+
+// Chart 6: Energy donut
+new Chart(document.getElementById('chartEnergy'),{
+  type:'doughnut',
+  data:{
+    labels:['石炭','LNG','石油','再エネ'],
+    datasets:[{data:[65,24,5,6],backgroundColor:['#4a4a4a','#58a6ff','#8b949e','#2ea043'],borderColor:'#0F1829',borderWidth:2}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'電源構成（2022年度）',color:'#D4A843',font:{size:13,weight:'bold'}},legend:{position:'bottom',labels:{usePointStyle:true,padding:12}}}}
+});
+
+// Chart 7: Academic radar
+new Chart(document.getElementById('chartAcademic'),{
+  type:'radar',
+  data:{
+    labels:['小学・国語','小学・算数','小学・理科','中学・国語','中学・数学'],
+    datasets:[
+      {label:'沖縄県',data:[64,51,51,49,38],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.15)',pointBackgroundColor:'#B8912A',pointRadius:4},
+      {label:'全国平均',data:[66.8,58,57.1,54.3,48.3],borderColor:'#58a6ff',backgroundColor:'rgba(88,166,255,0.1)',pointBackgroundColor:'#58a6ff',pointRadius:4}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'全国学力テスト 沖縄 vs 全国',color:'#D4A843',font:{size:13,weight:'bold'}},legend:{labels:{usePointStyle:true}}},scales:{r:{min:30,max:70,ticks:{stepSize:10,backdropColor:'transparent'},grid:{color:'rgba(48,54,61,0.4)'},pointLabels:{font:{size:11}}}}}
+});
+
+// Chart 8: Lifespan ranking (reversed axis)
+new Chart(document.getElementById('chartLifespan'),{
+  type:'line',
+  data:{
+    labels:['1985','1990','1995','2000','2005','2010','2015','2020'],
+    datasets:[
+      {label:'男性',data:[1,5,4,26,25,30,36,43],borderColor:'#58a6ff',backgroundColor:'rgba(88,166,255,0.1)',fill:false,tension:.3,pointRadius:5,pointBackgroundColor:'#58a6ff'},
+      {label:'女性',data:[1,1,1,1,1,3,7,16],borderColor:'#da3633',backgroundColor:'rgba(218,54,51,0.1)',fill:false,tension:.3,pointRadius:5,pointBackgroundColor:'#da3633'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'平均寿命 全国順位の推移（1位が上）',color:'#D4A843',font:{size:14,weight:'bold'}},legend:{labels:{usePointStyle:true}}},scales:{y:{reverse:true,min:1,max:47,title:{display:true,text:'全国順位'},ticks:{stepSize:5}}}}
+});
+
+// Chart: Death Category (Doughnut)
+new Chart(document.getElementById('chartDeathCategory'),{
+  type:'doughnut',
+  data:{
+    labels:['疾病死（がん・心疾患・脳血管等）','自然死（老衰）','外因死（事故・自殺等）'],
+    datasets:[{data:[12670,1250,665],backgroundColor:['#da3633','#B8912A','#58a6ff'],borderColor:'rgba(0,0,0,0.3)',borderWidth:1}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'死因カテゴリ構成（2022年・計14,585人）',color:'#D4A843',font:{size:13,weight:'bold'}},legend:{position:'bottom',labels:{color:'#8b949e',usePointStyle:true,font:{size:11}}}}}
+});
+
+// Chart: Death Trend (Bar)
+new Chart(document.getElementById('chartDeathTrend'),{
+  type:'bar',
+  data:{
+    labels:['2018','2019','2020','2021','2022','2023'],
+    datasets:[{label:'年間死亡者数',data:[12157,12442,12547,13026,14585,14900],backgroundColor:'rgba(218,54,51,0.6)',borderColor:'#da3633',borderWidth:1}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'年間死亡者数の推移',color:'#D4A843',font:{size:13,weight:'bold'}},legend:{display:false}},scales:{y:{beginAtZero:false,min:11000,ticks:{color:'#8b949e'}},x:{ticks:{color:'#8b949e'}}}}
+});
+
+// Chart: Death Cause comparison (horizontal bar)
+new Chart(document.getElementById('chartDeathCause'),{
+  type:'bar',
+  data:{
+    labels:['悪性新生物','心疾患','脳血管疾患','肺炎','肝疾患','腎不全','糖尿病','不慮の事故','自殺'],
+    datasets:[
+      {label:'沖縄県',data:[236,144,65,55,22,24,19,31,14],backgroundColor:'rgba(218,54,51,0.7)',borderColor:'#da3633',borderWidth:1},
+      {label:'全国平均',data:[311,175,85,59,12,21,12,28,17],backgroundColor:'rgba(88,166,255,0.4)',borderColor:'#58a6ff',borderWidth:1}
+    ]
+  },
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'死因別死亡率 沖縄vs全国（人口10万対・2022年）',color:'#D4A843',font:{size:13,weight:'bold'}},legend:{labels:{color:'#8b949e',usePointStyle:true}},tooltip:{callbacks:{afterLabel:function(ctx){if(ctx.datasetIndex===0){var ratios=[0.76,0.82,0.76,0.93,1.83,1.14,1.58,1.11,0.82];var r=ratios[ctx.dataIndex];return '対全国比: '+r.toFixed(2)+'倍'+(r>1.3?' ⚠️':'');}return '';}}}},scales:{x:{ticks:{color:'#8b949e'},title:{display:true,text:'死亡率（人口10万対）',color:'#8b949e'}},y:{ticks:{color:'#e6edf3',font:{size:12}}}}}
+});
+
+// Chart: Death by Age (bar)
+new Chart(document.getElementById('chartDeathByAge'),{
+  type:'bar',
+  data:{
+    labels:['0-9歳','10-19歳','20-29歳','30-39歳','40-49歳','50-59歳','60-69歳','70-79歳','80歳以上'],
+    datasets:[{label:'死亡者数',data:[80,40,80,130,350,750,1600,3200,8350],backgroundColor:function(ctx){var i=ctx.dataIndex;if(i>=3&&i<=5)return 'rgba(218,54,51,0.8)';if(i>=6)return 'rgba(184,145,42,0.6)';return 'rgba(88,166,255,0.5)';},borderColor:function(ctx){var i=ctx.dataIndex;if(i>=3&&i<=5)return '#da3633';if(i>=6)return '#B8912A';return '#58a6ff';},borderWidth:1}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'年齢階級別 死亡者数（2022年・赤=全国ワースト圏の年代）',color:'#D4A843',font:{size:13,weight:'bold'}},legend:{display:false},tooltip:{callbacks:{afterLabel:function(ctx){var notes=['先天奇形・周産期疾患','自殺・事故が主因','自殺・事故が大半','自殺・がん・肝疾患出現','肝疾患・糖尿病が全国比突出 ⚠️','アルコール性肝疾患が最深刻 ⚠️','生活習慣病の蓄積','全国並み水準に回復','伝統食世代・依然長寿'];return notes[ctx.dataIndex];}}}},scales:{y:{beginAtZero:true,ticks:{color:'#8b949e'}},x:{ticks:{color:'#e6edf3'}}}}
+});
+
+// Theme Toggle
+function toggleTheme(){
+  var html=document.documentElement;
+  var btn=document.getElementById('themeToggle');
+  var current=html.getAttribute('data-theme')||'dark';
+  var next=current==='dark'?'light':'dark';
+  html.setAttribute('data-theme',next);
+  btn.textContent=next==='dark'?'🌙':'☀️';
+  localStorage.setItem('theme',next);
+  // Update Chart.js colors
+  Chart.helpers.each(Chart.instances,function(chart){
+    var isDark=next==='dark';
+    var titleColor=isDark?'#D4A843':'#7A5C10';
+    var labelColor=isDark?'#8b949e':'#555555';
+    var gridColor=isDark?'rgba(255,255,255,0.08)':'rgba(0,0,0,0.08)';
+    if(chart.options.plugins&&chart.options.plugins.title){chart.options.plugins.title.color=titleColor;}
+    if(chart.options.plugins&&chart.options.plugins.legend&&chart.options.plugins.legend.labels){chart.options.plugins.legend.labels.color=labelColor;}
+    if(chart.options.scales){
+      Object.keys(chart.options.scales).forEach(function(k){
+        if(chart.options.scales[k].ticks)chart.options.scales[k].ticks.color=labelColor;
+        if(chart.options.scales[k].title)chart.options.scales[k].title.color=labelColor;
+        if(chart.options.scales[k].grid)chart.options.scales[k].grid.color=gridColor;
+      });
+    }
+    chart.update('none');
+  });
+}
+// Restore saved theme
+(function(){
+  var saved=localStorage.getItem('theme');
+  if(saved==='light'){
+    document.documentElement.setAttribute('data-theme','light');
+    document.getElementById('themeToggle').textContent='☀️';
+  }
+})();
+
+// Accordion
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd)};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2)};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now()},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'))}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'))}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed')})}})();
+
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'})},100)}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed')});
+}
+</script>
+
+</body>
+</html>
